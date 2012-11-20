@@ -1,3 +1,3 @@
-# Jekyll Asset Bundler
+# Jekyll Asset Pipeline
 
-Jekyll Asset Bundler collects, converts and minifies your project’s JavaScript and CSS assets.
+Jekyll Asset Pipeline collects, converts and minifies your project’s JavaScript and CSS assets.

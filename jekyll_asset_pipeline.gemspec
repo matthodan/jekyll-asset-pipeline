@@ -9,12 +9,12 @@ Gem::Specification.new do |s|
   s.description             = 'Bundle, convert and minify JavaScript and CSS assets.'
   s.authors                 = ['Matt Hodan']
   s.email                   = 'matthew.c.hodan@gmail.com'
-  s.homepage                = 'http://github.com/matthodan/jekyll_asset_pipeline'
+  s.homepage                = 'http://github.com/matthodan/jekyll-asset-pipeline'
 
   # Dependencies
   s.add_runtime_dependency 'jekyll', '>= 0.10.0'
   s.add_runtime_dependency 'liquid', '>= 1.9.0'
 
   # Files
-  s.files = Dir['lib/**/*.rb', 'LICENSE.md', 'README.md'].to_a
+  s.files = Dir['lib/**/*.rb', 'LICENSE', 'README.md'].to_a
 end

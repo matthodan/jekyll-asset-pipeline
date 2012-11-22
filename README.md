@@ -152,7 +152,7 @@ That's it!  Your asset pipeline should have converted any CoffeeScript assets in
 
 ### SASS
 
-You probably get the gist of how compressors work, but I thought I'd add an example showing how to add a SASS converter as well.
+You probably get the gist of how converters work, but I thought I'd add an example showing how to add a SASS converter as well.
 
 ``` ruby
 module JekyllAssetPipeline
@@ -222,9 +222,9 @@ You can contribute to the Jekyll Asset Pipeline by submitting a pull request [vi
 
 Key areas that I have identified for future improvement include:
 
-- __Tests, tests, tests.__  I'm embarassed to say that I didn't write a single test while building Jekyll Asset Pipeline.  This started as a hack for this blog and quickly grew into a library as I tweaked it to support my own needs.
+- __Tests, tests, tests.__  I'm embarassed to say that I didn't write a single test while building Jekyll Asset Pipeline.  This started as a hack for my blog and quickly grew into a library as I tweaked it to support my own needs.
 - __Handle remote assets.__ Right now, Jekyll Asset Bundler does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which I thought was pretty interesting.  That said, I think it is generally better to keep remote assets separate so that they load asynchronously.
-- __Documentation.__ I wrote this blog post to introduce people to Jekyll Asset Pipeline, but there should be a set of docs located on Github that can be better maintained.
+- __Documentation.__ I wrote this readme to introduce people to Jekyll Asset Pipeline, but there should be a set of docs located on Github that can be better maintained.
 - __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.
 
 Feel free to [message me on GitHub](http://github.com/matthodan) if you want to run an idea by me.
@@ -233,7 +233,7 @@ Feel free to [message me on GitHub](http://github.com/matthodan) if you want to 
 
 As I was building Jekyll Asset Pipeline, I came across a number of tools that I was able to draw inspiration and best practices from, but one stood out in particular...  I have to give credit to [Moshen](https://github.com/moshen/) for creating the [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler).
 
-Jekyll Asset Bundler *almost* covered all of my needs when I set out to find an asset pipeline solution for this blog.  The big missing features in my opinion were support for CoffeeScript and Sass.  It also lacked a way to easily add new preprocessors that would have let me easily add support for these converters.
+Jekyll Asset Bundler *almost* covered all of my needs when I set out to find an asset pipeline solution for my blog.  The big missing features in my opinion were support for CoffeeScript and Sass.  It also lacked a way to easily add new preprocessors that would have let me easily add support for these converters.
 
 I also have to give credit to [Mojombo](https://github.com/mojombo) for creating [Jekyll](https://github.com/mojombo/jekyll) in the first place.
 

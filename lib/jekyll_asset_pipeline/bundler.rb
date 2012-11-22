@@ -28,7 +28,10 @@ module JekyllAssetPipeline
       if @@cache.has_key?(@hash)
         print "Asset Pipeline: Using cached bundle..."
         @file = @@cache[@hash]
-        puts " used '#{@prefix}-#{@hash[0, 6]}' bundle."
+
+        # Prevent Jekyll from cleaning up bundle file
+        @site.static_files << JekyllAssetPipeline::AssetFile.new(@site, @site.dest, @config['output_path'], filename)
+        puts " used '#{@prefix}-#{@hash[0, 6]}#{@type}'."
       else
         print "Asset Pipeline: Compiling bundle..."
 
@@ -51,7 +54,7 @@ module JekyllAssetPipeline
         # Save generated file to cache
         @@cache[@hash] = @file
 
-        puts " finished compiling '#{@prefix}-#{@hash[0, 6]}' bundle."
+        puts " compiled '#{@prefix}-#{@hash[0, 6]}#{@type}'."
       end
     end
 

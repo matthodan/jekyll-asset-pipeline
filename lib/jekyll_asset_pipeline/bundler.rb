@@ -128,13 +128,19 @@ module JekyllAssetPipeline
 
     # Return an HTML tag that points to the bundle file
     def html_tag
-      case @type
-      when '.js'
-        return "<script src='/#{@config['output_path']}/#{filename}' type='text/javascript'></script>\n"
-      when '.css'
-        return "<link href='/#{@config['output_path']}/#{filename}' rel='stylesheet' type='text/css' />\n"
+      path = @config['output_path']
+
+      template_klass = JekyllAssetPipeline::Template.subclasses.select do |t|
+        t.filetype == @type
+      end.sort! { |a, b| b.priority <=> a.priority }.last
+
+      template = nil
+      unless template_klass.nil?
+        template = template_klass.new(path, filename)
+        @html_tag = template.html
       else
-        return ''
+        # Return link to file if no template exists
+        return "<a href='/#{path}/#{filename}'>AssetPipeline: No template available for '#{filename}'</a>"
       end
     end
   end

@@ -14,6 +14,9 @@ require 'jekyll_asset_pipeline/asset_file'
 require 'jekyll_asset_pipeline/bundler'
 require 'jekyll_asset_pipeline/compressor'
 require 'jekyll_asset_pipeline/converter'
+require 'jekyll_asset_pipeline/template'
+require 'jekyll_asset_pipeline/templates/javascript_tag_template'
+require 'jekyll_asset_pipeline/templates/css_tag_template'
 
 # Liquid extensions
 require 'jekyll_asset_pipeline/css_asset_tag'

@@ -10,7 +10,7 @@ module JekyllAssetPipeline
       ''
     end
 
-    # Priority of template (to override of default templates)
+    # Priority of template (to override default templates)
     def self.priority
       0
     end

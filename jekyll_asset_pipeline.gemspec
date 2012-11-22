@@ -3,13 +3,14 @@ Gem::Specification.new do |s|
 
   # Metadata
   s.name                    = 'jekyll-asset-pipeline'
-  s.version                 = '0.0.1'
+  s.version                 = '0.0.2'
   s.date                    = '2012-11-20'
   s.summary                 = 'Asset packaging system for Jekyll-powered sites.'
   s.description             = 'Bundle, convert and minify JavaScript and CSS assets.'
   s.authors                 = ['Matt Hodan']
   s.email                   = 'matthew.c.hodan@gmail.com'
   s.homepage                = 'http://github.com/matthodan/jekyll-asset-pipeline'
+  s.license                 = 'MIT'
 
   # Dependencies
   s.add_runtime_dependency 'jekyll', '>= 0.10.0'

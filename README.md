@@ -1,7 +1,14 @@
 # Jekyll Asset Pipeline
 
-Jekyll Asset Pipeline collects, converts and minifies your project’s JavaScript and CSS assets.
+[Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline for Jekyll.  It collects, converts and minifies JavaScript and CSS assets.  Here are a sample of its features:
 
+- Declaritive dependency management
+- Asset preprocessing and compression
+- MD5 fingerprinting for browser caching
+- Development mode (i.e. no asset compression)
+- Works with Jekyll's auto site regeneration
+
+Jekyll Asset Pipeline adds the ability to write assets in languages such as [CoffeeScript](http://coffeescript.org/), [Sass](http://sass-lang.com/), or any other language you like via [asset converter extensions](#asset-preprocessing).  It also adds the ability to minify assets with Yahoo's [YUI Compressor](http://developer.yahoo.com/yui/compressor/), Google's [Closure Compilier](https://developers.google.com/closure/compiler/), or any other compression library via [asset compressor extensions](#asset-compression).
 
 ## Table of Contents
 
@@ -227,7 +234,7 @@ Key areas that I have identified for future improvement include:
 - __Tests, tests, tests.__  I'm embarassed to say that I didn't write a single test while building Jekyll Asset Pipeline.  This started as a hack for my blog and quickly grew into a library as I tweaked it to support my own needs.
 - __CDN support.__ Jekyll Asset Pipeline should support using a CDN to host your assets.
 - __Handle remote assets.__ Right now, Jekyll Asset Pipeline does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which I thought was pretty interesting.  That said, I think it is generally better to keep remote assets separate so that they load asynchronously.
-- __Documentation.__ I wrote this readme to introduce people to Jekyll Asset Pipeline, but there should be a set of docs located on Github that can be better maintained.
+- __Documentation.__ I wrote this readme to introduce people to Jekyll Asset Pipeline, but there should be better organized docs that can be more easily maintained.
 - __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.
 
 Feel free to [message me on GitHub](http://github.com/matthodan) if you want to run an idea by me.

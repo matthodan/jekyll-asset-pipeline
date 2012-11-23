@@ -6,12 +6,12 @@ Gem::Specification.new do |s|
   # Metadata
   s.name                    = 'jekyll-asset-pipeline'
   s.version                 = JekyllAssetPipeline::VERSION
-  s.date                    = '2012-11-20'
-  s.summary                 = 'Asset packaging system for Jekyll-powered sites.'
-  s.description             = 'Bundle, convert and minify JavaScript and CSS assets.'
+  s.date                    = Time.now
+  s.summary                 = 'A powerful asset pipeline for Jekyll that bundles, converts, and minifies CSS and JavaScript assets.'
+  s.description             = 'Jekyll Asset Pipeline adds asset preprocessing (CoffeeScript, Sass, Less, ERB, etc.), asset compression/minification (Yahoo YUI Compressor, Google Closure Compiler, etc.) to Jekyll.  Jekyll Asset Pipeline can be extended to support any preprocessing or compression library.'
   s.authors                 = ['Matt Hodan']
   s.email                   = 'matthew.c.hodan@gmail.com'
-  s.homepage                = 'http://github.com/matthodan/jekyll-asset-pipeline'
+  s.homepage                = 'http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html'
   s.license                 = 'MIT'
 
   # Dependencies

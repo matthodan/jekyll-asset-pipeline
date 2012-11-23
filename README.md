@@ -237,7 +237,7 @@ Key areas that I have identified for future improvement include:
 - __Documentation.__ I wrote this readme to introduce people to Jekyll Asset Pipeline, but there should be better organized docs that can be more easily maintained.
 - __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.
 
-Feel free to [message me on GitHub](http://github.com/matthodan) if you want to run an idea by me.
+Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook](http://facebook.com/matthodan) if you want to run an idea by me.
 
 ## Credits
 

@@ -5,7 +5,6 @@ Gem::Specification.new do |s|
 
   # Metadata
   s.name                    = 'jekyll-asset-pipeline'
-  # s.version                 = '0.0.2'
   s.version                 = JekyllAssetPipeline::VERSION
   s.date                    = '2012-11-20'
   s.summary                 = 'Asset packaging system for Jekyll-powered sites.'

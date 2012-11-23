@@ -1,9 +1,12 @@
+require File.expand_path('../lib/jekyll_asset_pipeline/version', __FILE__)
+
 Gem::Specification.new do |s|
   s.rubygems_version        = '1.8.24'
 
   # Metadata
   s.name                    = 'jekyll-asset-pipeline'
-  s.version                 = '0.0.2'
+  # s.version                 = '0.0.2'
+  s.version                 = JekyllAssetPipeline::VERSION
   s.date                    = '2012-11-20'
   s.summary                 = 'Asset packaging system for Jekyll-powered sites.'
   s.description             = 'Bundle, convert and minify JavaScript and CSS assets.'

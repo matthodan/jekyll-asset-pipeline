@@ -1,16 +1,10 @@
 # Jekyll Asset Pipeline
 
-[Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses your site's JavaScript and CSS assets when you compile your Jekyll site.  Here are some of its features:
-
-- Declarative dependency management via asset manifests
-- Asset preprocessing/conversion (supports [CoffeeScript](http://coffeescript.org/), [Sass/Scss](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html), etc.)
-- Asset compression (supports [YUI Compressor](http://developer.yahoo.com/yui/compressor/), [Closure Compiler](https://developers.google.com/closure/compiler/), etc.)
-- Fingerprints bundled asset filenames with MD5 hashes for better browser caching
-- Automatic generation of HTML "link" and "script" tags that point to bundled assets
-- Integrates seamlessly into Jekyll's workflow, including auto site regeneration
+[Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses/minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 
 ## Table of Contents
 
+- [Features](#features)
 - [How It Works](#how-it-works)
 - [Getting Started](#getting-started)
 - [Asset Preprocessing](#asset-preprocessing)
@@ -19,6 +13,15 @@
 - [Configuration](#configuration)
 - [Contribute](#contribute)
 - [Credits](#credits)
+
+## Features
+
+- Declarative dependency management via asset manifests
+- Asset preprocessing/conversion (supports [CoffeeScript](http://coffeescript.org/), [Sass/Scss](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html), etc.)
+- Asset compression (supports [YUI Compressor](http://developer.yahoo.com/yui/compressor/), [Closure Compiler](https://developers.google.com/closure/compiler/), etc.)
+- Fingerprints bundled asset filenames with MD5 hashes for better browser caching
+- Automatic generation of HTML "link" and "script" tags that point to bundled assets
+- Integrates seamlessly into Jekyll's workflow, including auto site regeneration
 
 ## How It Works
 
@@ -254,9 +257,7 @@ asset_pipeline:
 
 ## Contribute
 
-You can contribute to the Jekyll Asset Pipeline by submitting a pull request [via GitHub](https://github.com/matthodan/jekyll-asset-pipeline).
-
-Key areas that I have identified for future improvement include:
+You can contribute to the Jekyll Asset Pipeline by submitting a pull request [via GitHub](https://github.com/matthodan/jekyll-asset-pipeline).  I have identified the following areas for improvement:
 
 - __Tests, tests, tests.__  I'm embarrassed to say that I didn't write a single test while building Jekyll Asset Pipeline.  This started as a hack for my blog and quickly grew into a library as I tweaked it to support my own needs.
 - __Handle remote assets.__ Right now, Jekyll Asset Pipeline does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which I thought was pretty interesting.  That said, I think it is generally better to keep remote assets separate so that they load asynchronously.

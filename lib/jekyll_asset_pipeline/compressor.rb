@@ -10,6 +10,7 @@ module JekyllAssetPipeline
       end
     end
 
+    # Returns compressed content
     def compressed
       @compressed
     end

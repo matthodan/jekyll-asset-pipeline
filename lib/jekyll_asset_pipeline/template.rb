@@ -23,7 +23,7 @@ module JekyllAssetPipeline
     #
     # Returns string
     def html
-      "#{@path/@filename}\n"
+      "#{@path}/#{@filename}\n"
     end
   end
 end

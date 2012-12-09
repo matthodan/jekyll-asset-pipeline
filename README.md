@@ -2,6 +2,8 @@
 
 [Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses/minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/matthodan/jekyll-asset-pipeline)
+
 ## Table of Contents
 
 - [Features](#features)

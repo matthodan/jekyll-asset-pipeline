@@ -2,8 +2,6 @@
 
 [Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses/minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/matthodan/jekyll-asset-pipeline)
-
 ## Table of Contents
 
 - [Features](#features)
@@ -266,6 +264,12 @@ You can contribute to the Jekyll Asset Pipeline by submitting a pull request [vi
 - __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.
 
 Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook](http://facebook.com/matthodan).
+
+## Code Status
+
+- [![Build Status](https://secure.travis-ci.org/matthodan/jekyll-asset-pipeline.png)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
+- [![Dependency Status](https://gemnasium.com/matthodan/jekyll-asset-pipeline.png)](https://gemnasium.com/matthodan/jekyll-asset-pipeline)
+- [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/matthodan/jekyll-asset-pipeline)
 
 ## Credits
 

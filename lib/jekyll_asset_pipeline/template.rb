@@ -1,5 +1,7 @@
 module JekyllAssetPipeline
-  class Template < JekyllAssetPipeline::Extendable
+  class Template
+    extend JekyllAssetPipeline::SubclassTracking
+
     def initialize(path, filename)
       @path = path
       @filename = filename

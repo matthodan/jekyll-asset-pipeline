@@ -1,62 +1,72 @@
 require './spec/helper'
 
 describe Converter do
-  describe "class methods" do
-    subject { Converter }
+  specify { Converter.extend?(SubclassTracking).must_equal(true) }
 
-    describe "::filetype" do
-      it "returns a string" do
-        subject.filetype.must_be_instance_of String
+  context "with default converter class" do
+    describe "class methods" do
+      describe "::filetype" do
+        specify { Converter.filetype.must_be_instance_of(String) }
+      end
+    end
+
+    describe "instance methods" do
+      let(:asset) { MiniTest::Mock.new }
+
+      before do
+        asset.expect(:content, 'foo')
+        asset.expect(:filename, 'bar.baz')
+      end
+
+      subject { Converter.new(asset) }
+
+      describe "#new(asset)" do
+        specify { subject.instance_variable_get(:@content).must_equal('foo') }
+        specify { subject.instance_variable_get(:@type).must_equal('.baz') }
+        specify { subject.instance_variable_get(:@converted).must_equal('foo') }
+      end
+
+      describe "#converted" do
+        specify { subject.converted.must_equal('foo') }
+      end
+
+      describe "#convert" do
+        specify { subject.convert.must_equal('foo') }
       end
     end
   end
 
-  describe "instance methods" do
-    let(:file) { MiniTest::Mock.new }
-    let(:converter) do
-      File.stub :extname, '.foobar' do
-        Converter.new(file)
+  context "with custom converter class" do
+    before { require './spec/resources/source/_plugins/jekyll_asset_pipeline' }
+
+    describe "class methods" do
+      describe "::filetype" do
+        specify { TestConverter.filetype.must_equal('.foo') }
       end
     end
 
-    before do
-      file.expect :read, 'foobar'
-      file.expect :must_equal, true, [file]
-    end
+    describe "instance methods" do
+      let(:asset) { MiniTest::Mock.new }
 
-    subject { converter }
-
-    describe "#new(file)" do
-      it "sets @file to the file" do
-        subject.instance_variable_defined?(:@file).must_equal true
-        subject.instance_variable_get(:@file).must_equal file
+      before do
+        asset.expect(:content, 'unconverted')
+        asset.expect(:filename, 'some_filename.foo')
       end
 
-      it "sets @content to the contents of the file" do
-        subject.instance_variable_defined?(:@content).must_equal true
-        subject.instance_variable_get(:@content).must_equal 'foobar'
+      subject { TestConverter.new(asset) }
+
+      describe "#new(asset)" do
+        specify { subject.instance_variable_get(:@content).must_equal('unconverted') }
+        specify { subject.instance_variable_get(:@type).must_equal('.foo') }
+        specify { subject.instance_variable_get(:@converted).must_equal('converted') }
       end
 
-      it "sets @type to the extension of the file" do
-        subject.instance_variable_defined?(:@type).must_equal true
-        subject.instance_variable_get(:@type).must_equal '.foobar'
+      describe "#converted" do
+        specify { subject.converted.must_equal('converted') }
       end
 
-      it "sets @converted to the #convert response" do
-        subject.instance_variable_defined?(:@converted).must_equal true
-        subject.instance_variable_get(:@converted).must_equal subject.convert
-      end
-    end
-
-    describe "#convert" do
-      it "returns @content" do
-        subject.convert.must_equal subject.instance_variable_get(:@content)
-      end
-    end
-
-    describe "#converted" do
-      it "returns @converted" do
-        subject.converted.must_equal subject.instance_variable_get(:@converted)
+      describe "#convert" do
+        specify { subject.convert.must_equal('converted') }
       end
     end
   end

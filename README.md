@@ -70,8 +70,10 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
 5. Run the `jekyll` command to compile your site.  You should see an output that includes the following Jekyll Asset Pipeline status messages.
 
   ``` bash
-  Asset Pipeline: Compiling bundle... compiled 'global-md5hash.css'.
-  Asset Pipeline: Compiling bundle... compiled 'global-md5hash.js'.
+  Asset Pipeline: Processing 'css_asset_tag' manifest 'global'
+  Asset Pipeline: Saved 'global-md5hash.css' to '_site/assets'
+  Asset Pipeline: Processing 'javascript_asset_tag' manifest 'global'
+  Asset Pipeline: Saved 'global-md5hash.js' to '_site/assets'
   ```
 
   > *If you do not see these messages, check that you have __not__ set Jekyll's "safe" option to "true" in your site's "_config.yml".  If the "safe" option is set to "true", Jekyll will not run plugins.*
@@ -92,11 +94,11 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
   module JekyllAssetPipeline
       class CoffeeScriptConverter < JekyllAssetPipeline::Converter
         require 'coffee-script'
-        
+
         def self.filetype
           '.coffee'
         end
-        
+
         def convert
           return CoffeeScript.compile(@content)
         end
@@ -137,8 +139,13 @@ module JekyllAssetPipeline
   end
 end
 ```
-
 > *Don't forget to install the "sass" gem before you run the `jekyll` command since the above SASS converter requires the "sass" library as a dependency.*
+
+### Successive Preprocessing
+
+If you would like to run an asset through multiple preprocessors successively, you can do so by naming your assets with nested file extensions.  Nest the extensions in the order (right to left) that the asset should be processed.  For example, `.css.scss.erb` would first be processed by an "erb" preprocessor then by a "scss" preprocessor before being rendered.  This convention is very similar to the convention used by the [Ruby on Rails asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html#preprocessing).
+
+> *Don't forget to define preprocessors for the extensions you use in your filenames, otherwise Jekyll Asset Pipeline will not process your asset.*
 
 ## Asset Compression
 
@@ -243,25 +250,30 @@ That is it!  Your asset pipeline used your template to generate an HTML "link" t
 
 ## Configuration
 
-Jekyll Asset Pipeline provides the following two configuration options that can be controlled by adding the following to the end of your project's "\_config.yml" file.
+Jekyll Asset Pipeline provides the following configuration options that can be controlled by adding the following to the end of your project's "\_config.yml" file.
 
 ``` yaml
 asset_pipeline:
+  bundle: true            # Default = true
   compress: true          # Default = true
   output_path: assets     # Default = assets
+  gzip: false             # Default = false
 ```
 
 > *If you don't have a "\_config.yml" file, consider reading the [configuration section](https://github.com/mojombo/jekyll/wiki/Configuration) of the Jekyll documentation.*
-
-> The "compress" setting tells Jekyll Asset Pipeline whether or not to compress the bundled assets.  It is useful to set this setting to "false" while you are debugging your site's JavaScript.  The "output\_path" setting defines where generated bundles should be saved within the "\_site" folder of your project.
+>
+> - The "bundle" setting controls whether Jekyll Asset Pipeline bundles the assets defined in each manifest.  If "bundle" is set to false, each asset will be saved individually and individual html tags pointing to each unbundled asset will be produced when you compile your site.  It is useful to set this to false while you are debugging your site.
+> - The "compress" setting tells Jekyll Asset Pipeline whether or not to compress the bundled assets.  It is useful to set this setting to "false" while you are debugging your site.
+> - The "output\_path" setting defines where generated bundles should be saved within the "\_site" folder of your project.
+> - The "gzip" setting controls whether Jekyll Asset Pipeline saves gzipped versions of your assets alongside un-gzipped versions.
 
 ## Contribute
 
 You can contribute to the Jekyll Asset Pipeline by submitting a pull request [via GitHub](https://github.com/matthodan/jekyll-asset-pipeline).  I have identified the following areas for improvement:
 
-- __Tests, tests, tests.__  I'm embarrassed to say that I didn't write a single test while building Jekyll Asset Pipeline.  This started as a hack for my blog and quickly grew into a library as I tweaked it to support my own needs.
-- __Handle remote assets.__ Right now, Jekyll Asset Pipeline does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which I thought was pretty interesting.  That said, I think it is generally better to keep remote assets separate so that they load asynchronously.
-- __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.
+- __Tests, tests, tests.__  I'm embarrassed to say that I didn't write a single test while building Jekyll Asset Pipeline.  This started as a hack for my blog and quickly grew into a library as I tweaked it to support my own needs.  **This project is now fully tested.**
+- __Handle remote assets.__ Right now, Jekyll Asset Pipeline does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which I thought was pretty interesting.  That said, I think it is generally better to keep remote assets separate so that they load asynchronously.  **After some thought, I've decided that this is not a priority.  If you disagree, let me know.**
+- __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.  **As of v0.1.0, Jekyll Asset Pipeline now supports successive preprocessing.**
 
 Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook](http://facebook.com/matthodan).
 

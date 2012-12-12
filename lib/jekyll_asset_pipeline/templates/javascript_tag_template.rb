@@ -5,12 +5,12 @@ module JekyllAssetPipeline
       '.js'
     end
 
-    def html
-      "<script src='/#{@path}/#{@filename}' type='text/javascript'></script>\n"
+    def self.priority
+      -1
     end
 
-    def priority
-      -1
+    def html
+      "<script src='/#{@path}/#{@filename}' type='text/javascript'></script>\n"
     end
   end
 end

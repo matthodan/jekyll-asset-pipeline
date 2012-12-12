@@ -1,13 +1,14 @@
 module JekyllAssetPipeline
-  class Converter < JekyllAssetPipeline::Extendable
-    def initialize(file)
-      @file = file
-      @content = file.read
-      @type = File.extname(@file).downcase
+  class Converter
+    extend JekyllAssetPipeline::SubclassTracking
+
+    def initialize(asset)
+      @content = asset.content
+      @type = File.extname(asset.filename).downcase
       begin
         @converted = self.convert
       rescue Exception => e
-        puts "Failed to convert asset '#{@file.path}'."
+        puts "Failed to convert asset '#{asset.filename}'."
         raise e
       end
     end

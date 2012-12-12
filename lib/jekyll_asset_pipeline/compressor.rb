@@ -1,5 +1,7 @@
 module JekyllAssetPipeline
-  class Compressor < JekyllAssetPipeline::Extendable
+  class Compressor
+    extend JekyllAssetPipeline::SubclassTracking
+
     def initialize(content)
       @content = content
       begin

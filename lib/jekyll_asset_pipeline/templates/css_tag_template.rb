@@ -5,12 +5,12 @@ module JekyllAssetPipeline
       '.css'
     end
 
-    def html
-      "<link href='/#{@path}/#{@filename}' rel='stylesheet' type='text/css' />\n"
+    def self.priority
+      -1
     end
 
-    def priority
-      -1
+    def html
+      "<link href='/#{@path}/#{@filename}' rel='stylesheet' type='text/css' />\n"
     end
   end
 end

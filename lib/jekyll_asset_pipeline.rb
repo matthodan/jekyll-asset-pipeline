@@ -12,6 +12,8 @@ require 'liquid'
 # Jekyll extensions
 require 'jekyll_asset_pipeline/extensions/jekyll/static_file_extensions'
 require 'jekyll_asset_pipeline/extensions/jekyll/static_asset_file'
+require 'jekyll_asset_pipeline/extensions/jekyll/site_extensions'
+require 'jekyll_asset_pipeline/extensions/jekyll/site'
 
 # Liquid extensions
 require 'jekyll_asset_pipeline/extensions/liquid/liquid_block_extensions'

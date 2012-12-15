@@ -12,7 +12,10 @@
 - [Templates](#templates)
 - [Configuration](#configuration)
 - [Contribute](#contribute)
+- [Community](#community)
+- [Code Status](#code-status)
 - [Credits](#credits)
+- [License](#license)
 
 ## Features
 

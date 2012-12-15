@@ -277,6 +277,10 @@ You can contribute to the Jekyll Asset Pipeline by submitting a pull request [vi
 
 Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook](http://facebook.com/matthodan).
 
+## Community
+
+- Here is a list of [sites that use Jekyll Asset Pipeline](http://github.com/matthodan/jekyll-asset-pipeline/wiki/Sites-that-use-Jekyll-Asset-Pipeline).  Feel free to add your site to the list if you want.
+
 ## Code Status
 
 - [![Build Status](https://secure.travis-ci.org/matthodan/jekyll-asset-pipeline.png)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)

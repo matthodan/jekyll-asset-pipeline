@@ -59,16 +59,16 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
 
   ``` html
   {% css_asset_tag global %}
-  - /_assets/foo.css
-  - /_assets/bar.css
+  - /_assets/foo.scss
+  - /_assets/bar.scss
   {% endcss_asset_tag %}
 
   {% javascript_asset_tag global %}
-  - /_assets/foo.js
-  - /_assets/bar.js
+  - /_assets/foo.coffee
+  - /_assets/bar.coffee
   {% endjavascript_asset_tag %}
   ```
-  > *Asset manifests must be formatted as YAML arrays and include full paths to each asset from the root of the project.*
+  > *Asset manifests must be formatted as YAML arrays and include full paths to each asset from the root of the project. If you are using preprocessing (see the next section), then the paths in the manifest will be your un-preprocessed files (such as *.sass files, or *.coffeescript files), that will then be processed with Jekyll Asset Pipeline.*
 
 5. Run the `jekyll` command to compile your site.  You should see an output that includes the following Jekyll Asset Pipeline status messages.
 

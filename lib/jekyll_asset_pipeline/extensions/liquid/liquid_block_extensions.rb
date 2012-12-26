@@ -38,7 +38,7 @@ module JekyllAssetPipeline
 
         # Prevent Jekyll from cleaning up saved assets
         pipeline.assets.each do |asset|
-          puts "Asset Pipeline: Saved '#{asset.filename}' to '_site/#{asset.output_path}'"
+          puts "Asset Pipeline: Saved '#{asset.filename}' to '#{site.dest}/#{asset.output_path}'"
           site.static_files << JekyllAssetPipeline::StaticAssetFile.new(site, site.dest, asset.output_path, asset.filename)
         end
 

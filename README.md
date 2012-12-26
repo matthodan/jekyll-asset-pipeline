@@ -74,9 +74,9 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
 
   ``` bash
   Asset Pipeline: Processing 'css_asset_tag' manifest 'global'
-  Asset Pipeline: Saved 'global-md5hash.css' to '_site/assets'
+  Asset Pipeline: Saved 'global-md5hash.css' to 'yoursitepath/assets'
   Asset Pipeline: Processing 'javascript_asset_tag' manifest 'global'
-  Asset Pipeline: Saved 'global-md5hash.js' to '_site/assets'
+  Asset Pipeline: Saved 'global-md5hash.js' to 'yoursitepath/assets'
   ```
 
   > *If you do not see these messages, check that you have __not__ set Jekyll's "safe" option to "true" in your site's "_config.yml".  If the "safe" option is set to "true", Jekyll will not run plugins.*

@@ -105,7 +105,7 @@ describe LiquidBlockExtensions do
         site = MiniTest::Mock.new
         site.expect(:config, {})
         2.times { site.expect(:source, source_path) }
-        2.times { site.expect(:dest, temp_path) }
+        3.times { site.expect(:dest, temp_path) }
         1.times { site.expect(:static_files, []) }
         site
       end

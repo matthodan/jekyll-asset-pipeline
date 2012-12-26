@@ -55,7 +55,7 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
 
 3. Move your assets into a Jekyll ignored folder (i.e. a folder that begins with an underscore "\_") so that Jekyll won't include these raw assets in the site output.  I recommend using an "\_assets" folder to hold your site's assets.
 
-4. Add the following [Liquid](http://liquidmarkup.org/) blocks to your site's HTML "head" section.  These blocks will be converted into HTML "link" and "script" tags that point to bundled assets.  Within each block is a manifest of assets to include in the bundle.  Assets are included in the same order that they are listed in the manifest.  Replace the "foo" and "bar" assets with your site's assets.  Name the bundle by including a string after the opening tag.  We've named our bundles "global" in the below example.
+4. Add the following [Liquid](http://liquidmarkup.org/) blocks to your site's HTML "head" section.  These blocks will be converted into HTML "link" and "script" tags that point to bundled assets.  Within each block is a manifest of assets to include in the bundle.  Assets are included in the same order that they are listed in the manifest.  Replace the "foo" and "bar" assets with your site's assets.  At this point we are just using plain old javascript and css files (hence the ".js" and ".css" extensions).  See the [Asset Preprocessing](#asset-preprocessing) section to learn how to include files that must be preprocessed (e.g. CoffeeScript, Sass, Less, Erb, etc.).  Name the bundle by including a string after the opening tag.  We've named our bundles "global" in the below example.
 
   ``` html
   {% css_asset_tag global %}
@@ -68,7 +68,7 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
   - /_assets/bar.js
   {% endjavascript_asset_tag %}
   ```
-  > *Asset manifests must be formatted as YAML arrays and include full paths to each asset from the root of the project.  YAML [does not allow tabbed markup](http://www.yaml.org/faq.html), so you must use spaces when indenting your YAML manifest or you will get an error when you compile your site.*
+  > *Asset manifests must be formatted as YAML arrays and include full paths to each asset from the root of the project.  YAML [does not allow tabbed markup](http://www.yaml.org/faq.html), so you must use spaces when indenting your YAML manifest or you will get an error when you compile your site.  If you are using assets that must be preprocessed, you should append the appropriate extension (e.g. '.js.coffee', '.css.less') as discussed in the [Asset Preprocessing](#asset-preprocessing) section.*
 
 5. Run the `jekyll` command to compile your site.  You should see an output that includes the following Jekyll Asset Pipeline status messages.
 
@@ -119,7 +119,9 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 
   > *If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add "coffee-script" to your Gemfile and run `bundle install`.*
 
-3. Run the `jekyll` command to compile your site.
+3. Append a ".coffee" extension to the filename of any asset that should be converted with the `CoffeeScriptConverter`.  For example, "foo.js" would become "foo.js.coffee".
+
+4. Run the `jekyll` command to compile your site.
 
 That is it!  Your asset pipeline has converted any CoffeeScript assets into JavaScript before adding them to a bundle.
 

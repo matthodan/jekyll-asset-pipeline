@@ -11,6 +11,7 @@
 - [Asset Compression](#asset-compression)
 - [Templates](#templates)
 - [Configuration](#configuration)
+- [Octopress](#octopress)
 - [Contribute](#contribute)
 - [Community](#community)
 - [Code Status](#code-status)
@@ -271,6 +272,22 @@ asset_pipeline:
 > - The "compress" setting tells Jekyll Asset Pipeline whether or not to compress the bundled assets.  It is useful to set this setting to "false" while you are debugging your site.
 > - The "output\_path" setting defines where generated bundles should be saved within the "\_site" folder of your project.
 > - The "gzip" setting controls whether Jekyll Asset Pipeline saves gzipped versions of your assets alongside un-gzipped versions.
+
+## Octopress
+
+[Octopress](http://octopress.org/) is a popular framework for Jekyll that can help you get a blog up and running quickly.  Jekyll Asset Pipeline can be added to an Octopress site using the [Getting Started](#getting-started) steps above with the following modifications:
+
+1. Octopress uses Bundler to manage your site's dependencies.  You should add `gem "jekyll-asset-pipeline"` to your Gemfile and then run `bundle install` to install.
+
+2. Instead of adding a "\_plugins" folder, you should put "jekyll\_asset\_pipeline.rb" in the "plugins" folder included by default in the root of your Octopress site.
+
+3. You should still store your assets in an Jekyll ignored folder (i.e. a folder that begins with an underscore "\_"), but note that this folder should be located within the "source" folder of your Octopress site (e.g. "source/\_assets").
+
+4. No change to this step.
+
+5. Instead of running the `jekyll` command to compile your site, you should use Octopress' rake commands (e.g. `rake generate`) as outlined [here](http://octopress.org/docs/blogging/).
+
+If you have any difficulties using Jekyll Asset Pipeline with Octopress, please [open an issue](http://github.com/matthodan/jekyll-asset-pipeline/issues).
 
 ## Contribute
 

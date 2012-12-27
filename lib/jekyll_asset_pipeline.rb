@@ -39,6 +39,7 @@ module JekyllAssetPipeline
   # Default configuration settings for Jekyll Asset Pipeline
   # Strings used for keys to play nice when merging with _config.yml
   DEFAULTS = {
+    'display_path'  => 'assets',    # What path to use for display
     'output_path'   => 'assets',    # Destination for bundle file (within the '_site' directory)
     'bundle'        => true,        # true = Bundle assets, false = Leave assets unbundled
     'compress'      => true,        # true = Minify assets, false = Leave assets unminified

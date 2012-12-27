@@ -4,12 +4,7 @@ module JekyllAssetPipeline
 
     def initialize(content)
       @content = content
-      begin
-        @compressed = self.compress
-      rescue Exception => e
-        puts "Failed to compress asset with '#{self.class.to_s}'."
-        raise e
-      end
+      @compressed = self.compress
     end
 
     # Returns compressed content

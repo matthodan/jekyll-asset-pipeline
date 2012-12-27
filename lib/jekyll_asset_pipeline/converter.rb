@@ -5,12 +5,7 @@ module JekyllAssetPipeline
     def initialize(asset)
       @content = asset.content
       @type = File.extname(asset.filename).downcase
-      begin
-        @converted = self.convert
-      rescue Exception => e
-        puts "Failed to convert asset '#{asset.filename}'."
-        raise e
-      end
+      @converted = self.convert
     end
 
     def converted

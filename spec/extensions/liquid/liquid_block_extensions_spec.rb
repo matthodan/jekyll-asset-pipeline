@@ -109,11 +109,13 @@ describe LiquidBlockExtensions do
       end
 
       it "creates new pipeline and processes it" do
-        JekyllAssetPipeline::Pipeline.stub(:hash, 'foobar_hash') do
-          JekyllAssetPipeline::Cache.stub(:has_key?, false) do
-            JekyllAssetPipeline::Pipeline.stub(:new, pipeline) do
-              JekyllAssetPipeline::StaticAssetFile.stub(:new, 'foobar') do
-                subject.must_equal('foobaz_html')
+        $stdout.stub(:puts, nil) do
+          JekyllAssetPipeline::Pipeline.stub(:hash, 'foobar_hash') do
+            JekyllAssetPipeline::Cache.stub(:has_key?, false) do
+              JekyllAssetPipeline::Pipeline.stub(:new, pipeline) do
+                JekyllAssetPipeline::StaticAssetFile.stub(:new, 'foobar') do
+                  subject.must_equal('foobaz_html')
+                end
               end
             end
           end

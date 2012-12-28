@@ -37,33 +37,6 @@ describe LiquidBlockExtensions do
           '.baz'
         end
       end
-
-      unless defined?(JekyllAssetPipeline::Pipeline)
-        module JekyllAssetPipeline
-          class Pipeline
-          end
-        end
-      end
-
-      unless defined?(JekyllAssetPipeline::Cache)
-        module JekyllAssetPipeline
-          class Cache
-            def self.has_key?
-            end
-            def self.get
-            end
-            def self.add(foo, bar)
-            end
-          end
-        end
-      end
-
-      unless defined?(JekyllAssetPipeline::StaticAssetFile)
-        module JekyllAssetPipeline
-          class StaticAssetFile
-          end
-        end
-      end
     end
 
     subject { MockLiquidBlock.new.render(context) }

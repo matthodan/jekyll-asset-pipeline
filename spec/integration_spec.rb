@@ -90,7 +90,7 @@ describe JekyllAssetPipeline do
         pipeline.html.must_equal('foobar_template')
       end
 
-      # Clean up test converters
+      # Clean up test template
       Template.subclasses.delete(NewCssTagTemplate)
       Object::JekyllAssetPipeline.send(:remove_const, :NewCssTagTemplate)
     end
@@ -115,7 +115,7 @@ describe JekyllAssetPipeline do
         pipeline.html.must_equal('foobar_template')
       end
 
-      # Clean up test converters
+      # Clean up test template
       Template.subclasses.delete(NewJsTagTemplate)
       Object::JekyllAssetPipeline.send(:remove_const, :NewJsTagTemplate)
     end

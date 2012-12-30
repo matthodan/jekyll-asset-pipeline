@@ -53,24 +53,8 @@ describe JekyllAssetPipeline do
     end
   end
 
-  describe "pipeline#html" do
-    it "returns html link tag if css" do
-      $stdout.stub(:puts, nil) do
-        pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, '.css', config)
-        pipeline.html.must_match(/link/i)
-      end
-    end
-
-    it "returns html script tag if js" do
-      $stdout.stub(:puts, nil) do
-        pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, '.js', config)
-        pipeline.html.must_match(/script/i)
-      end
-    end
-
-    it "returns custom css template if one is defined" do
+  describe "templating" do
+    it "overrides default if custom css template is defined" do
       # Define test template
       module JekyllAssetPipeline
         class NewCssTagTemplate < Template
@@ -95,7 +79,7 @@ describe JekyllAssetPipeline do
       Object::JekyllAssetPipeline.send(:remove_const, :NewCssTagTemplate)
     end
 
-    it "returns custom js template if one is defined" do
+    it "overrides default if custom js template is defined" do
       # Define test template
       module JekyllAssetPipeline
         class NewJsTagTemplate < Template
@@ -118,6 +102,24 @@ describe JekyllAssetPipeline do
       # Clean up test template
       Template.subclasses.delete(NewJsTagTemplate)
       Object::JekyllAssetPipeline.send(:remove_const, :NewJsTagTemplate)
+    end
+  end
+
+  describe "pipeline#html" do
+    it "returns html link tag if css" do
+      $stdout.stub(:puts, nil) do
+        pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
+                                        tag_name, '.css', config)
+        pipeline.html.must_match(/link/i)
+      end
+    end
+
+    it "returns html script tag if js" do
+      $stdout.stub(:puts, nil) do
+        pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
+                                        tag_name, '.js', config)
+        pipeline.html.must_match(/script/i)
+      end
     end
   end
 

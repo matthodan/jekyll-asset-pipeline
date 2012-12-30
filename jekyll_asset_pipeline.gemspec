@@ -15,11 +15,11 @@ Gem::Specification.new do |s|
   s.license                 = 'MIT'
 
   # Runtime dependencies
-  s.add_runtime_dependency 'jekyll', '~> 0.10'
-  s.add_runtime_dependency 'liquid', '~> 1.9'
+  s.add_runtime_dependency 'jekyll', '~> 0.12'
+  s.add_runtime_dependency 'liquid', '~> 2.4'
 
   # Development dependencies
-  s.add_development_dependency 'rake', '~> 0.9'
+  s.add_development_dependency 'rake', '~> 10.0'
   s.add_development_dependency 'minitest', '~> 4.3'
 
   # Files

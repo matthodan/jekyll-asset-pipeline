@@ -1,5 +1,61 @@
 module JekyllAssetPipeline
   class Pipeline
+    class << self
+      # Generate hash based on manifest
+      def hash(source, manifest, options = {})
+        options = DEFAULTS.merge(options)
+        begin
+          Digest::MD5.hexdigest(YAML::load(manifest).map! do |path|
+            "#{path}#{File.mtime(File.join(source, path)).to_i}"
+          end.join.concat(options.to_s))
+        rescue Exception => e
+          puts "Failed to generate hash from provided manifest."
+          raise e
+        end
+      end
+
+      # Run pipeline
+      def run(manifest, prefix, source, destination, tag, type, config, &block)
+        # Get hash for pipeline
+        hash = hash(source, manifest, config)
+
+        # Check if pipeline has been cached
+        if cache.has_key?(hash)
+          # Return cached pipeline
+          return cache[hash], true
+        else
+          puts "Processing '#{tag}' manifest '#{prefix}'"
+
+          # Create and process new pipeline
+          pipeline = self.new(manifest, prefix, source, destination, type, config)
+          pipeline.assets.each do |asset|
+            puts "Saved '#{asset.filename}' to '#{destination}/#{asset.output_path}'"
+          end
+
+          # Add processed pipeline to cache
+          cache[hash] = pipeline
+
+          # Return newly processed pipeline
+          return pipeline, false
+        end
+      end
+
+      # Cache processed pipelines
+      def cache
+        @cache ||= {}
+      end
+
+      # Empty cache
+      def clear_cache
+        @cache = {}
+      end
+
+      # Add prefix to output
+      def puts(message)
+        $stdout.puts("Asset Pipeline: #{message}")
+      end
+    end
+
     # Initialize new pipeline
     def initialize(manifest, prefix, source, destination, type, options = {})
       @manifest = manifest
@@ -8,9 +64,13 @@ module JekyllAssetPipeline
       @destination = destination
       @type = type
       @options = JekyllAssetPipeline::DEFAULTS.merge(options)
+
+      process
     end
 
     attr_reader :assets, :html
+
+    private
 
     # Process the pipeline
     def process
@@ -22,21 +82,6 @@ module JekyllAssetPipeline
       save
       markup
     end
-
-    # Generate hash based on manifest contents
-    def self.hash(source, manifest, options = {})
-      options = JekyllAssetPipeline::DEFAULTS.merge(options)
-      begin
-        Digest::MD5.hexdigest(YAML::load(manifest).map! do |path|
-          "#{path}#{File.mtime(File.join(source, path)).to_i}"
-        end.join.concat(options.to_s))
-      rescue Exception => e
-        puts "Asset Pipeline: Failed to generate hash from provided manifest."
-        raise e
-      end
-    end
-
-    private
 
     # Collect assets based on manifest
     def collect

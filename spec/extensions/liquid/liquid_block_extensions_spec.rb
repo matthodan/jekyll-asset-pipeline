@@ -63,12 +63,8 @@ describe LiquidBlockExtensions do
       end
 
       it "returns html of previously processed pipeline" do
-        JekyllAssetPipeline::Pipeline.stub(:hash, 'foobar_hash') do
-          JekyllAssetPipeline::Cache.stub(:has_key?, true) do
-            JekyllAssetPipeline::Cache.stub(:get, pipeline) do
-              subject.must_equal('foobar_html')
-            end
-          end
+        Pipeline.stub(:run, [pipeline, true]) do
+          subject.must_equal('foobar_html')
         end
       end
     end
@@ -77,9 +73,9 @@ describe LiquidBlockExtensions do
       let(:site) do
         site = MiniTest::Mock.new
         site.expect(:config, {})
-        2.times { site.expect(:source, source_path) }
-        3.times { site.expect(:dest, temp_path) }
-        1.times { site.expect(:static_files, []) }
+        site.expect(:source, source_path)
+        2.times { site.expect(:dest, temp_path) }
+        site.expect(:static_files, [])
         site
       end
 
@@ -91,8 +87,8 @@ describe LiquidBlockExtensions do
 
       let(:asset) do
         asset = MiniTest::Mock.new
-        2.times { asset.expect(:filename, 'foobar.baz') }
-        2.times { asset.expect(:output_path, 'foo/bar') }
+        asset.expect(:filename, 'foobar.baz')
+        asset.expect(:output_path, 'foo/bar')
         asset
       end
 
@@ -110,17 +106,14 @@ describe LiquidBlockExtensions do
 
       it "creates new pipeline and processes it" do
         $stdout.stub(:puts, nil) do
-          JekyllAssetPipeline::Pipeline.stub(:hash, 'foobar_hash') do
-            JekyllAssetPipeline::Cache.stub(:has_key?, false) do
-              JekyllAssetPipeline::Pipeline.stub(:new, pipeline) do
-                JekyllAssetPipeline::StaticAssetFile.stub(:new, 'foobar') do
-                  subject.must_equal('foobaz_html')
-                end
-              end
+          Pipeline.stub(:run, [pipeline, false]) do
+            JekyllAssetPipeline::StaticAssetFile.stub(:new, 'foobar') do
+              subject.must_equal('foobaz_html')
             end
           end
         end
       end
     end
+
   end
 end

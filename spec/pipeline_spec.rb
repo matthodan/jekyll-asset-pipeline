@@ -44,7 +44,7 @@ describe Pipeline do
         end
 
         JekyllAssetPipeline::Template.stub(:subclasses, [klass]) do
-          pipeline.process
+          pipeline
         end
       end
 
@@ -74,7 +74,7 @@ describe Pipeline do
           end
 
           JekyllAssetPipeline::Converter.stub(:subclasses, [klass]) do
-            pipeline.process
+            pipeline
           end
         end
 
@@ -86,7 +86,7 @@ describe Pipeline do
       context "bundle => true" do
         let(:options) { { 'bundle' => true } }
 
-        before { pipeline.process }
+        before { pipeline }
 
         it "has one asset when multiple files are in manifest" do
           YAML::load(manifest).size.must_be :>, 1
@@ -106,7 +106,7 @@ describe Pipeline do
       context "bundle => false" do
         let(:options) { { 'bundle' => false } }
 
-        before { pipeline.process }
+        before { pipeline }
 
         it "has same number of assets as files in manifest" do
           subject.size.must_equal(YAML::load(manifest).size)
@@ -143,7 +143,7 @@ describe Pipeline do
           end
 
           JekyllAssetPipeline::Compressor.stub(:subclasses, [klass]) do
-            pipeline.process
+            pipeline
           end
         end
 
@@ -158,7 +158,7 @@ describe Pipeline do
 
         before do
           Zlib::Deflate.stub(:deflate, 'gzipped') do
-            pipeline.process
+            pipeline
           end
         end
 
@@ -177,6 +177,6 @@ describe Pipeline do
         end
       end # context "gzip => true"
 
-    end # describe "#process"
+    end # describe "#assets"
   end # describe "instance methods"
 end # describe Pipeline

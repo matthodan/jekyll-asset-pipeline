@@ -11,7 +11,7 @@ module JekyllAssetPipeline
           original_return_val = old_cleanup_method.bind(self).call()
 
           # Clear Jekyll Asset Pipeline cache
-          JekyllAssetPipeline::Cache.clear
+          Pipeline.clear_cache
 
           original_return_val
         end

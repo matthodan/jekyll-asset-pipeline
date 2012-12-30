@@ -32,7 +32,6 @@ require 'jekyll_asset_pipeline/compressor'
 require 'jekyll_asset_pipeline/template'
 require 'jekyll_asset_pipeline/templates/javascript_tag_template'
 require 'jekyll_asset_pipeline/templates/css_tag_template'
-require 'jekyll_asset_pipeline/cache'
 require 'jekyll_asset_pipeline/pipeline'
 
 module JekyllAssetPipeline

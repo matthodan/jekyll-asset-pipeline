@@ -21,7 +21,7 @@ module JekyllAssetPipeline
 
         # Check if pipeline has been cached
         if cache.has_key?(hash)
-          # Return cached pipeline
+          # Return cached pipeline and cached status
           return cache[hash], true
         else
           puts "Processing '#{tag}' manifest '#{prefix}'"
@@ -35,7 +35,7 @@ module JekyllAssetPipeline
           # Add processed pipeline to cache
           cache[hash] = pipeline
 
-          # Return newly processed pipeline
+          # Return newly processed pipeline and cached status
           return pipeline, false
         end
       end

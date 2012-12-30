@@ -21,6 +21,10 @@ class MiniTest::Spec
     File.join(File.expand_path(File.dirname(__FILE__)), 'resources', 'temp')
   end
 
+  def clear_temp_path
+    FileUtils.remove_dir(temp_path, force: true)
+  end
+
   # Let us use 'context' in specs
   class << self
     alias :context  :describe

@@ -199,7 +199,7 @@ module JekyllAssetPipeline
       @html = @assets.map do |asset|
         klass = JekyllAssetPipeline::Template.subclasses.select do |t|
           t.filetype == File.extname(asset.filename).downcase
-        end.sort! { |x, y| y.priority <=> x.priority }.last
+        end.sort! { |x, y| x.priority <=> y.priority }.last
 
         html = klass.new(path, asset.filename).html unless klass.nil?
 

@@ -15,7 +15,7 @@ module JekyllAssetPipeline
       end
 
       # Run pipeline
-      def run(manifest, prefix, source, destination, tag, type, config, &block)
+      def run(manifest, prefix, source, destination, tag, type, config)
         # Get hash for pipeline
         hash = hash(source, manifest, config)
 

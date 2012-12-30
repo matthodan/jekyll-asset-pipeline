@@ -15,12 +15,12 @@ Gem::Specification.new do |s|
   s.license                 = 'MIT'
 
   # Runtime dependencies
-  s.add_runtime_dependency 'jekyll', '>= 0.10.0'
-  s.add_runtime_dependency 'liquid', '>= 1.9.0'
+  s.add_runtime_dependency 'jekyll', '~> 0.10'
+  s.add_runtime_dependency 'liquid', '~> 1.9'
 
   # Development dependencies
-  s.add_development_dependency 'rake', '>= 0.9'
-  s.add_development_dependency 'minitest', '>= 4.3'
+  s.add_development_dependency 'rake', '~> 0.9'
+  s.add_development_dependency 'minitest', '~> 4.3'
 
   # Files
   s.files = Dir['lib/**/*.rb', 'LICENSE', 'README.md'].to_a

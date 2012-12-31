@@ -232,19 +232,19 @@ In the following example, we will override the default CSS link tag by adding a 
 
 1. In the "jekyll\_asset\_pipeline.rb" file that we created in the "Getting Started" section, add the following code.
 
-  ``` ruby
-  module JekyllAssetPipeline
-    class CssTagTemplate < JekyllAssetPipeline::Template
-      def self.filetype
-        '.css'
-      end
+    ``` ruby
+    module JekyllAssetPipeline
+      class CssTagTemplate < JekyllAssetPipeline::Template
+        def self.filetype
+          '.css'
+        end
 
-      def html
-        "<link href='/#{@path}/#{@filename}' rel='stylesheet' type='text/css' media='screen' />\n"
+        def html
+          "<link href='/#{@path}/#{@filename}' rel='stylesheet' type='text/css' media='screen' />\n"
+        end
       end
     end
-  end
-  ```
+    ```
 
   > *If you already added a compressor and/or a converter, you can include your template class alongside your compressor and/or converter within the same JekyllAssetPipeline module.*
 

@@ -5,6 +5,6 @@ module JekyllAssetPipeline
       @filename = filename
     end
 
-    attr_accessor :content, :filename, :output_path
+    attr_accessor :content, :filename, :output_path, :display_path
   end
 end

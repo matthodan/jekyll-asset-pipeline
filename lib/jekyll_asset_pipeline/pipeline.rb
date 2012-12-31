@@ -203,13 +203,14 @@ module JekyllAssetPipeline
     # Generate html markup pointing to assets
     def markup
       path = @options['output_path']
+      url = @options['display_path']
 
       @html = @assets.map do |asset|
         klass = JekyllAssetPipeline::Template.subclasses.select do |t|
           t.filetype == File.extname(asset.filename).downcase
         end.sort! { |x, y| x.priority <=> y.priority }.last
 
-        html = klass.new(path, asset.filename).html unless klass.nil?
+        html = klass.new(path, asset.filename, url).html unless klass.nil?
 
         html
       end.join

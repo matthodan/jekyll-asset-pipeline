@@ -2,9 +2,10 @@ module JekyllAssetPipeline
   class Template
     extend JekyllAssetPipeline::SubclassTracking
 
-    def initialize(path, filename)
+    def initialize(path, filename, url)
       @path = path
       @filename = filename
+      @url = url
     end
 
     # Filetype to process (e.g. '.js')
@@ -25,7 +26,7 @@ module JekyllAssetPipeline
     #
     # Returns string
     def html
-      "#{@path}/#{@filename}\n"
+      "#{@url}/#{@filename}\n"
     end
   end
 end

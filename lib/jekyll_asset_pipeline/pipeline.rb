@@ -24,19 +24,27 @@ module JekyllAssetPipeline
           # Return cached pipeline and cached status
           return cache[hash], true
         else
-          puts "Processing '#{tag}' manifest '#{prefix}'"
+          begin
+            puts "Processing '#{tag}' manifest '#{prefix}'"
 
-          # Create and process new pipeline
-          pipeline = self.new(manifest, prefix, source, destination, type, config)
-          pipeline.assets.each do |asset|
-            puts "Saved '#{asset.filename}' to '#{destination}/#{asset.output_path}'"
+            # Create and process new pipeline
+            pipeline = self.new(manifest, prefix, source, destination, type, config)
+            pipeline.assets.each do |asset|
+              puts "Saved '#{asset.filename}' to '#{destination}/#{asset.output_path}'"
+            end
+
+            # Add processed pipeline to cache
+            cache[hash] = pipeline
+
+            # Return newly processed pipeline and cached status
+            return pipeline, false
+          rescue Exception => e
+            # Add exception to cache
+            cache[hash] = e
+
+            # Re-raise the exception
+            raise e
           end
-
-          # Add processed pipeline to cache
-          cache[hash] = pipeline
-
-          # Return newly processed pipeline and cached status
-          return pipeline, false
         end
       end
 

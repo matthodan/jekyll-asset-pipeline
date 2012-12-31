@@ -372,5 +372,38 @@ describe JekyllAssetPipeline do
       Compressor.subclasses.delete(CssCompressor)
       Object::JekyllAssetPipeline.send(:remove_const, :CssCompressor)
     end
+
+    it "stops processing pipeline if previously generated error" do
+      # Define test converter
+      module JekyllAssetPipeline
+        class BazConverter < Converter
+          def self.filetype
+            '.baz'
+          end
+
+          def convert
+            raise Exception
+          end
+        end
+      end
+
+      manifest = "- /_assets/unconverted.baz"
+      proc do
+        proc do
+          pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
+                                          tag_name, extension, config)
+        end.must_raise(Exception)
+      end.must_output(/failed/i)
+
+      proc do
+        pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
+                                        tag_name, extension, config)
+      end.must_output(nil)
+
+      # Clean up test converters
+      Converter.subclasses.delete(BazConverter)
+      Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
+    end
+
   end
 end

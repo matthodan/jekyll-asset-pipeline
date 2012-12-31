@@ -58,6 +58,7 @@ describe LiquidBlockExtensions do
 
       let(:pipeline) do
         pipeline = MiniTest::Mock.new
+        pipeline.expect(:is_a?, true, [Pipeline])
         pipeline.expect(:html, 'foobar_html')
         pipeline
       end
@@ -98,7 +99,7 @@ describe LiquidBlockExtensions do
 
       let(:pipeline) do
         pipeline = MiniTest::Mock.new
-        pipeline.expect(:process, nil)
+        pipeline.expect(:is_a?, true, [Pipeline])
         pipeline.expect(:assets, assets)
         pipeline.expect(:html, 'foobaz_html')
         pipeline

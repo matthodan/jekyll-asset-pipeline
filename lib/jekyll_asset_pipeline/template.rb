@@ -20,8 +20,8 @@ module JekyllAssetPipeline
     # HTML output to return
     #
     # Available instance variables:
-    # @path       Path to bundle file
-    # @filename   Name of bundle file
+    # @filename       Name of bundle file
+    # @path           Path to bundle file
     #
     # Returns string
     def html

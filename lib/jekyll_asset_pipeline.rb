@@ -39,6 +39,7 @@ module JekyllAssetPipeline
   # Strings used for keys to play nice when merging with _config.yml
   DEFAULTS = {
     'output_path'   => 'assets',    # Destination for bundle file (within the '_site' directory)
+    'display_path'  => nil,         # Optional.  Override path to assets for output HTML refs
     'bundle'        => true,        # true = Bundle assets, false = Leave assets unbundled
     'compress'      => true,        # true = Minify assets, false = Leave assets unminified
     'gzip'          => false        # true = Create gzip versions, false = Do not create gzip versions

@@ -263,6 +263,7 @@ asset_pipeline:
   bundle: true            # Default = true
   compress: true          # Default = true
   output_path: assets     # Default = assets
+  display_path: nil       # Default = nil
   gzip: false             # Default = false
 ```
 
@@ -271,6 +272,7 @@ asset_pipeline:
 > - The "bundle" setting controls whether Jekyll Asset Pipeline bundles the assets defined in each manifest.  If "bundle" is set to false, each asset will be saved individually and individual html tags pointing to each unbundled asset will be produced when you compile your site.  It is useful to set this to false while you are debugging your site.
 > - The "compress" setting tells Jekyll Asset Pipeline whether or not to compress the bundled assets.  It is useful to set this setting to "false" while you are debugging your site.
 > - The "output\_path" setting defines where generated bundles should be saved within the "\_site" folder of your project.
+> - The "display\_path" setting overrides the path to assets in generated html tags.  This is useful if you are hosting your site at a path other than the root of your domain (e.g. "http://example.com/blog/").
 > - The "gzip" setting controls whether Jekyll Asset Pipeline saves gzipped versions of your assets alongside un-gzipped versions.
 
 ## Octopress

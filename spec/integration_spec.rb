@@ -4,7 +4,7 @@ describe JekyllAssetPipeline do
   # Sensible defaults
   let(:manifest) { "- /_assets/foo.css\n- /_assets/bar.css" }
   let(:prefix) { 'global' }
-  let(:config) { { 'output_path' => 'foobar' } }
+  let(:config) { {} }
   let(:tag_name) { 'css_asset_tag' }
   let(:extension) { '.css' }
 
@@ -15,6 +15,7 @@ describe JekyllAssetPipeline do
 
   it "saves assets to output path" do
     $stdout.stub(:puts, nil) do
+      config['output_path'] = 'foobar_assets'
       pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
                                       tag_name, extension, config)
       pipeline.assets.each do |asset|
@@ -29,7 +30,7 @@ describe JekyllAssetPipeline do
   it "outputs processing and saved file status messages" do
     hash = Pipeline.hash(source_path, manifest, config)
     filename = "#{prefix}-#{hash}#{extension}"
-    path = File.join(temp_path, config['output_path'])
+    path = File.join(temp_path, DEFAULTS['output_path'])
 
     expected = "Asset Pipeline: Processing '#{tag_name}' manifest '#{prefix}'\n" +
                "Asset Pipeline: Saved '#{filename}' to '#{path}'\n"
@@ -119,6 +120,15 @@ describe JekyllAssetPipeline do
         pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
                                         tag_name, '.js', config)
         pipeline.html.must_match(/script/i)
+      end
+    end
+
+    it "links to display_path if option is set" do
+      $stdout.stub(:puts, nil) do
+        config['display_path'] = 'foo/bar/baz'
+        pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
+                                        tag_name, '.js', config)
+        pipeline.html.must_match(/foo\/bar\/baz/)
       end
     end
   end

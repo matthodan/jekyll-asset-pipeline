@@ -58,6 +58,20 @@ module JekyllAssetPipeline
         @cache = {}
       end
 
+      # Remove staged assets
+      def remove_staged_assets(source, config)
+        begin
+          config = DEFAULTS.merge(config)
+          staging_path = File.join(source, config['staging_path'])
+          FileUtils.rm_rf(staging_path)
+        rescue Exception => e
+          puts "Failed to remove staged assets."
+
+          # Re-raise the exception
+          raise e
+        end
+      end
+
       # Add prefix to output
       def puts(message)
         $stdout.puts("Asset Pipeline: #{message}")
@@ -179,10 +193,10 @@ module JekyllAssetPipeline
     # Save assets to file
     def save
       output_path = @options['output_path']
+      staging_path = @options['staging_path']
 
       @assets.each do |asset|
-        # Create directories if necessary
-        directory = File.join(@destination, output_path)
+        directory = File.join(@source, staging_path, output_path)
         FileUtils::mkpath(directory) unless File.directory?(directory)
 
         begin

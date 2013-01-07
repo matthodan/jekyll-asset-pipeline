@@ -98,8 +98,10 @@ describe Pipeline do
           subject.last.filename.must_equal("#{prefix}-#{hash}#{type}")
         end
 
-        it "saves asset to disk at the output path" do
-          File.exist?(File.join(temp_path, subject.last.output_path, subject.last.filename)).must_equal(true)
+        it "saves asset to disk at the staging path" do
+          asset = subject.last
+          staging_path = File.join(source_path, DEFAULTS['staging_path'], asset.output_path, asset.filename)
+          File.exist?(staging_path).must_equal(true)
         end
       end #context "bundle => true"
 
@@ -120,9 +122,11 @@ describe Pipeline do
           end
         end
 
-        it "saves assets to disk at the output path" do
+        it "saves assets to disk at the staging path" do
           subject.each do |a|
-            File.exist?(File.join(temp_path, a.output_path, a.filename)).must_equal(true)
+            asset = subject.last
+            staging_path = File.join(source_path, DEFAULTS['staging_path'], a.output_path, a.filename)
+            File.exist?(staging_path).must_equal(true)
           end
         end
       end #context "bundle => false"

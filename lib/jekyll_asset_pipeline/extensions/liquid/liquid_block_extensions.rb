@@ -21,7 +21,8 @@ module JekyllAssetPipeline
       if pipeline.is_a?(Pipeline)
         # Prevent Jekyll from cleaning up saved assets if new pipeline
         pipeline.assets.each do |asset|
-          site.static_files << StaticAssetFile.new(site, site.dest,
+          config = JekyllAssetPipeline::DEFAULTS.merge(config)
+          site.static_files << Jekyll::StaticFile.new(site, config['staging_path'],
             asset.output_path, asset.filename)
         end unless cached
 

@@ -15,6 +15,21 @@ module JekyllAssetPipeline
 
           original_return_val
         end
+
+        # Store the original Jekyll::Site#write method
+        old_write_method = instance_method(:write)
+
+        # Override Jekyll::Site#write
+        define_method(:write) do
+          # Run the Jekyll::Site#write method
+          original_return_value = old_write_method.bind(self).call()
+
+          # Clear Jekyll Asset Pipeline staged assets
+          config = self.config['asset_pipeline'] || {}
+          Pipeline.remove_staged_assets(self.source, config)
+
+          original_return_value
+        end
       end
     end
   end

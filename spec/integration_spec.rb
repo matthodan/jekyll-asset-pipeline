@@ -13,13 +13,13 @@ describe JekyllAssetPipeline do
     clear_temp_path
   end
 
-  it "saves assets to output path" do
+  it "saves assets to staging path" do
     $stdout.stub(:puts, nil) do
       config['output_path'] = 'foobar_assets'
       pipeline, cached = Pipeline.run(manifest, prefix, source_path, temp_path,
                                       tag_name, extension, config)
       pipeline.assets.each do |asset|
-        file_path = File.join(temp_path, config['output_path'], asset.filename)
+        file_path = File.join(source_path, DEFAULTS['staging_path'], config['output_path'], asset.filename)
         File.open(file_path) do |file|
           file.read.must_equal(asset.content)
         end

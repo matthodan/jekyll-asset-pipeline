@@ -108,7 +108,7 @@ describe LiquidBlockExtensions do
       it "creates new pipeline and processes it" do
         $stdout.stub(:puts, nil) do
           Pipeline.stub(:run, [pipeline, false]) do
-            JekyllAssetPipeline::StaticAssetFile.stub(:new, 'foobar') do
+            Jekyll::StaticFile.stub(:new, 'foobar') do
               subject.must_equal('foobaz_html')
             end
           end

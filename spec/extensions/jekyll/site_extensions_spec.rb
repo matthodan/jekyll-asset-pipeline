@@ -13,6 +13,10 @@ describe JekyllSiteExtensions do
         'old_return_value'
       end
 
+      def write
+        'old_write_return_value'
+      end
+
       include JekyllSiteExtensions
     end
 

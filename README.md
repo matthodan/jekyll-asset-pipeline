@@ -51,7 +51,7 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
 2. Add a "\_plugins" folder to your project if you do not already have one.  Within the "\_plugins" folder, add a file named "jekyll\_asset\_pipeline.rb" with the following require statement as its contents.
 
   ``` ruby
-  require 'jekyll_asset_pipeline'
+  require 'jekyll-asset-pipeline'
   ```
 
 3. Move your assets into a Jekyll ignored folder (i.e. a folder that begins with an underscore "\_") so that Jekyll won't include these raw assets in the site output.  I recommend using an "\_assets" folder to hold your site's assets.

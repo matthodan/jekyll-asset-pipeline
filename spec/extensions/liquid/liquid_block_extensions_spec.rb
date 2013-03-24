@@ -36,6 +36,11 @@ describe LiquidBlockExtensions do
         def self.output_type
           '.baz'
         end
+
+        def render_all(list, context)
+          # it's againt the purpose of render_all; here we're just mocking
+          list.first
+        end
       end
     end
 

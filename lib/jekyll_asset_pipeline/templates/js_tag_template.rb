@@ -1,6 +1,6 @@
 module JekyllAssetPipeline
   # Default output for JavaScript assets
-  class JavaScriptTagTemplate < JekyllAssetPipeline::Template
+  class JsTagTemplate < JekyllAssetPipeline::Template
     def self.filetype
       '.js'
     end

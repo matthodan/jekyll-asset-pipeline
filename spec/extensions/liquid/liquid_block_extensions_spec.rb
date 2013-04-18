@@ -17,6 +17,11 @@ describe LiquidBlockExtensions do
       subject { MockLiquidBlock.tag_name }
       specify { subject.must_be_instance_of(String) }
     end
+
+    describe "#tag_full_name" do
+      subject { MockLiquidBlock.tag_full_name }
+      specify { subject.must_be_instance_of(String) }
+    end
   end
 
   describe "#render(context)" do

@@ -8,6 +8,10 @@ module JekyllAssetPipeline
       def tag_name
         ''
       end
+
+      def tag_full_name
+        ''
+      end
     end
 
     def render(context)

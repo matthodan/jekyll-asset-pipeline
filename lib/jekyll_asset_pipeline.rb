@@ -17,7 +17,7 @@ require 'jekyll_asset_pipeline/extensions/jekyll/site'
 require 'jekyll_asset_pipeline/extensions/liquid/liquid_block_extensions'
 require 'jekyll_asset_pipeline/extensions/liquid/asset_tag'
 require 'jekyll_asset_pipeline/extensions/liquid/asset_tags/css_asset_tag'
-require 'jekyll_asset_pipeline/extensions/liquid/asset_tags/javascript_asset_tag'
+require 'jekyll_asset_pipeline/extensions/liquid/asset_tags/js_asset_tag'
 
 # Ruby extensions
 require 'jekyll_asset_pipeline/extensions/ruby/subclass_tracking'
@@ -28,7 +28,7 @@ require 'jekyll_asset_pipeline/asset'
 require 'jekyll_asset_pipeline/converter'
 require 'jekyll_asset_pipeline/compressor'
 require 'jekyll_asset_pipeline/template'
-require 'jekyll_asset_pipeline/templates/javascript_tag_template'
+require 'jekyll_asset_pipeline/templates/js_tag_template'
 require 'jekyll_asset_pipeline/templates/css_tag_template'
 require 'jekyll_asset_pipeline/pipeline'
 

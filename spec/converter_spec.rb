@@ -16,6 +16,7 @@ describe Converter do
       before do
         asset.expect(:content, 'foo')
         asset.expect(:filename, 'bar.baz')
+        asset.expect(:dirname, '.')
       end
 
       subject { Converter.new(asset) }
@@ -51,6 +52,7 @@ describe Converter do
       before do
         asset.expect(:content, 'unconverted')
         asset.expect(:filename, 'some_filename.foo')
+        asset.expect(:dirname, '/some/path')
       end
 
       subject { TestConverter.new(asset) }

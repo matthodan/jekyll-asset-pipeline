@@ -86,7 +86,7 @@ That is it!  You should now have bundled assets.  Look in the "_site" folder of 
 
 ## Asset Preprocessing
 
-Asset preprocessing (i.e. conversion) allows us to write our assets in languages such as [CoffeeScript](http://coffeescript.org/), [Sass](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html) or any other language.  One of Jekyll Asset Pipeline's key strengths is that it works with __any__ preprocessing library that has a ruby wrapper.  Adding a preprocessor is straightforward, but requires a small amount of additional code.  
+Asset preprocessing (i.e. conversion) allows us to write our assets in languages such as [CoffeeScript](http://coffeescript.org/), [Sass](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html) or any other language.  One of Jekyll Asset Pipeline's key strengths is that it works with __any__ preprocessing library that has a ruby wrapper.  Adding a preprocessor is straightforward, but requires a small amount of additional code.
 
 In the following example, we will add a preprocessor that converts CoffeeScript into JavaScript.
 
@@ -140,7 +140,7 @@ module JekyllAssetPipeline
     end
 
     def convert
-      return Sass::Engine.new(@content, syntax: :scss).render
+      return Sass::Engine.new(@content, :syntax => :scss).render
     end
   end
 end

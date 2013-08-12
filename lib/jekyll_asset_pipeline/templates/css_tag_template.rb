@@ -10,7 +10,7 @@ module JekyllAssetPipeline
     end
 
     def html
-      "<link href='/#{@path}/#{@filename}' rel='stylesheet' type='text/css' />\n"
+      "<link href='/#{@path}/#{@filename}' rel='stylesheet' type='text/css' />"
     end
   end
 end

@@ -109,8 +109,10 @@ module JekyllAssetPipeline
     def collect
       begin
         @assets = YAML::load(@manifest).map! do |path|
-          File.open(File.join(@source, path)) do |file|
-            JekyllAssetPipeline::Asset.new(file.read, File.basename(path))
+          source  = File.expand_path(File.join(@source,path))
+          source_path  = File.dirname(source)
+          File.open(source) do |file|
+            JekyllAssetPipeline::Asset.new(file.read, path, source_path)
           end
         end
       rescue Exception => e
@@ -133,13 +135,13 @@ module JekyllAssetPipeline
           # Convert asset if converter is found
           unless klass.nil?
             begin
+
               # Convert asset content
               converter = klass.new(asset)
 
               # Replace asset content and filename
               asset.content = converter.converted
               asset.filename = File.basename(asset.filename, '.*')
-
               # Add back the output extension if no extension left
               asset.filename = "#{asset.filename}#{@type}" if File.extname(asset.filename) == ''
             rescue Exception => e

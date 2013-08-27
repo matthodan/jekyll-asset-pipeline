@@ -4,6 +4,7 @@ module JekyllAssetPipeline
 
     def initialize(asset)
       @content = asset.content
+      @source_path = asset.source_path
       @type = File.extname(asset.filename).downcase
       @converted = self.convert
     end
@@ -23,6 +24,7 @@ module JekyllAssetPipeline
     # @file       File to be converted
     # @content    Contents of @file as a string
     # @type       Filetype of file (e.g. '.coffee')
+    # @source_path Original asset source path
     #
     # Returns converted string
     def convert

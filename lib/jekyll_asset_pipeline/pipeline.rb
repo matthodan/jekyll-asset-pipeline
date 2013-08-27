@@ -162,7 +162,7 @@ module JekyllAssetPipeline
       end.join("\n")
 
       hash = JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
-      @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}", nil)]
+      @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
     end
 
     # Compress assets if compressor is defined
@@ -188,7 +188,7 @@ module JekyllAssetPipeline
     def gzip
       @assets.map! do |asset|
         gzip_content = Zlib::Deflate.deflate(asset.content)
-        [asset, JekyllAssetPipeline::Asset.new(gzip_content, "#{asset.filename}.gz",nil)]
+        [asset, JekyllAssetPipeline::Asset.new(gzip_content, "#{asset.filename}.gz")]
       end.flatten!
     end
 

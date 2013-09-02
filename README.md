@@ -43,7 +43,7 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
 1. Install the "jekyll-asset-pipeline" gem via [Rubygems](http://rubygems.org/).
 
   ``` bash
-  gem install jekyll-asset-pipeline
+  $ gem install jekyll-asset-pipeline
   ```
 
   > *If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add "jekyll-asset-pipeline" to your Gemfile and run `bundle install`.*
@@ -71,9 +71,11 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
   ```
   > *Asset manifests must be formatted as YAML arrays and include full paths to each asset from the root of the project.  YAML [does not allow tabbed markup](http://www.yaml.org/faq.html), so you must use spaces when indenting your YAML manifest or you will get an error when you compile your site.  If you are using assets that must be preprocessed, you should append the appropriate extension (e.g. '.js.coffee', '.css.less') as discussed in the [Asset Preprocessing](#asset-preprocessing) section.*
 
-5. Run the `jekyll` command to compile your site.  You should see an output that includes the following Jekyll Asset Pipeline status messages.
+5. Run the `jekyll build` command to compile your site.  You should see an output that includes the following Jekyll Asset Pipeline status messages.
 
   ``` bash
+  $ jekyll build
+  Generating...
   Asset Pipeline: Processing 'css_asset_tag' manifest 'global'
   Asset Pipeline: Saved 'global-md5hash.css' to 'yoursitepath/assets'
   Asset Pipeline: Processing 'javascript_asset_tag' manifest 'global'
@@ -92,7 +94,7 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 
 ### CoffeeScript
 
-1. In the "jekyll\_asset\_pipeline.rb" file that we created in the "Getting Started" section, add the following code to the end of the file (i.e. after the "require" statement).
+1. In the "jekyll\_asset\_pipeline.rb" file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the "require" statement).
 
   ``` ruby
   module JekyllAssetPipeline
@@ -115,14 +117,14 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 2. If you haven't already, you should now install any dependancies that are required by your converter.  In our case, we need to install the "coffee-script" gem.
 
   ``` bash
-  gem install coffee-script
+  $ gem install coffee-script
   ```
 
   > *If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add "coffee-script" to your Gemfile and run `bundle install`.*
 
 3. Append a ".coffee" extension to the filename of any asset that should be converted with the `CoffeeScriptConverter`.  For example, "foo.js" would become "foo.js.coffee".
 
-4. Run the `jekyll` command to compile your site.
+4. Run the `jekyll build` command to compile your site.
 
 That is it!  Your asset pipeline has converted any CoffeeScript assets into JavaScript before adding them to a bundle.
 
@@ -130,22 +132,23 @@ That is it!  Your asset pipeline has converted any CoffeeScript assets into Java
 
 You probably get the gist of how converters work, but I thought I'd add an example of a SASS converter for quick reference.
 
-``` ruby
-module JekyllAssetPipeline
-  class SassConverter < JekyllAssetPipeline::Converter
-    require 'sass'
+  ``` ruby
+  module JekyllAssetPipeline
+    class SassConverter < JekyllAssetPipeline::Converter
+      require 'sass'
 
-    def self.filetype
-      '.scss'
-    end
+      def self.filetype
+        '.scss'
+      end
 
-    def convert
-      return Sass::Engine.new(@content, syntax: :scss).render
+      def convert
+        return Sass::Engine.new(@content, syntax: :scss).render
+      end
     end
   end
-end
-```
-> *Don't forget to install the "sass" gem before you run the `jekyll` command since the above SASS converter requires the "sass" library as a dependency.*
+  ```
+
+> *Don't forget to install the "sass" gem or add it to your Gemfile and run `bundle install` before you run the `jekyll build` command since the above SASS converter requires the "sass" library as a dependency.*
 
 ### Successive Preprocessing
 
@@ -163,45 +166,45 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
 
 1. In the "jekyll\_asset\_pipeline.rb" file that we created in the "Getting Started" section, add the following code to the end of the file (i.e. after the "require" statement).
 
-    ``` ruby
-    module JekyllAssetPipeline
-      class CssCompressor < JekyllAssetPipeline::Compressor
-        require 'yui/compressor'
+  ``` ruby
+  module JekyllAssetPipeline
+    class CssCompressor < JekyllAssetPipeline::Compressor
+      require 'yui/compressor'
 
-        def self.filetype
-          '.css'
-        end
-
-        def compress
-          return YUI::CssCompressor.new.compress(@content)
-        end
+      def self.filetype
+        '.css'
       end
 
-      class JavaScriptCompressor < JekyllAssetPipeline::Compressor
-        require 'yui/compressor'
-
-        def self.filetype
-          '.js'
-        end
-
-        def compress
-          return YUI::JavaScriptCompressor.new(munge: true).compress(@content)
-        end
+      def compress
+        return YUI::CssCompressor.new.compress(@content)
       end
     end
-    ```
+
+    class JavaScriptCompressor < JekyllAssetPipeline::Compressor
+      require 'yui/compressor'
+
+      def self.filetype
+        '.js'
+      end
+
+      def compress
+        return YUI::JavaScriptCompressor.new(munge: true).compress(@content)
+      end
+    end
+  end
+  ```
 
   > The above code adds a CSS and a JavaScript compressor.  You can name a compressor anything as long as it inherits from "JekyllAssetPipeline::Compressor".  The "self.filetype" method defines the type of asset a compressor will process (either '.js' or '.css').  The "compress" method is where the magic happens.  A "@content" instance variable that contains the raw content of our bundle is made available within the compressor.  The compressor should process this content and return the processed content (as a string) via a "compress" method.
 
 2. If you haven't already, you should now install any dependencies that are required by your compressor.  In our case, we need to install the "yui-compressor" gem.
 
   ``` ruby
-  gem install yui-compressor
+  $ gem install yui-compressor
   ```
 
   > *If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add "yui-compressor" to your Gemfile and run `bundle install`.*
 
-3. Run the `jekyll` command to compile your site.
+3. Run the `jekyll build` command to compile your site.
 
 That is it!  Your asset pipeline has compressed your CSS and JavaScript assets.  You can verify that this is the case by looking at the contents of the bundles generated in the "\_site/assets" folder of your project.
 
@@ -209,20 +212,20 @@ That is it!  Your asset pipeline has compressed your CSS and JavaScript assets. 
 
 You probably get the gist of how compressors work, but I thought I'd add an example of a Google Closure Compiler compressor for quick reference.
 
-``` ruby
-class JavaScriptCompressor < JekyllAssetPipeline::Compressor
-  require 'closure-compiler'
+  ``` ruby
+  class JavaScriptCompressor < JekyllAssetPipeline::Compressor
+    require 'closure-compiler'
 
-  def self.filetype
-    '.js'
-  end
+    def self.filetype
+      '.js'
+    end
 
-  def compress
-    return Closure::Compiler.new.compile(@content)
+    def compress
+      return Closure::Compiler.new.compile(@content)
+    end
   end
-end
-```
-> *Don't forget to install the "closure-compiler" gem before you run the `jekyll` command since the above compressor requires the "closure-compiler" library as a dependency.*
+  ```
+> *Don't forget to install the "closure-compiler" gem before you run the `jekyll build` command since the above compressor requires the "closure-compiler" library as a dependency.*
 
 ## Templates
 
@@ -309,7 +312,7 @@ Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook]
 
 - [![Build Status](https://secure.travis-ci.org/matthodan/jekyll-asset-pipeline.png)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
 - [![Dependency Status](https://gemnasium.com/matthodan/jekyll-asset-pipeline.png)](https://gemnasium.com/matthodan/jekyll-asset-pipeline)
-- [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/matthodan/jekyll-asset-pipeline)
+- [![Code Climate](https://codeclimate.com/github/matthodan/jekyll-asset-pipeline.png)](https://codeclimate.com/github/matthodan/jekyll-asset-pipeline)
 
 ## Credits
 

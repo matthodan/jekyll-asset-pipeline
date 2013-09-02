@@ -13,7 +13,8 @@ Gem::Specification.new do |s|
   s.email                   = 'matthew.c.hodan@gmail.com'
   s.homepage                = 'http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html'
   s.license                 = 'MIT'
-
+  s.required_ruby_version = '>= 1.9.3'
+  
   # Runtime dependencies
   s.add_runtime_dependency 'jekyll', '~> 1.1'
   s.add_runtime_dependency 'liquid', '~> 2.4'

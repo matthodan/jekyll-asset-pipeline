@@ -310,6 +310,7 @@ Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook]
 
 ## Code Status
 
+- [![Gem Version](https://badge.fury.io/rb/japr.png)](http://badge.fury.io/rb/japr)
 - [![Build Status](https://secure.travis-ci.org/kitsched/japr.png)](https://travis-ci.org/kitsched/japr)
 - [![Dependency Status](https://gemnasium.com/kitsched/japr.png)](https://gemnasium.com/kitsched/japr)
 - [![Code Climate](https://codeclimate.com/github/kitsched/japr.png)](https://codeclimate.com/github/kitsched/japr)

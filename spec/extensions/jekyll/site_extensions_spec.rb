@@ -24,7 +24,7 @@ describe JekyllSiteExtensions do
     obj.cleanup
   end
 
-  it "clears JekyllAssetPipeline::Cache when Jekyll::Site#cleanup is called" do
+  it "clears JAP::Cache when Jekyll::Site#cleanup is called" do
     subject # Setup subject
     Pipeline.cache.has_key?('foo').must_equal(false)
   end

@@ -51,7 +51,7 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
 2. Add a "\_plugins" folder to your project if you do not already have one.  Within the "\_plugins" folder, add a file named "jekyll\_asset\_pipeline.rb" with the following require statement as its contents.
 
   ``` ruby
-  require 'jekyll_asset_pipeline'
+  require 'jap'
   ```
 
 3. Move your assets into a Jekyll ignored folder (i.e. a folder that begins with an underscore "\_") so that Jekyll won't include these raw assets in the site output.  I recommend using an "\_assets" folder to hold your site's assets.
@@ -97,8 +97,8 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 1. In the "jekyll\_asset\_pipeline.rb" file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the "require" statement).
 
   ``` ruby
-  module JekyllAssetPipeline
-      class CoffeeScriptConverter < JekyllAssetPipeline::Converter
+  module JAP
+      class CoffeeScriptConverter < JAP::Converter
         require 'coffee-script'
 
         def self.filetype
@@ -112,7 +112,7 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
   end
   ```
 
-  > The above code adds a CoffeeScript converter.  You can name a converter anything as long as it inherits from "JekyllAssetPipeline::Converter".  The "self.filetype" method defines the type of asset a converter will process (e.g. ".coffee" for CoffeeScript) based on the extension of the raw asset file.  A "@content" instance variable that contains the raw content of our asset is made available within the converter.  The converter should process this content and return the processed content (as a string) via a "convert" method.
+  > The above code adds a CoffeeScript converter.  You can name a converter anything as long as it inherits from "JAP::Converter".  The "self.filetype" method defines the type of asset a converter will process (e.g. ".coffee" for CoffeeScript) based on the extension of the raw asset file.  A "@content" instance variable that contains the raw content of our asset is made available within the converter.  The converter should process this content and return the processed content (as a string) via a "convert" method.
 
 2. If you haven't already, you should now install any dependancies that are required by your converter.  In our case, we need to install the "coffee-script" gem.
 
@@ -133,8 +133,8 @@ That is it!  Your asset pipeline has converted any CoffeeScript assets into Java
 You probably get the gist of how converters work, but I thought I'd add an example of a SASS converter for quick reference.
 
   ``` ruby
-  module JekyllAssetPipeline
-    class SassConverter < JekyllAssetPipeline::Converter
+  module JAP
+    class SassConverter < JAP::Converter
       require 'sass'
 
       def self.filetype
@@ -167,8 +167,8 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
 1. In the "jekyll\_asset\_pipeline.rb" file that we created in the "Getting Started" section, add the following code to the end of the file (i.e. after the "require" statement).
 
   ``` ruby
-  module JekyllAssetPipeline
-    class CssCompressor < JekyllAssetPipeline::Compressor
+  module JAP
+    class CssCompressor < JAP::Compressor
       require 'yui/compressor'
 
       def self.filetype
@@ -180,7 +180,7 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
       end
     end
 
-    class JavaScriptCompressor < JekyllAssetPipeline::Compressor
+    class JavaScriptCompressor < JAP::Compressor
       require 'yui/compressor'
 
       def self.filetype
@@ -194,7 +194,7 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
   end
   ```
 
-  > The above code adds a CSS and a JavaScript compressor.  You can name a compressor anything as long as it inherits from "JekyllAssetPipeline::Compressor".  The "self.filetype" method defines the type of asset a compressor will process (either '.js' or '.css').  The "compress" method is where the magic happens.  A "@content" instance variable that contains the raw content of our bundle is made available within the compressor.  The compressor should process this content and return the processed content (as a string) via a "compress" method.
+  > The above code adds a CSS and a JavaScript compressor.  You can name a compressor anything as long as it inherits from "JAP::Compressor".  The "self.filetype" method defines the type of asset a compressor will process (either '.js' or '.css').  The "compress" method is where the magic happens.  A "@content" instance variable that contains the raw content of our bundle is made available within the compressor.  The compressor should process this content and return the processed content (as a string) via a "compress" method.
 
 2. If you haven't already, you should now install any dependencies that are required by your compressor.  In our case, we need to install the "yui-compressor" gem.
 
@@ -213,7 +213,7 @@ That is it!  Your asset pipeline has compressed your CSS and JavaScript assets. 
 You probably get the gist of how compressors work, but I thought I'd add an example of a Google Closure Compiler compressor for quick reference.
 
   ``` ruby
-  class JavaScriptCompressor < JekyllAssetPipeline::Compressor
+  class JavaScriptCompressor < JAP::Compressor
     require 'closure-compiler'
 
     def self.filetype
@@ -236,8 +236,8 @@ In the following example, we will override the default CSS link tag by adding a 
 1. In the "jekyll\_asset\_pipeline.rb" file that we created in the "Getting Started" section, add the following code.
 
     ``` ruby
-    module JekyllAssetPipeline
-      class CssTagTemplate < JekyllAssetPipeline::Template
+    module JAP
+      class CssTagTemplate < JAP::Template
         def self.filetype
           '.css'
         end
@@ -249,7 +249,7 @@ In the following example, we will override the default CSS link tag by adding a 
     end
     ```
 
-  > *If you already added a compressor and/or a converter, you can include your template class alongside your compressor and/or converter within the same JekyllAssetPipeline module.*
+  > *If you already added a compressor and/or a converter, you can include your template class alongside your compressor and/or converter within the same JAP module.*
 
   > The “self.filetype” method defines the type of bundle a template will target (either ".js" or ".css").  The “html” method is where the magic happens.  “@path” and "@filename" instance variables are available within the class and contain the path and filename of the generated bundle, respectively.  The template should return a string that contains an HTML tag pointing to the generated bundle via an "html" method.
 

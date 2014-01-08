@@ -1,5 +1,5 @@
-module JekyllAssetPipeline
-  class TestConverter < JekyllAssetPipeline::Converter
+module JAP
+  class TestConverter < JAP::Converter
     def self.filetype
       '.foo'
     end
@@ -9,7 +9,7 @@ module JekyllAssetPipeline
     end
   end
 
-  class TestCompressor < JekyllAssetPipeline::Compressor
+  class TestCompressor < JAP::Compressor
     def self.filetype
       '.foo'
     end
@@ -19,7 +19,7 @@ module JekyllAssetPipeline
     end
   end
 
-  class TestTemplate < JekyllAssetPipeline::Template
+  class TestTemplate < JAP::Template
     def self.filetype
       '.foo'
     end

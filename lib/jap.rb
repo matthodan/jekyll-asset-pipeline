@@ -10,27 +10,27 @@ require 'jekyll'
 require 'liquid'
 
 # Jekyll extensions
-require 'jekyll_asset_pipeline/extensions/jekyll/site_extensions'
-require 'jekyll_asset_pipeline/extensions/jekyll/site'
+require 'jap/extensions/jekyll/site_extensions'
+require 'jap/extensions/jekyll/site'
 
 # Liquid extensions
-require 'jekyll_asset_pipeline/extensions/liquid/liquid_block_extensions'
-require 'jekyll_asset_pipeline/extensions/liquid/asset_tag'
-require 'jekyll_asset_pipeline/extensions/liquid/asset_tags/css_asset_tag'
-require 'jekyll_asset_pipeline/extensions/liquid/asset_tags/javascript_asset_tag'
+require 'jap/extensions/liquid/liquid_block_extensions'
+require 'jap/extensions/liquid/asset_tag'
+require 'jap/extensions/liquid/asset_tags/css_asset_tag'
+require 'jap/extensions/liquid/asset_tags/javascript_asset_tag'
 
 # Ruby extensions
-require 'jekyll_asset_pipeline/extensions/ruby/subclass_tracking'
+require 'jap/extensions/ruby/subclass_tracking'
 
 # Jekyll Asset Pipeline
-require 'jekyll_asset_pipeline/version'
-require 'jekyll_asset_pipeline/asset'
-require 'jekyll_asset_pipeline/converter'
-require 'jekyll_asset_pipeline/compressor'
-require 'jekyll_asset_pipeline/template'
-require 'jekyll_asset_pipeline/templates/javascript_tag_template'
-require 'jekyll_asset_pipeline/templates/css_tag_template'
-require 'jekyll_asset_pipeline/pipeline'
+require 'jap/version'
+require 'jap/asset'
+require 'jap/converter'
+require 'jap/compressor'
+require 'jap/template'
+require 'jap/templates/javascript_tag_template'
+require 'jap/templates/css_tag_template'
+require 'jap/pipeline'
 
 module JekyllAssetPipeline
   # Default configuration settings for Jekyll Asset Pipeline

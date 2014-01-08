@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version                 = JAPR::VERSION
   s.date                    = Time.now
   s.summary                 = 'A powerful asset pipeline for Jekyll that bundles, converts, and minifies CSS and JavaScript assets.'
-  s.description             = 'Adds asset preprocessing (CoffeeScript, Sass, Less, ERB, etc.) and asset compression/minification/gzip (Yahoo YUI Compressor, Google Closure Compiler, etc.) to Jekyll.'
+  s.description             = 'Jekyll Asset Pipeline reborn adds asset preprocessing (CoffeeScript, Sass, Less, ERB, etc.) and asset compression/minification/gzip (Yahoo YUI Compressor, Google Closure Compiler, etc.) to Jekyll.'
   s.authors                 = ['Matt Hodan']
   s.email                   = 'japr@clicktrackheart.com'
   s.homepage                = 'https://github.com/kitsched/japr'

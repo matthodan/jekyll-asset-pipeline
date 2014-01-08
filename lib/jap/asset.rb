@@ -1,4 +1,4 @@
-module JekyllAssetPipeline
+module JAP
   class Asset
     def initialize(content, filename)
       @content = content

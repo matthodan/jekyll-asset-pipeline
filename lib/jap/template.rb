@@ -1,6 +1,6 @@
-module JekyllAssetPipeline
+module JAP
   class Template
-    extend JekyllAssetPipeline::SubclassTracking
+    extend JAP::SubclassTracking
 
     def initialize(path, filename)
       @path = path

@@ -1,5 +1,5 @@
-module JekyllAssetPipeline
-  class CssAssetTag < JekyllAssetPipeline::AssetTag
+module JAP
+  class CssAssetTag < JAP::AssetTag
     def self.tag_name
       'css_asset_tag'
     end
@@ -10,5 +10,5 @@ module JekyllAssetPipeline
   end
 
   # Register CssAssetTag tag with Liquid
-  ::Liquid::Template.register_tag(JekyllAssetPipeline::CssAssetTag.tag_name, JekyllAssetPipeline::CssAssetTag)
+  ::Liquid::Template.register_tag(JAP::CssAssetTag.tag_name, JAP::CssAssetTag)
 end

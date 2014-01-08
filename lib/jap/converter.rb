@@ -1,6 +1,6 @@
-module JekyllAssetPipeline
+module JAP
   class Converter
-    extend JekyllAssetPipeline::SubclassTracking
+    extend JAP::SubclassTracking
 
     def initialize(asset)
       @content = asset.content

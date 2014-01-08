@@ -1,5 +1,5 @@
 module Jekyll
   class Site
-    include JekyllAssetPipeline::JekyllSiteExtensions
+    include JAP::JekyllSiteExtensions
   end
 end

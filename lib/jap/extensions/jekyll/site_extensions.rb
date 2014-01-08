@@ -1,4 +1,4 @@
-module JekyllAssetPipeline
+module JAP
   module JekyllSiteExtensions
     def self.included(base)
       base.class_eval do

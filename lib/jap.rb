@@ -32,7 +32,7 @@ require 'jap/templates/javascript_tag_template'
 require 'jap/templates/css_tag_template'
 require 'jap/pipeline'
 
-module JekyllAssetPipeline
+module JAP
   # Default configuration settings for Jekyll Asset Pipeline
   # Strings used for keys to play nice when merging with _config.yml
   #

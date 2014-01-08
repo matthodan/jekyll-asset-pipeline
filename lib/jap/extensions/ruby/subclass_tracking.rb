@@ -1,4 +1,4 @@
-module JekyllAssetPipeline
+module JAP
   module SubclassTracking
     # Record subclasses of this class (this method is automatically called by ruby)
     def inherited(base)

@@ -1,4 +1,4 @@
-module JekyllAssetPipeline
+module JAP
   class Pipeline
     class << self
       # Generate hash based on manifest
@@ -85,7 +85,7 @@ module JekyllAssetPipeline
       @source = source
       @destination = destination
       @type = type
-      @options = JekyllAssetPipeline::DEFAULTS.merge(options)
+      @options = JAP::DEFAULTS.merge(options)
 
       process
     end
@@ -110,7 +110,7 @@ module JekyllAssetPipeline
       begin
         @assets = YAML::load(@manifest).map! do |path|
           File.open(File.join(@source, path)) do |file|
-            JekyllAssetPipeline::Asset.new(file.read, File.basename(path))
+            JAP::Asset.new(file.read, File.basename(path))
           end
         end
       rescue Exception => e
@@ -126,7 +126,7 @@ module JekyllAssetPipeline
         finished = false
         while finished == false
           # Find a converter to use
-          klass = JekyllAssetPipeline::Converter.subclasses.select do |c|
+          klass = JAP::Converter.subclasses.select do |c|
             c.filetype == File.extname(asset.filename).downcase
           end.last
 
@@ -159,15 +159,15 @@ module JekyllAssetPipeline
         a.content
       end.join("\n")
 
-      hash = JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
-      @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
+      hash = JAP::Pipeline.hash(@source, @manifest, @options)
+      @assets = [JAP::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
     end
 
     # Compress assets if compressor is defined
     def compress
       @assets.each do |asset|
         # Find a compressor to use
-        klass = JekyllAssetPipeline::Compressor.subclasses.select do |c|
+        klass = JAP::Compressor.subclasses.select do |c|
           c.filetype == @type
         end.last
 
@@ -186,7 +186,7 @@ module JekyllAssetPipeline
     def gzip
       @assets.map! do |asset|
         gzip_content = Zlib::Deflate.deflate(asset.content)
-        [asset, JekyllAssetPipeline::Asset.new(gzip_content, "#{asset.filename}.gz")]
+        [asset, JAP::Asset.new(gzip_content, "#{asset.filename}.gz")]
       end.flatten!
     end
 
@@ -220,7 +220,7 @@ module JekyllAssetPipeline
       display_path = @options['display_path'] || @options['output_path']
 
       @html = @assets.map do |asset|
-        klass = JekyllAssetPipeline::Template.subclasses.select do |t|
+        klass = JAP::Template.subclasses.select do |t|
           t.filetype == File.extname(asset.filename).downcase
         end.sort! { |x, y| x.priority <=> y.priority }.last
 

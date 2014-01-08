@@ -1,4 +1,4 @@
-module JekyllAssetPipeline
+module JAP
   module LiquidBlockExtensions
     module ClassMethods
       def output_type
@@ -21,7 +21,7 @@ module JekyllAssetPipeline
       if pipeline.is_a?(Pipeline)
         # Prevent Jekyll from cleaning up saved assets if new pipeline
         pipeline.assets.each do |asset|
-          config = JekyllAssetPipeline::DEFAULTS.merge(config)
+          config = JAP::DEFAULTS.merge(config)
           staging_path = File.expand_path(File.join(site.source, config['staging_path']))
           site.static_files << Jekyll::StaticFile.new(site, staging_path,
             asset.output_path, asset.filename)

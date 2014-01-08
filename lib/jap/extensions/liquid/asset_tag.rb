@@ -1,6 +1,6 @@
-module JekyllAssetPipeline
+module JAP
   class AssetTag < ::Liquid::Block
-    extend JekyllAssetPipeline::LiquidBlockExtensions::ClassMethods
-    include JekyllAssetPipeline::LiquidBlockExtensions
+    extend JAP::LiquidBlockExtensions::ClassMethods
+    include JAP::LiquidBlockExtensions
   end
 end

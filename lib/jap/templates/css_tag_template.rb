@@ -1,6 +1,6 @@
-module JekyllAssetPipeline
+module JAP
   # Default output for CSS assets
-  class CssTagTemplate < JekyllAssetPipeline::Template
+  class CssTagTemplate < JAP::Template
     def self.filetype
       '.css'
     end

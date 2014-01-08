@@ -1,6 +1,6 @@
-module JekyllAssetPipeline
+module JAP
   class Compressor
-    extend JekyllAssetPipeline::SubclassTracking
+    extend JAP::SubclassTracking
 
     def initialize(content)
       @content = content

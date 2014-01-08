@@ -1,3 +1,3 @@
-module JekyllAssetPipeline
-  VERSION = '0.1.5'
+module JAP
+  VERSION = '0.1.8'
 end

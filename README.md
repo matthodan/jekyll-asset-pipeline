@@ -1,5 +1,7 @@
 # Jekyll Asset Pipeline Reborn
 
+[![Gem Version](https://badge.fury.io/rb/japr.png)](http://badge.fury.io/rb/japr) [![Build Status](https://secure.travis-ci.org/kitsched/japr.png)](https://travis-ci.org/kitsched/japr) [![Coverage Status](https://coveralls.io/repos/kitsched/japr/badge.png)](https://coveralls.io/r/kitsched/japr) [![Dependency Status](https://gemnasium.com/kitsched/japr.png)](https://gemnasium.com/kitsched/japr) [![Code Climate](https://codeclimate.com/github/kitsched/japr.png)](https://codeclimate.com/github/kitsched/japr)
+
 Jekyll Asset Pipeline Reborn is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 
 ## Table of Contents
@@ -306,14 +308,8 @@ Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook]
 
 ## Community
 
-- Here is a list of [sites that use Jekyll Asset Pipeline](http://github.com/kitsched/japr/wiki/Sites-that-use-Jekyll-Asset-Pipeline).  Feel free to add your site to the list if you want.
+- Here is a list of [sites that use Jekyll Asset Pipeline Reborn](http://github.com/kitsched/japr/wiki/Sites-that-use-JAPR).  Feel free to add your site to the list if you want.
 
-## Code Status
-
-- [![Gem Version](https://badge.fury.io/rb/japr.png)](http://badge.fury.io/rb/japr)
-- [![Build Status](https://secure.travis-ci.org/kitsched/japr.png)](https://travis-ci.org/kitsched/japr)
-- [![Dependency Status](https://gemnasium.com/kitsched/japr.png)](https://gemnasium.com/kitsched/japr)
-- [![Code Climate](https://codeclimate.com/github/kitsched/japr.png)](https://codeclimate.com/github/kitsched/japr)
 
 ## Credits
 

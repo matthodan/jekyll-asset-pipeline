@@ -1,4 +1,4 @@
-require File.expand_path('../lib/jekyll_asset_pipeline/version', __FILE__)
+require File.expand_path('../lib/jap/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.rubygems_version        = '1.8.24'

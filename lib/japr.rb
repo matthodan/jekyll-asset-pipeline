@@ -10,29 +10,29 @@ require 'jekyll'
 require 'liquid'
 
 # Jekyll extensions
-require 'jap/extensions/jekyll/site_extensions'
-require 'jap/extensions/jekyll/site'
+require 'japr/extensions/jekyll/site_extensions'
+require 'japr/extensions/jekyll/site'
 
 # Liquid extensions
-require 'jap/extensions/liquid/liquid_block_extensions'
-require 'jap/extensions/liquid/asset_tag'
-require 'jap/extensions/liquid/asset_tags/css_asset_tag'
-require 'jap/extensions/liquid/asset_tags/javascript_asset_tag'
+require 'japr/extensions/liquid/liquid_block_extensions'
+require 'japr/extensions/liquid/asset_tag'
+require 'japr/extensions/liquid/asset_tags/css_asset_tag'
+require 'japr/extensions/liquid/asset_tags/javascript_asset_tag'
 
 # Ruby extensions
-require 'jap/extensions/ruby/subclass_tracking'
+require 'japr/extensions/ruby/subclass_tracking'
 
 # Jekyll Asset Pipeline
-require 'jap/version'
-require 'jap/asset'
-require 'jap/converter'
-require 'jap/compressor'
-require 'jap/template'
-require 'jap/templates/javascript_tag_template'
-require 'jap/templates/css_tag_template'
-require 'jap/pipeline'
+require 'japr/version'
+require 'japr/asset'
+require 'japr/converter'
+require 'japr/compressor'
+require 'japr/template'
+require 'japr/templates/javascript_tag_template'
+require 'japr/templates/css_tag_template'
+require 'japr/pipeline'
 
-module JAP
+module JAPR
   # Default configuration settings for Jekyll Asset Pipeline
   # Strings used for keys to play nice when merging with _config.yml
   #

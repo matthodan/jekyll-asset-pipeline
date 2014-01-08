@@ -1,5 +1,5 @@
-module JAP
-  class TestConverter < JAP::Converter
+module JAPR
+  class TestConverter < JAPR::Converter
     def self.filetype
       '.foo'
     end
@@ -9,7 +9,7 @@ module JAP
     end
   end
 
-  class TestCompressor < JAP::Compressor
+  class TestCompressor < JAPR::Compressor
     def self.filetype
       '.foo'
     end
@@ -19,7 +19,7 @@ module JAP
     end
   end
 
-  class TestTemplate < JAP::Template
+  class TestTemplate < JAPR::Template
     def self.filetype
       '.foo'
     end

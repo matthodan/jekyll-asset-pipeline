@@ -37,7 +37,7 @@ describe Converter do
   end
 
   context "with custom converter class" do
-    before { require './spec/resources/source/_plugins/jap' }
+    before { require './spec/resources/source/_plugins/japr' }
 
     describe "class methods" do
       describe "::filetype" do

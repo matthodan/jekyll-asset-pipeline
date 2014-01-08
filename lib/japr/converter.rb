@@ -1,6 +1,6 @@
-module JAP
+module JAPR
   class Converter
-    extend JAP::SubclassTracking
+    extend JAPR::SubclassTracking
 
     def initialize(asset)
       @content = asset.content

@@ -1,5 +1,5 @@
-module JAP
-  class JavaScriptAssetTag < JAP::AssetTag
+module JAPR
+  class JavaScriptAssetTag < JAPR::AssetTag
     def self.tag_name
       'javascript_asset_tag'
     end
@@ -10,5 +10,5 @@ module JAP
   end
 
   # Register JavaScriptAssetTag tag with Liquid
-  ::Liquid::Template.register_tag(JAP::JavaScriptAssetTag.tag_name, JAP::JavaScriptAssetTag)
+  ::Liquid::Template.register_tag(JAPR::JavaScriptAssetTag.tag_name, JAPR::JavaScriptAssetTag)
 end

@@ -1,6 +1,6 @@
 require './spec/helper'
 
-describe JAP do
+describe JAPR do
   # Sensible defaults
   let(:manifest) { "- /_assets/foo.css\n- /_assets/bar.css" }
   let(:prefix) { 'global' }
@@ -57,7 +57,7 @@ describe JAP do
   describe "templating" do
     it "overrides default if custom css template is defined" do
       # Define test template
-      module JAP
+      module JAPR
         class NewCssTagTemplate < Template
           def self.filetype
             '.css'
@@ -77,12 +77,12 @@ describe JAP do
 
       # Clean up test template
       Template.subclasses.delete(NewCssTagTemplate)
-      Object::JAP.send(:remove_const, :NewCssTagTemplate)
+      Object::JAPR.send(:remove_const, :NewCssTagTemplate)
     end
 
     it "overrides default if custom js template is defined" do
       # Define test template
-      module JAP
+      module JAPR
         class NewJsTagTemplate < Template
           def self.filetype
             '.js'
@@ -102,7 +102,7 @@ describe JAP do
 
       # Clean up test template
       Template.subclasses.delete(NewJsTagTemplate)
-      Object::JAP.send(:remove_const, :NewJsTagTemplate)
+      Object::JAPR.send(:remove_const, :NewJsTagTemplate)
     end
   end
 
@@ -179,7 +179,7 @@ describe JAP do
   describe "asset conversion" do
     it "converts asset with converter based on file extension" do
       # Define test converter
-      module JAP
+      module JAPR
         class BazConverter < Converter
           def self.filetype
             '.baz'
@@ -202,12 +202,12 @@ describe JAP do
 
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
-      Object::JAP.send(:remove_const, :BazConverter)
+      Object::JAPR.send(:remove_const, :BazConverter)
     end
 
     it "ensures that converted asset is saved with expected extension" do
       # Define test converter
-      module JAP
+      module JAPR
         class BazConverter < Converter
           def self.filetype
             '.baz'
@@ -231,13 +231,13 @@ describe JAP do
 
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
-      Object::JAP.send(:remove_const, :BazConverter)
+      Object::JAPR.send(:remove_const, :BazConverter)
     end
 
     context "when using multiple converters" do
       before do
         # Define test converters
-        module JAP
+        module JAPR
           class BarConverter < Converter
             def self.filetype
               '.bar'
@@ -264,8 +264,8 @@ describe JAP do
         # Clean up test converters
         Converter.subclasses.delete(BarConverter)
         Converter.subclasses.delete(BazConverter)
-        Object::JAP.send(:remove_const, :BarConverter)
-        Object::JAP.send(:remove_const, :BazConverter)
+        Object::JAPR.send(:remove_const, :BarConverter)
+        Object::JAPR.send(:remove_const, :BazConverter)
       end
 
       it "converts asset multiple times if needed in order based on extension" do
@@ -291,7 +291,7 @@ describe JAP do
   describe "asset compression" do
     it "compresses assets with compressor based on file extension" do
       # Define test compressor
-      module JAP
+      module JAPR
         class CssCompressor < Compressor
           def self.filetype
             '.css'
@@ -314,7 +314,7 @@ describe JAP do
 
       # Clean up test compressor
       Compressor.subclasses.delete(CssCompressor)
-      Object::JAP.send(:remove_const, :CssCompressor)
+      Object::JAPR.send(:remove_const, :CssCompressor)
     end
   end
 
@@ -331,7 +331,7 @@ describe JAP do
 
     it "outputs error message if failure to convert asset" do
       # Define test converter
-      module JAP
+      module JAPR
         class BazConverter < Converter
           def self.filetype
             '.baz'
@@ -353,12 +353,12 @@ describe JAP do
 
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
-      Object::JAP.send(:remove_const, :BazConverter)
+      Object::JAPR.send(:remove_const, :BazConverter)
     end
 
     it "outputs error message if failure to compress asset" do
       # Define test compressor
-      module JAP
+      module JAPR
         class CssCompressor < Compressor
           def self.filetype
             '.css'
@@ -380,12 +380,12 @@ describe JAP do
 
       # Clean up test compressor
       Compressor.subclasses.delete(CssCompressor)
-      Object::JAP.send(:remove_const, :CssCompressor)
+      Object::JAPR.send(:remove_const, :CssCompressor)
     end
 
     it "stops processing pipeline if previously generated error" do
       # Define test converter
-      module JAP
+      module JAPR
         class BazConverter < Converter
           def self.filetype
             '.baz'
@@ -412,7 +412,7 @@ describe JAP do
 
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
-      Object::JAP.send(:remove_const, :BazConverter)
+      Object::JAPR.send(:remove_const, :BazConverter)
     end
 
   end

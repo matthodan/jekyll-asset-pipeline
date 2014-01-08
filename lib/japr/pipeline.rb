@@ -1,4 +1,4 @@
-module JAP
+module JAPR
   class Pipeline
     class << self
       # Generate hash based on manifest
@@ -85,7 +85,7 @@ module JAP
       @source = source
       @destination = destination
       @type = type
-      @options = JAP::DEFAULTS.merge(options)
+      @options = JAPR::DEFAULTS.merge(options)
 
       process
     end
@@ -110,7 +110,7 @@ module JAP
       begin
         @assets = YAML::load(@manifest).map! do |path|
           File.open(File.join(@source, path)) do |file|
-            JAP::Asset.new(file.read, File.basename(path))
+            JAPR::Asset.new(file.read, File.basename(path))
           end
         end
       rescue Exception => e
@@ -126,7 +126,7 @@ module JAP
         finished = false
         while finished == false
           # Find a converter to use
-          klass = JAP::Converter.subclasses.select do |c|
+          klass = JAPR::Converter.subclasses.select do |c|
             c.filetype == File.extname(asset.filename).downcase
           end.last
 
@@ -159,15 +159,15 @@ module JAP
         a.content
       end.join("\n")
 
-      hash = JAP::Pipeline.hash(@source, @manifest, @options)
-      @assets = [JAP::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
+      hash = JAPR::Pipeline.hash(@source, @manifest, @options)
+      @assets = [JAPR::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
     end
 
     # Compress assets if compressor is defined
     def compress
       @assets.each do |asset|
         # Find a compressor to use
-        klass = JAP::Compressor.subclasses.select do |c|
+        klass = JAPR::Compressor.subclasses.select do |c|
           c.filetype == @type
         end.last
 
@@ -186,7 +186,7 @@ module JAP
     def gzip
       @assets.map! do |asset|
         gzip_content = Zlib::Deflate.deflate(asset.content)
-        [asset, JAP::Asset.new(gzip_content, "#{asset.filename}.gz")]
+        [asset, JAPR::Asset.new(gzip_content, "#{asset.filename}.gz")]
       end.flatten!
     end
 
@@ -220,7 +220,7 @@ module JAP
       display_path = @options['display_path'] || @options['output_path']
 
       @html = @assets.map do |asset|
-        klass = JAP::Template.subclasses.select do |t|
+        klass = JAPR::Template.subclasses.select do |t|
           t.filetype == File.extname(asset.filename).downcase
         end.sort! { |x, y| x.priority <=> y.priority }.last
 

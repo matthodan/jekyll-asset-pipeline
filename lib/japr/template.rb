@@ -1,6 +1,6 @@
-module JAP
+module JAPR
   class Template
-    extend JAP::SubclassTracking
+    extend JAPR::SubclassTracking
 
     def initialize(path, filename)
       @path = path

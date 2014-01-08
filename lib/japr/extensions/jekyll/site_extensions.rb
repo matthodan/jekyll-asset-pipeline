@@ -1,4 +1,4 @@
-module JAP
+module JAPR
   module JekyllSiteExtensions
     def self.included(base)
       base.class_eval do

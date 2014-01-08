@@ -1,4 +1,4 @@
-module JAP
+module JAPR
   class Asset
     def initialize(content, filename)
       @content = content

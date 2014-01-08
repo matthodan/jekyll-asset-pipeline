@@ -1,5 +1,5 @@
-module JAP
-  class CssAssetTag < JAP::AssetTag
+module JAPR
+  class CssAssetTag < JAPR::AssetTag
     def self.tag_name
       'css_asset_tag'
     end
@@ -10,5 +10,5 @@ module JAP
   end
 
   # Register CssAssetTag tag with Liquid
-  ::Liquid::Template.register_tag(JAP::CssAssetTag.tag_name, JAP::CssAssetTag)
+  ::Liquid::Template.register_tag(JAPR::CssAssetTag.tag_name, JAPR::CssAssetTag)
 end

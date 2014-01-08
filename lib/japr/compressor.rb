@@ -1,6 +1,6 @@
-module JAP
+module JAPR
   class Compressor
-    extend JAP::SubclassTracking
+    extend JAPR::SubclassTracking
 
     def initialize(content)
       @content = content

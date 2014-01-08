@@ -7,10 +7,10 @@ describe Pipeline do
       let(:hash) do
         Digest::MD5.hexdigest(YAML::load(manifest).map! do |path|
           "#{path}#{File.mtime(File.join(source_path, path)).to_i}"
-        end.join.concat(JAP::DEFAULTS.to_s))
+        end.join.concat(JAPR::DEFAULTS.to_s))
       end
 
-      subject { JAP::Pipeline.hash(source_path, manifest) }
+      subject { JAPR::Pipeline.hash(source_path, manifest) }
 
       it "should return a md5 hash of the manifest contents" do
         subject.must_equal(hash)
@@ -43,7 +43,7 @@ describe Pipeline do
           klass.expect(:nil?, false)
         end
 
-        JAP::Template.stub(:subclasses, [klass]) do
+        JAPR::Template.stub(:subclasses, [klass]) do
           pipeline
         end
       end
@@ -69,11 +69,11 @@ describe Pipeline do
           YAML::load(manifest).size.times do
             converter.expect(:converted, 'converted')
             2.times { klass.expect(:filetype, '.scss') }
-            klass.expect(:new, converter, [JAP::Asset])
+            klass.expect(:new, converter, [JAPR::Asset])
             klass.expect(:nil?, false)
           end
 
-          JAP::Converter.stub(:subclasses, [klass]) do
+          JAPR::Converter.stub(:subclasses, [klass]) do
             pipeline
           end
         end
@@ -94,7 +94,7 @@ describe Pipeline do
         end
 
         it "generates a filename with md5 for the bundled asset" do
-          hash = JAP::Pipeline.hash(source_path, manifest, options)
+          hash = JAPR::Pipeline.hash(source_path, manifest, options)
           subject.last.filename.must_equal("#{prefix}-#{hash}#{type}")
         end
 
@@ -146,7 +146,7 @@ describe Pipeline do
             klass.expect(:nil?, false)
           end
 
-          JAP::Compressor.stub(:subclasses, [klass]) do
+          JAPR::Compressor.stub(:subclasses, [klass]) do
             pipeline
           end
         end

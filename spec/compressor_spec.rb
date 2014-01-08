@@ -29,7 +29,7 @@ describe Compressor do
   end
 
   context "with default compressor class" do
-    before { require './spec/resources/source/_plugins/jap' }
+    before { require './spec/resources/source/_plugins/japr' }
 
     describe "class methods" do
       describe "::filetype" do

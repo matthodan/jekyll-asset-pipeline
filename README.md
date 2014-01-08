@@ -1,6 +1,6 @@
-# Jekyll Asset Pipeline
+# Jekyll Asset Pipeline Reborn
 
-[Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses/minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
+Jekyll Asset Pipeline Reborn is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@
 ## Features
 
 - Declarative dependency management via asset manifests
-- Asset preprocessing/conversion (supports [CoffeeScript](http://coffeescript.org/), [Sass/Scss](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html), etc.)
+- Asset preprocessing/conversion (supports [CoffeeScript](http://coffeescript.org/), [Sass / Scss](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html), etc.)
 - Asset compression (supports [YUI Compressor](http://developer.yahoo.com/yui/compressor/), [Closure Compiler](https://developers.google.com/closure/compiler/), etc.)
 - Fingerprints bundled asset filenames with MD5 hashes for better browser caching
 - Automatic generation of HTML "link" and "script" tags that point to bundled assets
@@ -40,13 +40,13 @@ Jekyll Asset Pipeline's workflow can be summarized as follows:
 
 Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no incremental dependancies beyond those required by Jekyll.  Once you have a basic Jekyll site up and running, follow the steps below to install and configure Jekyll Asset Pipeline.
 
-1. Install the "jekyll-asset-pipeline" gem via [Rubygems](http://rubygems.org/).
+1. Install the "japr" gem via [Rubygems](http://rubygems.org/).
 
   ``` bash
-  $ gem install jekyll-asset-pipeline
+  $ gem install japr 
   ```
 
-  > *If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add "jekyll-asset-pipeline" to your Gemfile and run `bundle install`.*
+  > *If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add "japr" to your Gemfile and run `bundle install`.*
 
 2. Add a "\_plugins" folder to your project if you do not already have one.  Within the "\_plugins" folder, add a file named "jekyll\_asset\_pipeline.rb" with the following require statement as its contents.
 
@@ -282,7 +282,7 @@ asset_pipeline:
 
 [Octopress](http://octopress.org/) is a popular framework for Jekyll that can help you get a blog up and running quickly.  Jekyll Asset Pipeline can be added to an Octopress site using the [Getting Started](#getting-started) steps above with the following modifications:
 
-1. Octopress uses Bundler to manage your site's dependencies.  You should add `gem "jekyll-asset-pipeline"` to your Gemfile and then run `bundle install` to install.
+1. Octopress uses Bundler to manage your site's dependencies.  You should add `gem "japr"` to your Gemfile and then run `bundle install` to install.
 
 2. Instead of adding a "\_plugins" folder, you should put "jekyll\_asset\_pipeline.rb" in the "plugins" folder included by default in the root of your Octopress site.
 
@@ -296,7 +296,7 @@ If you have any difficulties using Jekyll Asset Pipeline with Octopress, please 
 
 ## Contribute
 
-You can contribute to the Jekyll Asset Pipeline by submitting a pull request [via GitHub](https://github.com/matthodan/jekyll-asset-pipeline).  I have identified the following areas for improvement:
+You can contribute to the Jekyll Asset Pipeline by submitting a pull request [via GitHub](https://github.com/matthodan/japr).  I have identified the following areas for improvement:
 
 - __Tests, tests, tests.__  I'm embarrassed to say that I didn't write a single test while building Jekyll Asset Pipeline.  This started as a hack for my blog and quickly grew into a library as I tweaked it to support my own needs.  **This project is now fully tested.**
 - __Handle remote assets.__ Right now, Jekyll Asset Pipeline does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which I thought was pretty interesting.  That said, I think it is generally better to keep remote assets separate so that they load asynchronously.  **After some thought, I've decided that this is not a priority.  If you disagree, let me know.**
@@ -310,9 +310,9 @@ Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook]
 
 ## Code Status
 
-- [![Build Status](https://secure.travis-ci.org/matthodan/jekyll-asset-pipeline.png)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
-- [![Dependency Status](https://gemnasium.com/matthodan/jekyll-asset-pipeline.png)](https://gemnasium.com/matthodan/jekyll-asset-pipeline)
-- [![Code Climate](https://codeclimate.com/github/matthodan/jekyll-asset-pipeline.png)](https://codeclimate.com/github/matthodan/jekyll-asset-pipeline)
+- [![Build Status](https://secure.travis-ci.org/kitsched/japr.png)](https://travis-ci.org/kitsched/japr)
+- [![Dependency Status](https://gemnasium.com/kitsched/japr.png)](https://gemnasium.com/kitsched/japr)
+- [![Code Climate](https://codeclimate.com/github/kitsched/japr.png)](https://codeclimate.com/github/kitsched/japr)
 
 ## Credits
 

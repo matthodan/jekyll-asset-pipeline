@@ -5,6 +5,9 @@ require 'minitest/pride'
 require './spec/helpers/extensions/ruby/module'
 require 'japr'
 
+require 'coveralls'
+Coveralls.wear!
+
 include JAPR
 
 class MiniTest::Spec

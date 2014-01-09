@@ -4,6 +4,8 @@
 
 JAPR is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 
+This project is a fork of [Jekyll Asset Pipeline](https://github.com/matthodan/jekyll-asset-pipeline) which, unfortunately, was pretty much abandonware.
+
 ## Table of Contents
 
 - [Features](#features)

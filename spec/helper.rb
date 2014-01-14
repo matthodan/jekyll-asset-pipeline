@@ -1,12 +1,12 @@
+require 'coveralls'
+Coveralls.wear!
+
 require 'rubygems'
 gem 'minitest' # Ensures we are using the gem and not the stdlib
 require 'minitest/autorun'
 require 'minitest/pride'
 require './spec/helpers/extensions/ruby/module'
 require 'japr'
-
-require 'coveralls'
-Coveralls.wear!
 
 include JAPR
 

@@ -46,7 +46,7 @@ describe Template do
       end
 
       describe "html" do
-        specify { subject.html.must_equal("<link href='/path/somefile.foo' rel='stylesheet' type='text/css' />\n") }
+        specify { subject.html.must_equal("<link href='/path/somefile.foo' rel='stylesheet' type='text/css' />") }
       end
     end
   end
@@ -71,7 +71,7 @@ describe Template do
       end
 
       describe "html" do
-        specify { subject.html.must_equal("<script src='/path/somefile.foo' type='text/javascript'></script>\n") }
+        specify { subject.html.must_equal("<script src='/path/somefile.foo' type='text/javascript'></script>") }
       end
     end
   end

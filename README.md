@@ -31,10 +31,10 @@
 
 Jekyll Asset Pipeline's workflow can be summarized as follows:
 
-1. Review site markup for instances of the `css_asset_tag` and `javascript_asset_tag` Liquid tags.  Each occurrence of either of these tags identifies when a new bundle needs to be created and outlines (via a manifest) which assets to include in the bundle.
+1. Review site markup for instances of the `css_asset_tag` and `js_asset_tag` Liquid tags.  Each occurrence of either of these tags identifies when a new bundle needs to be created and outlines (via a manifest) which assets to include in the bundle.
 2. Collect raw assets based on the manifest and run them through converters/preprocessors (if necessary) to convert them into valid CSS or JavaScript.
 3. Combine the processed assets into a single bundle, compress the bundled assets (if desired), and save the compressed bundle to the "_site" output folder.
-4. Replace `css_asset_tag` and `javascript_asset_tag` Liquid tags with HTML "link" and "script" tags, respectively, that link to finished bundles.
+4. Replace `css_asset_tag` and `js_asset_tag` Liquid tags with HTML "link" and "script" tags, respectively, that link to finished bundles.
 
 ## Getting Started
 
@@ -64,10 +64,10 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
   - /_assets/bar.css
   {% endcss_asset_tag %}
 
-  {% javascript_asset_tag global %}
+  {% js_asset_tag global %}
   - /_assets/foo.js
   - /_assets/bar.js
-  {% endjavascript_asset_tag %}
+  {% endjs_asset_tag %}
   ```
   > *Asset manifests must be formatted as YAML arrays and include full paths to each asset from the root of the project.  YAML [does not allow tabbed markup](http://www.yaml.org/faq.html), so you must use spaces when indenting your YAML manifest or you will get an error when you compile your site.  If you are using assets that must be preprocessed, you should append the appropriate extension (e.g. '.js.coffee', '.css.less') as discussed in the [Asset Preprocessing](#asset-preprocessing) section.*
 
@@ -76,7 +76,7 @@ Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no
   ``` bash
   Asset Pipeline: Processing 'css_asset_tag' manifest 'global'
   Asset Pipeline: Saved 'global-md5hash.css' to 'yoursitepath/assets'
-  Asset Pipeline: Processing 'javascript_asset_tag' manifest 'global'
+  Asset Pipeline: Processing 'js_asset_tag' manifest 'global'
   Asset Pipeline: Saved 'global-md5hash.js' to 'yoursitepath/assets'
   ```
 

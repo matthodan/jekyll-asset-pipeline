@@ -54,16 +54,16 @@ describe Template do
   context "with javascript_tag_template" do
     describe "class methods" do
       describe "::filetype" do
-        specify { JavaScriptTagTemplate.filetype.must_equal('.js') }
+        specify { JsTagTemplate.filetype.must_equal('.js') }
       end
 
       describe "::priority" do
-        specify { JavaScriptTagTemplate.priority.must_equal(-1) }
+        specify { JsTagTemplate.priority.must_equal(-1) }
       end
     end
 
     describe "instance methods" do
-      subject { JavaScriptTagTemplate.new('path', 'somefile.foo') }
+      subject { JsTagTemplate.new('path', 'somefile.foo') }
 
       describe "#new(path, filename)" do
         specify { subject.instance_variable_get(:@path).must_equal('path') }

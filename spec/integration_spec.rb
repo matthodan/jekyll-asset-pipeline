@@ -17,7 +17,7 @@ describe JAPR do
     $stdout.stub(:puts, nil) do
       config['output_path'] = 'foobar_assets'
       pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                      tag_name, extension, config)
+                                 tag_name, extension, config)
       pipeline.assets.each do |asset|
         file_path = File.join(source_path, DEFAULTS['staging_path'], config['output_path'], asset.filename)
         File.open(file_path) do |file|
@@ -43,12 +43,12 @@ describe JAPR do
 
   it "uses cached pipeline if manifest has been previously processed" do
     $stdout.stub(:puts, nil) do
-      pipeline1, cached1 = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                      tag_name, extension, config)
+      pipeline1, cached1 = Pipeline.run(manifest, prefix, source_path,
+                                        temp_path, tag_name, extension, config)
       cached1.must_equal(false)
 
-      pipeline2, cached2 = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                      tag_name, extension, config)
+      pipeline2, cached2 = Pipeline.run(manifest, prefix, source_path,
+                                        temp_path, tag_name, extension, config)
       cached2.must_equal(true)
       pipeline2.must_equal(pipeline1)
     end
@@ -71,7 +71,7 @@ describe JAPR do
 
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, '.css', config)
+                                   tag_name, '.css', config)
         pipeline.html.must_equal('foobar_template')
       end
 
@@ -96,7 +96,7 @@ describe JAPR do
 
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, '.js', config)
+                                   tag_name, '.js', config)
         pipeline.html.must_equal('foobar_template')
       end
 
@@ -110,7 +110,7 @@ describe JAPR do
     it "returns html link tag if css" do
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, '.css', config)
+                                   tag_name, '.css', config)
         pipeline.html.must_match(/link/i)
       end
     end
@@ -118,7 +118,7 @@ describe JAPR do
     it "returns html script tag if js" do
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, '.js', config)
+                                   tag_name, '.js', config)
         pipeline.html.must_match(/script/i)
       end
     end
@@ -127,7 +127,7 @@ describe JAPR do
       $stdout.stub(:puts, nil) do
         config['display_path'] = 'foo/bar/baz'
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, '.js', config)
+                                   tag_name, '.js', config)
         pipeline.html.must_match(/foo\/bar\/baz/)
       end
     end
@@ -141,7 +141,7 @@ describe JAPR do
     it "bundles assets into one file when bundle => true" do
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, extension, config)
+                                   tag_name, extension, config)
         pipeline.assets.size.must_equal(1)
       end
     end
@@ -149,7 +149,7 @@ describe JAPR do
     it "saves bundled file with filename starting with prefix" do
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, extension, config)
+                                   tag_name, extension, config)
         pipeline.assets.each do |asset|
           asset.filename[0, prefix.length].must_equal(prefix)
         end
@@ -165,7 +165,7 @@ describe JAPR do
     it "saves each file in manifest" do
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, extension, config)
+                                   tag_name, extension, config)
         file_paths = YAML.load(manifest)
         pipeline.assets.size.must_equal(file_paths.size)
         files = file_paths.map { |f| File.basename(f) }
@@ -194,7 +194,7 @@ describe JAPR do
       manifest = "- /_assets/unconverted.css.baz"
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, extension, config)
+                                   tag_name, extension, config)
         pipeline.assets.each do |asset|
           asset.content.must_equal('converted')
         end
@@ -222,7 +222,7 @@ describe JAPR do
       manifest = "- /_assets/unconverted.baz"
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, extension, config)
+                                   tag_name, extension, config)
         pipeline.assets.each do |asset|
           asset.content.must_equal('converted')
           File.extname(asset.filename).must_equal('.css')
@@ -272,14 +272,14 @@ describe JAPR do
         $stdout.stub(:puts, nil) do
           manifest = "- /_assets/unconverted.css.baz.bar"
           pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                          tag_name, extension, config)
+                                     tag_name, extension, config)
           pipeline.assets.each do |asset|
             asset.content.must_equal('converted to baz')
           end
 
           manifest = "- /_assets/unconverted.css.bar.baz"
           pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                          tag_name, extension, config)
+                                     tag_name, extension, config)
           pipeline.assets.each do |asset|
             asset.content.must_equal('converted to bar')
           end
@@ -306,7 +306,7 @@ describe JAPR do
       $stdout.stub(:puts, nil) do
         manifest = "- /_assets/uncompressed.css"
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                        tag_name, extension, config)
+                                   tag_name, extension, config)
         pipeline.assets.each do |asset|
           asset.content.must_equal('compressed')
         end

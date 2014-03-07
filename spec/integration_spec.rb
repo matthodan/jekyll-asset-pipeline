@@ -166,7 +166,7 @@ describe JAPR do
       $stdout.stub(:puts, nil) do
         pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
                                         tag_name, extension, config)
-        file_paths = YAML::load(manifest)
+        file_paths = YAML.load(manifest)
         pipeline.assets.size.must_equal(file_paths.size)
         files = file_paths.map { |f| File.basename(f) }
         pipeline.assets.each do |asset|

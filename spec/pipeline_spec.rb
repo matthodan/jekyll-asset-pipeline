@@ -5,7 +5,7 @@ describe Pipeline do
     describe "::hash(source, manifest, options = {})" do
       let(:manifest) { "- /_assets/foo.css\n- /_assets/bar.css" }
       let(:expected_hash) do
-        Digest::MD5.hexdigest(YAML::load(manifest).map! do |path|
+        Digest::MD5.hexdigest(YAML.load(manifest).map! do |path|
           "#{path}#{File.mtime(File.join(source_path, path)).to_i}"
         end.join.concat(JAPR::DEFAULTS.to_s))
       end
@@ -36,7 +36,7 @@ describe Pipeline do
         template = MiniTest::Mock.new
         klass = MiniTest::Mock.new
 
-        YAML::load(manifest).size.times do
+        YAML.load(manifest).size.times do
           template.expect(:html, 'html')
           klass.expect(:filetype, '.css')
           klass.expect(:new, template, [String, String])
@@ -66,7 +66,7 @@ describe Pipeline do
           converter = MiniTest::Mock.new
           klass = MiniTest::Mock.new
 
-          YAML::load(manifest).size.times do
+          YAML.load(manifest).size.times do
             converter.expect(:converted, 'converted')
             2.times { klass.expect(:filetype, '.scss') }
             klass.expect(:new, converter, [JAPR::Asset])
@@ -89,7 +89,7 @@ describe Pipeline do
         before { pipeline }
 
         it "has one asset when multiple files are in manifest" do
-          YAML::load(manifest).size.must_be :>, 1
+          YAML.load(manifest).size.must_be :>, 1
           subject.size.must_equal(1)
         end
 
@@ -111,11 +111,11 @@ describe Pipeline do
         before { pipeline }
 
         it "has same number of assets as files in manifest" do
-          subject.size.must_equal(YAML::load(manifest).size)
+          subject.size.must_equal(YAML.load(manifest).size)
         end
 
         it "does not change the filenames of the assets" do
-          YAML::load(manifest).each do |p|
+          YAML.load(manifest).each do |p|
             subject.select do |a|
               a.filename == File.basename(p)
             end.size.must_equal(1)
@@ -138,7 +138,7 @@ describe Pipeline do
           compressor = MiniTest::Mock.new
           klass = MiniTest::Mock.new
 
-          YAML::load(manifest).size.times do
+          YAML.load(manifest).size.times do
             compressor.expect(:compressed, 'compressed')
             klass.expect(:filetype, '.css')
             klass.expect(:new, compressor, [String])
@@ -166,7 +166,7 @@ describe Pipeline do
         end
 
         it "has twice as many assets as files in manifest" do
-          subject.size.must_equal(YAML::load(manifest).size * 2)
+          subject.size.must_equal(YAML.load(manifest).size * 2)
         end
 
         it "creates half of assets with filenames ending in .gz" do

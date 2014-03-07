@@ -5,7 +5,7 @@ module JAPR
       def hash(source, manifest, options = {})
         options = DEFAULTS.merge(options)
         begin
-          Digest::MD5.hexdigest(YAML::load(manifest).map! do |path|
+          Digest::MD5.hexdigest(YAML.load(manifest).map! do |path|
             "#{path}#{File.mtime(File.join(source, path)).to_i}"
           end.join.concat(options.to_s))
         rescue Exception => e
@@ -105,7 +105,7 @@ module JAPR
 
     # Collect assets based on manifest
     def collect
-      @assets = YAML::load(@manifest).map! do |path|
+      @assets = YAML.load(@manifest).map! do |path|
         File.open(File.join(@source, path)) do |file|
           JAPR::Asset.new(file.read, File.basename(path))
         end
@@ -193,7 +193,7 @@ module JAPR
 
       @assets.each do |asset|
         directory = File.join(@source, staging_path, output_path)
-        FileUtils::mkpath(directory) unless File.directory?(directory)
+        FileUtils.mkpath(directory) unless File.directory?(directory)
 
         begin
           # Save file to disk

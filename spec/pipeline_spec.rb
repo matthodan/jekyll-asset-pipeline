@@ -103,7 +103,7 @@ describe Pipeline do
           staging_path = File.join(source_path, DEFAULTS['staging_path'], asset.output_path, asset.filename)
           File.exist?(staging_path).must_equal(true)
         end
-      end #context "bundle => true"
+      end # context "bundle => true"
 
       context "bundle => false" do
         let(:options) { { 'bundle' => false } }
@@ -128,7 +128,7 @@ describe Pipeline do
             File.exist?(staging_path).must_equal(true)
           end
         end
-      end #context "bundle => false"
+      end # context "bundle => false"
 
       context "compress => true" do
         let(:options) { { 'compress' => true } }

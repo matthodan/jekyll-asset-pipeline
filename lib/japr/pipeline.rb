@@ -28,7 +28,7 @@ module JAPR
             puts "Processing '#{tag}' manifest '#{prefix}'"
 
             # Create and process new pipeline
-            pipeline = self.new(manifest, prefix, source, destination, type, config)
+            pipeline = new(manifest, prefix, source, destination, type, config)
             pipeline.assets.each do |asset|
               puts "Saved '#{asset.filename}' to '#{destination}/#{asset.output_path}'"
             end
@@ -60,16 +60,14 @@ module JAPR
 
       # Remove staged assets
       def remove_staged_assets(source, config)
-        begin
-          config = DEFAULTS.merge(config)
-          staging_path = File.join(source, config['staging_path'])
-          FileUtils.rm_rf(staging_path)
+        config = DEFAULTS.merge(config)
+        staging_path = File.join(source, config['staging_path'])
+        FileUtils.rm_rf(staging_path)
         rescue Exception => e
           puts "Failed to remove staged assets."
 
           # Re-raise the exception
           raise e
-        end
       end
 
       # Add prefix to output
@@ -107,16 +105,14 @@ module JAPR
 
     # Collect assets based on manifest
     def collect
-      begin
-        @assets = YAML::load(@manifest).map! do |path|
-          File.open(File.join(@source, path)) do |file|
-            JAPR::Asset.new(file.read, File.basename(path))
-          end
+      @assets = YAML::load(@manifest).map! do |path|
+        File.open(File.join(@source, path)) do |file|
+          JAPR::Asset.new(file.read, File.basename(path))
         end
+      end
       rescue Exception => e
         puts "Asset Pipeline: Failed to load assets from provided manifest."
         raise e
-      end
     end
 
     # Convert assets based on the file extension if converter is defined

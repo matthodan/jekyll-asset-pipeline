@@ -25,7 +25,7 @@ describe Pipeline do
     let(:manifest) { "- /_assets/foo.css\n- /_assets/bar.css" }
     let(:prefix) { 'foobar' }
     let(:type) { '.css' }
-    let(:options) { { } }
+    let(:options) { {} }
     let(:pipeline) { Pipeline.new(manifest, prefix, source_path, temp_path, type, options) }
 
     describe "#html" do
@@ -124,7 +124,6 @@ describe Pipeline do
 
         it "saves assets to disk at the staging path" do
           subject.each do |a|
-            asset = subject.last
             staging_path = File.join(source_path, DEFAULTS['staging_path'], a.output_path, a.filename)
             File.exist?(staging_path).must_equal(true)
           end

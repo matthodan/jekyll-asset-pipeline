@@ -8,7 +8,7 @@ module JAPR
         # Override Jekyll::Site#cleanup
         define_method(:cleanup) do
           # Run the Jekyll::Site#cleanup method
-          original_return_val = old_cleanup_method.bind(self).call()
+          original_return_val = old_cleanup_method.bind(self).call
 
           # Clear Jekyll Asset Pipeline cache
           Pipeline.clear_cache
@@ -22,11 +22,11 @@ module JAPR
         # Override Jekyll::Site#write
         define_method(:write) do
           # Run the Jekyll::Site#write method
-          original_return_value = old_write_method.bind(self).call()
+          original_return_value = old_write_method.bind(self).call
 
           # Clear Jekyll Asset Pipeline staged assets
           config = self.config['asset_pipeline'] || {}
-          Pipeline.remove_staged_assets(self.source, config)
+          Pipeline.remove_staged_assets(source, config)
 
           original_return_value
         end

@@ -1,6 +1,6 @@
 # JAPR (Jekyll Asset Pipeline Reborn)
 
-[![Gem Version](https://badge.fury.io/rb/japr.png)](http://badge.fury.io/rb/japr) [![Build Status](https://secure.travis-ci.org/kitsched/japr.png)](https://travis-ci.org/kitsched/japr) [![Coverage Status](https://coveralls.io/repos/kitsched/japr/badge.png)](https://coveralls.io/r/kitsched/japr) [![Dependency Status](https://gemnasium.com/kitsched/japr.png)](https://gemnasium.com/kitsched/japr) [![Code Climate](https://codeclimate.com/github/kitsched/japr.png)](https://codeclimate.com/github/kitsched/japr)
+[![Gem Version](https://badge.fury.io/rb/japr.png)](http://badge.fury.io/rb/japr) [![Build Status](https://secure.travis-ci.org/kitsched/japr.png)](https://travis-ci.org/kitsched/japr) [![Coverage Status](https://coveralls.io/repos/kitsched/japr/badge.png?branch=master)](https://coveralls.io/r/kitsched/japr?branch=master) [![Dependency Status](https://gemnasium.com/kitsched/japr.png)](https://gemnasium.com/kitsched/japr) [![Code Climate](https://codeclimate.com/github/kitsched/japr.png)](https://codeclimate.com/github/kitsched/japr)
 
 JAPR is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 

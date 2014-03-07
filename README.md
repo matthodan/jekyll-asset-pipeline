@@ -18,7 +18,6 @@ This project is a fork of [Jekyll Asset Pipeline](https://github.com/matthodan/j
 - [Octopress](#octopress)
 - [Contribute](#contribute)
 - [Community](#community)
-- [Code Status](#code-status)
 - [Credits](#credits)
 - [License](#license)
 
@@ -303,8 +302,8 @@ If you have any difficulties using JAPR with Octopress, please [open an issue](h
 You can contribute to the JAPR by submitting a pull request [via GitHub](https://github.com/kitsched/japr). There are a few areas that need improvement:
 
 - __Tests, tests, tests.__  **This project is now almost fully tested.**
-- __Handle remote assets.__ Right now, JAPR does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting.  That said, it is generally better to keep remote assets separate so that they load asynchronously.
-- __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.  **As of v0.1.0, JAPR now supports successive preprocessing.**
+- __Handle remote assets.__ Right now, JAPR does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting. That said, it is generally better to keep remote assets separate so that they load asynchronously.
+- __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.**As of v0.1.0, JAPR now supports successive preprocessing.**
 
 If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/kitsched/japr/issues).
 

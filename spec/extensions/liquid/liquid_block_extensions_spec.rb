@@ -52,7 +52,7 @@ describe LiquidBlockExtensions do
 
       let(:context) do
         context = MiniTest::Mock.new
-        context.expect(:registers, { site: site })
+        context.expect(:registers, site: site)
         context
       end
 
@@ -82,7 +82,7 @@ describe LiquidBlockExtensions do
 
       let(:context) do
         context = MiniTest::Mock.new
-        context.expect(:registers, { site: site })
+        context.expect(:registers, site: site)
         context
       end
 

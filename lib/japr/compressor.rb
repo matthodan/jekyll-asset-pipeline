@@ -4,7 +4,7 @@ module JAPR
 
     def initialize(content)
       @content = content
-      @compressed = self.compress
+      @compressed = compress
     end
 
     # Returns compressed content

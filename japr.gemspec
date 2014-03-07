@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.email                   = 'japr@clicktrackheart.com'
   s.homepage                = 'https://github.com/kitsched/japr'
   s.license                 = 'MIT'
-  s.required_ruby_version = '>= 1.9.3'
-  
+  s.required_ruby_version   = '>= 1.9.3'
+
   # Runtime dependencies
   s.add_runtime_dependency 'jekyll', '~> 1.1'
   s.add_runtime_dependency 'liquid', '~> 2.4'

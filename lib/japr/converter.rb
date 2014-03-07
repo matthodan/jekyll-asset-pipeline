@@ -5,7 +5,7 @@ module JAPR
     def initialize(asset)
       @content = asset.content
       @type = File.extname(asset.filename).downcase
-      @converted = self.convert
+      @converted = convert
     end
 
     def converted

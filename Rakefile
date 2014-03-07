@@ -1,7 +1,7 @@
 require 'rake'
 require 'rake/testtask'
 
-task :default => [:test]
+task default: [:test]
 
 Rake::TestTask.new(:test) do |test|
   test.libs << 'spec'

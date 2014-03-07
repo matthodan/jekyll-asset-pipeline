@@ -30,6 +30,6 @@ class MiniTest::Spec
 
   # Let us use 'context' in specs
   class << self
-    alias :context  :describe
+    alias_method :context, :describe
   end
 end

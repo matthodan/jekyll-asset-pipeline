@@ -26,7 +26,7 @@ describe JekyllSiteExtensions do
 
   it "clears JAPR::Cache when Jekyll::Site#cleanup is called" do
     subject # Setup subject
-    Pipeline.cache.has_key?('foo').must_equal(false)
+    Pipeline.cache.key?('foo').must_equal(false)
   end
 
   it "returns the same value as the original Jekyll::Site#cleanup method" do

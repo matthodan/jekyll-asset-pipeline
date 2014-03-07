@@ -4,7 +4,7 @@ describe Pipeline do
   describe "class methods" do
     describe "::hash(source, manifest, options = {})" do
       let(:manifest) { "- /_assets/foo.css\n- /_assets/bar.css" }
-      let(:hash) do
+      let(:expected_hash) do
         Digest::MD5.hexdigest(YAML::load(manifest).map! do |path|
           "#{path}#{File.mtime(File.join(source_path, path)).to_i}"
         end.join.concat(JAPR::DEFAULTS.to_s))
@@ -13,7 +13,7 @@ describe Pipeline do
       subject { JAPR::Pipeline.hash(source_path, manifest) }
 
       it "should return a md5 hash of the manifest contents" do
-        subject.must_equal(hash)
+        subject.must_equal expected_hash
       end
     end # describe "::hash(source, manifest, options = {})"
   end # describe "class methods"

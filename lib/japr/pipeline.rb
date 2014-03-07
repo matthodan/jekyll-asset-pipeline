@@ -20,7 +20,7 @@ module JAPR
         hash = hash(source, manifest, config)
 
         # Check if pipeline has been cached
-        if cache.has_key?(hash)
+        if cache.key?(hash)
           # Return cached pipeline and cached status
           return cache[hash], true
         else

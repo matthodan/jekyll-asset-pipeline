@@ -4,7 +4,7 @@
 
 JAPR is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 
-This project is a fork of [Jekyll Asset Pipeline](https://github.com/matthodan/jekyll-asset-pipeline) which, unfortunately, was pretty much abandonware.
+This project is a fork of [Jekyll Asset Pipeline](https://github.com/matthodan/jekyll-asset-pipeline) by [Matt Hodan](https://github.com/matthodan) which, unfortunately, was pretty much abandonware.
 
 ## Table of Contents
 
@@ -35,14 +35,14 @@ This project is a fork of [Jekyll Asset Pipeline](https://github.com/matthodan/j
 
 JAPR's workflow can be summarized as follows:
 
-1. Review site markup for instances of the `css_asset_tag` and `javascript_asset_tag` Liquid tags.  Each occurrence of either of these tags identifies when a new bundle needs to be created and outlines (via a manifest) which assets to include in the bundle.
-2. Collect raw assets based on the manifest and run them through converters/preprocessors (if necessary) to convert them into valid CSS or JavaScript.
-3. Combine the processed assets into a single bundle, compress the bundled assets (if desired), and save the compressed bundle to the "_site" output folder.
-4. Replace `css_asset_tag` and `javascript_asset_tag` Liquid tags with HTML "link" and "script" tags, respectively, that link to finished bundles.
+1. Reviews site markup for instances of the `css_asset_tag` and `javascript_asset_tag` Liquid tags.  Each occurrence of either of these tags identifies when a new bundle needs to be created and outlines (via a manifest) which assets to include in the bundle.
+2. Collects raw assets based on the manifest and runs them through converters/preprocessors (if necessary) to convert them into valid CSS or JavaScript.
+3. Combines the processed assets into a single bundle, compresses the bundled assets (if desired) and saves the compressed bundle to the "_site" output folder.
+4. Replaces `css_asset_tag` and `javascript_asset_tag` Liquid tags with HTML "link" and "script" tags, respectively, that link to the finished bundles.
 
 ## Getting Started
 
-JAPR is extremely easy to add to your Jekyll project and has no incremental dependancies beyond those required by Jekyll.  Once you have a basic Jekyll site up and running, follow the steps below to install and configure JAPR.
+JAPR is extremely easy to add to your Jekyll project and has no incremental dependencies beyond those required by Jekyll. Once you have a basic Jekyll site up and running, follow the steps below to install and configure JAPR.
 
 1. Install the "japr" gem via [Rubygems](http://rubygems.org/).
 
@@ -58,7 +58,7 @@ JAPR is extremely easy to add to your Jekyll project and has no incremental depe
   require 'japr'
   ```
 
-3. Move your assets into a Jekyll ignored folder (i.e. a folder that begins with an underscore "\_") so that Jekyll won't include these raw assets in the site output.  I recommend using an "\_assets" folder to hold your site's assets.
+3. Move your assets into a Jekyll ignored folder (i.e. a folder that begins with an underscore "\_") so that Jekyll won't include these raw assets in the site output.  It is recommended to use an "\_assets" folder to hold your site's assets.
 
 4. Add the following [Liquid](http://liquidmarkup.org/) blocks to your site's HTML "head" section.  These blocks will be converted into HTML "link" and "script" tags that point to bundled assets.  Within each block is a manifest of assets to include in the bundle.  Assets are included in the same order that they are listed in the manifest.  Replace the "foo" and "bar" assets with your site's assets.  At this point we are just using plain old javascript and css files (hence the ".js" and ".css" extensions).  See the [Asset Preprocessing](#asset-preprocessing) section to learn how to include files that must be preprocessed (e.g. CoffeeScript, Sass, Less, Erb, etc.).  Name the bundle by including a string after the opening tag.  We've named our bundles "global" in the below example.
 
@@ -134,7 +134,7 @@ That is it!  Your asset pipeline has converted any CoffeeScript assets into Java
 
 ### SASS/SCSS
 
-You probably get the gist of how converters work, but I thought I'd add an example of a SASS converter for quick reference.
+You probably get the gist of how converters work, but here's an example of a SASS converter for quick reference.
 
   ``` ruby
   module JAPR
@@ -214,7 +214,7 @@ That is it!  Your asset pipeline has compressed your CSS and JavaScript assets. 
 
 ### Google's Closure Compiler
 
-You probably get the gist of how compressors work, but I thought I'd add an example of a Google Closure Compiler compressor for quick reference.
+You probably get the gist of how compressors work, but here's an example of a Google Closure Compiler compressor for quick reference.
 
   ``` ruby
   class JavaScriptCompressor < JAPR::Compressor
@@ -300,13 +300,13 @@ If you have any difficulties using JAPR with Octopress, please [open an issue](h
 
 ## Contribute
 
-You can contribute to the JAPR by submitting a pull request [via GitHub](https://github.com/matthodan/japr).  I have identified the following areas for improvement:
+You can contribute to the JAPR by submitting a pull request [via GitHub](https://github.com/kitsched/japr). There are a few areas that need improvement:
 
-- __Tests, tests, tests.__  I'm embarrassed to say that I didn't write a single test while building JAPR.  This started as a hack for my blog and quickly grew into a library as I tweaked it to support my own needs.  **This project is now fully tested.**
-- __Handle remote assets.__ Right now, JAPR does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which I thought was pretty interesting.  That said, I think it is generally better to keep remote assets separate so that they load asynchronously.  **After some thought, I've decided that this is not a priority.  If you disagree, let me know.**
+- __Tests, tests, tests.__  **This project is now almost fully tested.**
+- __Handle remote assets.__ Right now, JAPR does not provide any way to include remote assets in bundles unless you save them locally before generating your site.  Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting.  That said, it is generally better to keep remote assets separate so that they load asynchronously.
 - __Successive preprocessing.__ Currently you can only preprocess a file once.  It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled.  **As of v0.1.0, JAPR now supports successive preprocessing.**
 
-Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook](http://facebook.com/matthodan).
+If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/kitsched/japr/issues).
 
 ## Community
 
@@ -315,14 +315,9 @@ Feel free to message me on [Twitter](http://twitter.com/matthodan) or [Facebook]
 
 ## Credits
 
-As I was building JAPR, I came across a number of tools that I was able to draw inspiration and best practices from, but one stood out in particular...  I have to give credit to [Moshen](https://github.com/moshen/) for creating the [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler).
-
-I also have to give credit to [Mojombo](https://github.com/mojombo) for creating [Jekyll](https://github.com/mojombo/jekyll) in the first place.
+* [Moshen](https://github.com/moshen/) for creating the [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler).
+* [Mojombo](https://github.com/mojombo) for creating [Jekyll](https://github.com/mojombo/jekyll) in the first place.
 
 ## License
 
 JAPR is released under the [MIT License](http://opensource.org/licenses/MIT).
-
----
-
-Like this project?  You may want to read [my blog](http://www.matthodan.com).

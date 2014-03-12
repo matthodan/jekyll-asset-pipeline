@@ -159,8 +159,12 @@ module JekyllAssetPipeline
         a.content
       end.join("\n")
 
-      hash = JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
-      @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
+      if @options['fingerprint'] == false
+        @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}#{@type}")]
+      else
+        hash = JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
+        @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
+      end
     end
 
     # Compress assets if compressor is defined

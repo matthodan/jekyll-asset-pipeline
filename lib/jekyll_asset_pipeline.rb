@@ -48,6 +48,7 @@ module JekyllAssetPipeline
     'display_path'  => nil,
     'staging_path'  => '.asset_pipeline',
     'bundle'        => true,
+    'fingerprint'   => true,
     'compress'      => true,
     'gzip'          => false
   }

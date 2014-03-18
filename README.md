@@ -131,7 +131,7 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 
 That is it!  Your asset pipeline has converted any CoffeeScript assets into JavaScript before adding them to a bundle.
 
-### SASS/SCSS
+### SASS / SCSS
 
 You probably get the gist of how converters work, but here's an example of a SASS converter for quick reference.
 

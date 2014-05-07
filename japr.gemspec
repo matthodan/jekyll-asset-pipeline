@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version   = '>= 1.9.3'
 
   # Runtime dependencies
-  s.add_runtime_dependency 'jekyll', '~> 1.1'
+  s.add_runtime_dependency 'jekyll', '~> 2.0'
   s.add_runtime_dependency 'liquid', '~> 2.4'
 
   # Development dependencies

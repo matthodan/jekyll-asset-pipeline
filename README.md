@@ -35,7 +35,7 @@ This project is a fork of [Jekyll Asset Pipeline](https://github.com/matthodan/j
 JAPR's workflow can be summarized as follows:
 
 1. Reviews site markup for instances of the `css_asset_tag` and `javascript_asset_tag` Liquid tags.  Each occurrence of either of these tags identifies when a new bundle needs to be created and outlines (via a manifest) which assets to include in the bundle.
-2. Collects raw assets based on the manifest and runs them through converters/preprocessors (if necessary) to convert them into valid CSS or JavaScript.
+2. Collects raw assets based on the manifest and runs them through converters / preprocessors (if necessary) to convert them into valid CSS or JavaScript.
 3. Combines the processed assets into a single bundle, compresses the bundled assets (if desired) and saves the compressed bundle to the "_site" output folder.
 4. Replaces `css_asset_tag` and `javascript_asset_tag` Liquid tags with HTML "link" and "script" tags, respectively, that link to the finished bundles.
 

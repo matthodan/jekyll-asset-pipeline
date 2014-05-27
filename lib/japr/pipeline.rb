@@ -9,7 +9,7 @@ module JAPR
             "#{path}#{File.mtime(File.join(source, path)).to_i}"
           end.join.concat(options.to_s))
         rescue Exception => e
-          puts "Failed to generate hash from provided manifest."
+          puts "Failed to generate hash from provided manifest: " + e.message
           raise e
         end
       end
@@ -64,7 +64,7 @@ module JAPR
         staging_path = File.join(source, config['staging_path'])
         FileUtils.rm_rf(staging_path)
         rescue Exception => e
-          puts "Failed to remove staged assets."
+          puts "Failed to remove staged assets: " + e.message
 
           # Re-raise the exception
           raise e
@@ -112,7 +112,7 @@ module JAPR
         end
       end
       rescue Exception => e
-        puts "Asset Pipeline: Failed to load assets from provided manifest."
+        puts "Asset Pipeline: Failed to load assets from provided manifest: " + e.message
         raise e
     end
 
@@ -140,7 +140,7 @@ module JAPR
               # Add back the output extension if no extension left
               asset.filename = "#{asset.filename}#{@type}" if File.extname(asset.filename) == ''
             rescue Exception => e
-              puts "Asset Pipeline: Failed to convert '#{asset.filename}' with '#{klass.to_s}'."
+              puts "Asset Pipeline: Failed to convert '#{asset.filename}' with '#{klass.to_s}': " + e.message
               raise e
             end
           else
@@ -172,7 +172,7 @@ module JAPR
           begin
             asset.content = klass.new(asset.content).compressed
           rescue Exception => e
-            puts "Asset Pipeline: Failed to compress '#{asset.filename}' with '#{klass.to_s}'."
+            puts "Asset Pipeline: Failed to compress '#{asset.filename}' with '#{klass.to_s}': " + e.message
             raise e
           end
         end
@@ -202,7 +202,7 @@ module JAPR
             file.write(asset.content)
           end
         rescue Exception => e
-          puts "Asset Pipeline: Failed to save '#{asset.filename}' to disk."
+          puts "Asset Pipeline: Failed to save '#{asset.filename}' to disk: " + e.message
           raise e
         end
 

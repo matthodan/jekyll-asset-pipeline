@@ -26,7 +26,9 @@ describe Pipeline do
     let(:prefix) { 'foobar' }
     let(:type) { '.css' }
     let(:options) { {} }
-    let(:pipeline) { Pipeline.new(manifest, prefix, source_path, temp_path, type, options) }
+    let(:pipeline) do
+      Pipeline.new(manifest, prefix, source_path, temp_path, type, options)
+    end
 
     describe "#html" do
       subject { pipeline.html }
@@ -100,7 +102,8 @@ describe Pipeline do
 
         it "saves asset to disk at the staging path" do
           asset = subject.last
-          staging_path = File.join(source_path, DEFAULTS['staging_path'], asset.output_path, asset.filename)
+          staging_path = File.join(source_path, DEFAULTS['staging_path'],
+                                   asset.output_path, asset.filename)
           File.exist?(staging_path).must_equal(true)
         end
       end # context "bundle => true"
@@ -124,7 +127,8 @@ describe Pipeline do
 
         it "saves assets to disk at the staging path" do
           subject.each do |a|
-            staging_path = File.join(source_path, DEFAULTS['staging_path'], a.output_path, a.filename)
+            staging_path = File.join(source_path, DEFAULTS['staging_path'],
+                                     a.output_path, a.filename)
             File.exist?(staging_path).must_equal(true)
           end
         end

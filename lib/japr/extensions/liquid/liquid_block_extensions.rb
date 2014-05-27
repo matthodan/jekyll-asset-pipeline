@@ -24,7 +24,8 @@ module JAPR
         # Prevent Jekyll from cleaning up saved assets if new pipeline
         pipeline.assets.each do |asset|
           config = JAPR::DEFAULTS.merge(config)
-          staging_path = File.expand_path(File.join(site.source, config['staging_path']))
+          staging_path = File.expand_path(File.join(site.source,
+                                                    config['staging_path']))
           site.static_files << Jekyll::StaticFile.new(site, staging_path,
                                                       asset.output_path,
                                                       asset.filename)

@@ -10,5 +10,6 @@ module JAPR
   end
 
   # Register JavaScriptAssetTag tag with Liquid
-  ::Liquid::Template.register_tag(JAPR::JavaScriptAssetTag.tag_name, JAPR::JavaScriptAssetTag)
+  ::Liquid::Template.register_tag(JAPR::JavaScriptAssetTag.tag_name,
+                                  JAPR::JavaScriptAssetTag)
 end

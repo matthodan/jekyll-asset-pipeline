@@ -19,7 +19,8 @@ describe JAPR do
       pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,
                                  tag_name, extension, config)
       pipeline.assets.each do |asset|
-        file_path = File.join(source_path, DEFAULTS['staging_path'], config['output_path'], asset.filename)
+        file_path = File.join(source_path, DEFAULTS['staging_path'],
+                              config['output_path'], asset.filename)
         File.open(file_path) do |file|
           file.read.must_equal(asset.content)
         end
@@ -32,8 +33,9 @@ describe JAPR do
     filename = "#{prefix}-#{hash}#{extension}"
     path = File.join(temp_path, DEFAULTS['output_path'])
 
-    expected = "Asset Pipeline: Processing '#{tag_name}' manifest '#{prefix}'\n" \
-               "Asset Pipeline: Saved '#{filename}' to '#{path}'\n"
+    expected =
+      "Asset Pipeline: Processing '#{tag_name}' manifest '#{prefix}'\n" \
+      "Asset Pipeline: Saved '#{filename}' to '#{path}'\n"
 
     proc do
       Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
@@ -268,7 +270,8 @@ describe JAPR do
         Object::JAPR.send(:remove_const, :BazConverter)
       end
 
-      it "converts asset multiple times if needed in order based on extension" do
+      it "converts asset multiple times if needed in order based on " \
+         "extension" do
         $stdout.stub(:puts, nil) do
           manifest = "- /_assets/unconverted.css.baz.bar"
           pipeline, _ = Pipeline.run(manifest, prefix, source_path, temp_path,

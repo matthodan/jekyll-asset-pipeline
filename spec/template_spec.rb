@@ -17,7 +17,9 @@ describe Template do
 
       describe "#new(path, filename)" do
         specify { subject.instance_variable_get(:@path).must_equal('path') }
-        specify { subject.instance_variable_get(:@filename).must_equal('somefile.foo') }
+        specify do
+          subject.instance_variable_get(:@filename).must_equal('somefile.foo')
+        end
       end
 
       describe "html" do
@@ -41,12 +43,19 @@ describe Template do
       subject { CssTagTemplate.new('path', 'somefile.foo') }
 
       describe "#new(path, filename)" do
-        specify { subject.instance_variable_get(:@path).must_equal('path') }
-        specify { subject.instance_variable_get(:@filename).must_equal('somefile.foo') }
+        specify do
+          subject.instance_variable_get(:@path).must_equal('path')
+        end
+        specify do
+          subject.instance_variable_get(:@filename).must_equal('somefile.foo')
+        end
       end
 
       describe "html" do
-        specify { subject.html.must_equal("<link href='/path/somefile.foo' rel='stylesheet' type='text/css' />") }
+        specify do
+          subject.html.must_equal("<link href='/path/somefile.foo' " \
+                                  "rel='stylesheet' type='text/css' />")
+        end
       end
     end
   end
@@ -66,12 +75,19 @@ describe Template do
       subject { JavaScriptTagTemplate.new('path', 'somefile.foo') }
 
       describe "#new(path, filename)" do
-        specify { subject.instance_variable_get(:@path).must_equal('path') }
-        specify { subject.instance_variable_get(:@filename).must_equal('somefile.foo') }
+        specify do
+          subject.instance_variable_get(:@path).must_equal('path')
+        end
+        specify do
+          subject.instance_variable_get(:@filename).must_equal('somefile.foo')
+        end
       end
 
       describe "html" do
-        specify { subject.html.must_equal("<script src='/path/somefile.foo' type='text/javascript'></script>") }
+        specify do
+          subject.html.must_equal("<script src='/path/somefile.foo' " \
+                                  "type='text/javascript'></script>")
+        end
       end
     end
   end
@@ -91,8 +107,12 @@ describe Template do
       subject { TestTemplate.new('path', 'somefile.foo') }
 
       describe "#new(path, filename)" do
-        specify { subject.instance_variable_get(:@path).must_equal('path') }
-        specify { subject.instance_variable_get(:@filename).must_equal('somefile.foo') }
+        specify do
+          subject.instance_variable_get(:@path).must_equal('path')
+        end
+        specify do
+          subject.instance_variable_get(:@filename).must_equal('somefile.foo')
+        end
       end
 
       describe "html" do

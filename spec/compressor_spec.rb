@@ -14,8 +14,12 @@ describe Compressor do
       subject { Compressor.new('uncompressed') }
 
       describe "#new(content)" do
-        specify { subject.instance_variable_get(:@content).must_equal('uncompressed') }
-        specify { subject.instance_variable_get(:@compressed).must_equal('uncompressed') }
+        specify do
+          subject.instance_variable_get(:@content).must_equal('uncompressed')
+        end
+        specify do
+          subject.instance_variable_get(:@compressed).must_equal('uncompressed')
+        end
       end
 
       describe "#compressed" do
@@ -41,8 +45,12 @@ describe Compressor do
       subject { TestCompressor.new('uncompressed') }
 
       describe "#new(content)" do
-        specify { subject.instance_variable_get(:@content).must_equal('uncompressed') }
-        specify { subject.instance_variable_get(:@compressed).must_equal('compressed') }
+        specify do
+          subject.instance_variable_get(:@content).must_equal('uncompressed')
+        end
+        specify do
+          subject.instance_variable_get(:@compressed).must_equal('compressed')
+        end
       end
 
       describe "#compressed" do

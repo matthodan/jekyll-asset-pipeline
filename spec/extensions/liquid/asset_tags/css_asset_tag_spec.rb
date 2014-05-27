@@ -8,6 +8,7 @@ end
 
 describe JAPR do
   it "registers tag with Liquid" do
-    ::Liquid::Template.tags[JAPR::CssAssetTag.tag_name].must_equal(JAPR::CssAssetTag)
+    ::Liquid::Template.tags[JAPR::CssAssetTag.tag_name]
+      .must_equal(JAPR::CssAssetTag)
   end
 end

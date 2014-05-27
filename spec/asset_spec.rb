@@ -35,6 +35,8 @@ describe Asset do
 
   describe "#output_path=" do
     before { subject.output_path = 'foobar' }
-    specify { subject.instance_variable_get(:@output_path).must_equal('foobar') }
+    specify do
+      subject.instance_variable_get(:@output_path).must_equal('foobar')
+    end
   end
 end

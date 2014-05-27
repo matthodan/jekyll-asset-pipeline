@@ -58,9 +58,15 @@ describe Converter do
       subject { TestConverter.new(asset) }
 
       describe "#new(asset)" do
-        specify { subject.instance_variable_get(:@content).must_equal('unconverted') }
-        specify { subject.instance_variable_get(:@type).must_equal('.foo') }
-        specify { subject.instance_variable_get(:@converted).must_equal('converted') }
+        specify do
+          subject.instance_variable_get(:@content).must_equal('unconverted')
+        end
+        specify do
+          subject.instance_variable_get(:@type).must_equal('.foo')
+        end
+        specify do
+          subject.instance_variable_get(:@converted).must_equal('converted')
+        end
       end
 
       describe "#converted" do

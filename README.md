@@ -46,7 +46,7 @@ JAPR is extremely easy to add to your Jekyll project and has no incremental depe
 1. Install the "japr" gem via [Rubygems](http://rubygems.org/).
 
   ``` bash
-  $ gem install japr 
+  $ gem install japr
   ```
 
   > *If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add "japr" to your Gemfile and run `bundle install`.*
@@ -152,6 +152,28 @@ You probably get the gist of how converters work, but here's an example of a SAS
   ```
 
 > *Don't forget to install the "sass" gem or add it to your Gemfile and run `bundle install` before you run the `jekyll build` command since the above SASS converter requires the "sass" library as a dependency.*
+
+### LESS
+
+  ``` ruby
+  module JAPR
+    class LessConverter < JAPR::Converter
+      require 'less'
+
+      def self.filetype
+        '.less'
+      end
+
+      def convert
+        return Less::Parser.new.parse(@content).to_css
+      end
+    end
+  end
+  ```
+
+> *Don't forget to install the "less" gem or add it to your Gemfile and run
+`bundle install` before you run the `jekyll build` command since the above
+LESS converter requires the "less" library as a dependency.*
 
 ### Successive Preprocessing
 

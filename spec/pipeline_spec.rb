@@ -12,7 +12,7 @@ describe Pipeline do
 
       subject { JAPR::Pipeline.hash(source_path, manifest) }
 
-      it 'should return a md5 hash of the manifest contents' do
+      it 'returns a md5 hash of the manifest contents' do
         subject.must_equal expected_hash
       end
     end # describe "::hash(source, manifest, options = {})"

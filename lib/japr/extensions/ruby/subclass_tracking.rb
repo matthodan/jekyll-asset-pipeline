@@ -1,6 +1,7 @@
 module JAPR
   module SubclassTracking
-    # Record subclasses of this class (this method is automatically called by ruby)
+    # Record subclasses of this class (this method is automatically called by
+    # ruby)
     def inherited(base)
       subclasses << base
     end

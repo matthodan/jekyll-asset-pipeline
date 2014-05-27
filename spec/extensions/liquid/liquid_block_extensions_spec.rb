@@ -8,18 +8,18 @@ describe LiquidBlockExtensions do
       end
     end
 
-    describe "#output_type" do
+    describe '#output_type' do
       subject { MockLiquidBlock.output_type }
       specify { subject.must_be_instance_of(String) }
     end
 
-    describe "#tag_name" do
+    describe '#tag_name' do
       subject { MockLiquidBlock.tag_name }
       specify { subject.must_be_instance_of(String) }
     end
   end
 
-  describe "#render(context)" do
+  describe '#render(context)' do
     before do
       class MockLiquidBlock
         include LiquidBlockExtensions
@@ -41,7 +41,7 @@ describe LiquidBlockExtensions do
 
     subject { MockLiquidBlock.new.render(context) }
 
-    context "previously processed pipeline found in cache" do
+    context 'previously processed pipeline found in cache' do
       let(:site) do
         site = MiniTest::Mock.new
         site.expect(:config, {})
@@ -63,14 +63,14 @@ describe LiquidBlockExtensions do
         pipeline
       end
 
-      it "returns html of previously processed pipeline" do
+      it 'returns html of previously processed pipeline' do
         Pipeline.stub(:run, [pipeline, true]) do
           subject.must_equal('foobar_html')
         end
       end
     end
 
-    context "pipeline has not been previously processed" do
+    context 'pipeline has not been previously processed' do
       let(:site) do
         site = MiniTest::Mock.new
         site.expect(:config, {})
@@ -105,7 +105,7 @@ describe LiquidBlockExtensions do
         pipeline
       end
 
-      it "creates new pipeline and processes it" do
+      it 'creates new pipeline and processes it' do
         $stdout.stub(:puts, nil) do
           Pipeline.stub(:run, [pipeline, false]) do
             Jekyll::StaticFile.stub(:new, 'foobar') do

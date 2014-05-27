@@ -36,13 +36,13 @@ module JAPR
   # Default configuration settings for Jekyll Asset Pipeline
   # Strings used for keys to play nice when merging with _config.yml
   #
-  # 'output_path'       Destination for bundle file (within the '_site' directory)
-  # 'display_path'      Optional.  Override path to assets for output HTML refs
-  # 'staging_path'      Destination for staged assets (within project root directory)
-  # 'bundle'            true = Bundle assets, false = Leave assets unbundled
-  # 'compress'          true = Minify assets, false = Leave assets unminified
-  # 'gzip'              true = Create gzip versions, false = Do not create gzip versions
-  #
+  # 'output_path'  Destination for bundle file (within the '_site' directory)
+  # 'display_path' Optional.  Override path to assets for output HTML refs
+  # 'staging_path' Destination for staged assets (within project root directory)
+  # 'bundle'       true = Bundle assets, false = Leave assets unbundled
+  # 'compress'     true = Minify assets, false = Leave assets unminified
+  # 'gzip'         true = Create gzip versions,
+  #                false = Do not create gzip versions
   DEFAULTS = {
     'output_path'   => 'assets',
     'display_path'  => nil,

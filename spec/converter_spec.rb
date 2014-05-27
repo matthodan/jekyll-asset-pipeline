@@ -3,14 +3,14 @@ require './spec/helper'
 describe Converter do
   specify { Converter.extend?(SubclassTracking).must_equal(true) }
 
-  context "with default converter class" do
-    describe "class methods" do
-      describe "::filetype" do
+  context 'with default converter class' do
+    describe 'class methods' do
+      describe '::filetype' do
         specify { Converter.filetype.must_be_instance_of(String) }
       end
     end
 
-    describe "instance methods" do
+    describe 'instance methods' do
       let(:asset) { MiniTest::Mock.new }
 
       before do
@@ -21,32 +21,32 @@ describe Converter do
 
       subject { Converter.new(asset) }
 
-      describe "#new(asset)" do
+      describe '#new(asset)' do
         specify { subject.instance_variable_get(:@content).must_equal('foo') }
         specify { subject.instance_variable_get(:@type).must_equal('.baz') }
         specify { subject.instance_variable_get(:@converted).must_equal('foo') }
       end
 
-      describe "#converted" do
+      describe '#converted' do
         specify { subject.converted.must_equal('foo') }
       end
 
-      describe "#convert" do
+      describe '#convert' do
         specify { subject.convert.must_equal('foo') }
       end
     end
   end
 
-  context "with custom converter class" do
+  context 'with custom converter class' do
     before { require './spec/resources/source/_plugins/japr' }
 
-    describe "class methods" do
-      describe "::filetype" do
+    describe 'class methods' do
+      describe '::filetype' do
         specify { TestConverter.filetype.must_equal('.foo') }
       end
     end
 
-    describe "instance methods" do
+    describe 'instance methods' do
       let(:asset) { MiniTest::Mock.new }
 
       before do
@@ -57,17 +57,23 @@ describe Converter do
 
       subject { TestConverter.new(asset) }
 
-      describe "#new(asset)" do
-        specify { subject.instance_variable_get(:@content).must_equal('unconverted') }
-        specify { subject.instance_variable_get(:@type).must_equal('.foo') }
-        specify { subject.instance_variable_get(:@converted).must_equal('converted') }
+      describe '#new(asset)' do
+        specify do
+          subject.instance_variable_get(:@content).must_equal('unconverted')
+        end
+        specify do
+          subject.instance_variable_get(:@type).must_equal('.foo')
+        end
+        specify do
+          subject.instance_variable_get(:@converted).must_equal('converted')
+        end
       end
 
-      describe "#converted" do
+      describe '#converted' do
         specify { subject.converted.must_equal('converted') }
       end
 
-      describe "#convert" do
+      describe '#convert' do
         specify { subject.convert.must_equal('converted') }
       end
     end

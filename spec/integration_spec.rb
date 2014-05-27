@@ -32,7 +32,7 @@ describe JAPR do
     filename = "#{prefix}-#{hash}#{extension}"
     path = File.join(temp_path, DEFAULTS['output_path'])
 
-    expected = "Asset Pipeline: Processing '#{tag_name}' manifest '#{prefix}'\n" +
+    expected = "Asset Pipeline: Processing '#{tag_name}' manifest '#{prefix}'\n" \
                "Asset Pipeline: Saved '#{filename}' to '#{path}'\n"
 
     proc do

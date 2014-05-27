@@ -128,7 +128,9 @@ module JAPR
           end.last
 
           # Convert asset if converter is found
-          unless klass.nil?
+          if klass.nil?
+            finished = true
+          else
             begin
               # Convert asset content
               converter = klass.new(asset)
@@ -140,11 +142,9 @@ module JAPR
               # Add back the output extension if no extension left
               asset.filename = "#{asset.filename}#{@type}" if File.extname(asset.filename) == ''
             rescue Exception => e
-              puts "Asset Pipeline: Failed to convert '#{asset.filename}' with '#{klass.to_s}': " + e.message
+              puts "Asset Pipeline: Failed to convert '#{asset.filename}' with '#{klass}': " + e.message
               raise e
             end
-          else
-            finished = true
           end
         end
       end
@@ -168,13 +168,13 @@ module JAPR
           c.filetype == @type
         end.last
 
-        unless klass.nil?
-          begin
-            asset.content = klass.new(asset.content).compressed
-          rescue Exception => e
-            puts "Asset Pipeline: Failed to compress '#{asset.filename}' with '#{klass.to_s}': " + e.message
-            raise e
-          end
+        return unless klass
+
+        begin
+          asset.content = klass.new(asset.content).compressed
+        rescue Exception => e
+          puts "Asset Pipeline: Failed to compress '#{asset.filename}' with '#{klass}': " + e.message
+          raise e
         end
       end
     end
@@ -217,10 +217,10 @@ module JAPR
       display_path = @options['display_path'] || @options['output_path']
 
       @html = @assets.map do |asset|
-        klass = JAPR::Template.subclasses.select do |t|
+        klasses = JAPR::Template.subclasses.select do |t|
           t.filetype == File.extname(asset.filename).downcase
-        end.sort! { |x, y| x.priority <=> y.priority }.last
-
+        end
+        klass = klasses.sort! { |x, y| x.priority <=> y.priority }.last
         html = klass.new(display_path, asset.filename).html unless klass.nil?
 
         html

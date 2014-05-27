@@ -1,7 +1,7 @@
 require './spec/helper'
 
 describe SubclassTracking do
-  describe "::subclasses" do
+  describe '::subclasses' do
     before do
       class MockClass
         extend SubclassTracking
@@ -10,11 +10,11 @@ describe SubclassTracking do
       class MockSubclass < MockClass; end
     end
 
-    it "returns an array" do
+    it 'returns an array' do
       MockClass.subclasses.must_be_instance_of(Array)
     end
 
-    it "returned array contains all subclasses of MockSubclass" do
+    it 'returned array contains all subclasses of MockSubclass' do
       MockClass.subclasses.must_include(MockSubclass)
     end
   end

@@ -114,7 +114,7 @@ module JAPR
         end
       end
       rescue Exception => e
-        puts "Asset Pipeline: Failed to load assets from provided " \
+        puts 'Asset Pipeline: Failed to load assets from provided ' \
              "manifest: #{e.message}"
         raise e
     end

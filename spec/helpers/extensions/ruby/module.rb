@@ -9,6 +9,6 @@
 # => true
 class Module
   def extend?(object)
-    kind_of?(object)
+    is_a?(object)
   end
 end

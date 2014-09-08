@@ -158,9 +158,7 @@ module JAPR
 
     # Bundle multiple assets into a single asset
     def bundle
-      content = @assets.map do |a|
-        a.content
-      end.join("\n")
+      content = @assets.map(&:content).join("\n")
 
       hash = JAPR::Pipeline.hash(@source, @manifest, @options)
       @assets = [JAPR::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]

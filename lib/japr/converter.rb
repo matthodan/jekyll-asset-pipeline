@@ -5,8 +5,8 @@ module JAPR
     def initialize(asset)
       @content = asset.content
       @type = File.extname(asset.filename).downcase
-      @converted = convert
       @dirname = asset.dirname
+      @converted = convert
     end
 
     def converted

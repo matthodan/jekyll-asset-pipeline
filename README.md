@@ -163,6 +163,17 @@ end
 
 Don't forget to install the `sass` gem or add it to your Gemfile and run `bundle install` before you run the `jekyll build` command since the above SASS converter requires the `sass` library as a dependency.
 
+If you're using `@import` statements in your SASS files, you'll probably need to specify a base load path to the SASS engine in your `convert` method.
+You can use the `@dirname` instance variable for this, which contains the path to the current asset's directory:
+
+``` ruby
+...
+    def convert
+      return Sass::Engine.new(@content, syntax: :scss, load_paths: [@dirname]).render
+    end
+...
+```
+
 ### LESS
 
 ``` ruby

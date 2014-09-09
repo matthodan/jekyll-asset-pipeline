@@ -194,6 +194,16 @@ end
 
 Don't forget to install the `less` gem or add it to your Gemfile and run `bundle install` before you run the `jekyll build` command since the above LESS converter requires the `less` library as a dependency.
 
+As with the SASS convertor, you'll probably need to specify a base load path and pass that to the LESS Parser:
+
+``` ruby
+...
+    def convert
+      return Less::Parser.new(paths: [@dirname]).parse(@content).to_css
+    end
+...
+```
+
 ### Successive Preprocessing
 
 If you would like to run an asset through multiple preprocessors successively, you can do so by naming your assets with nested file extensions. Nest the extensions in the order (right to left) that the asset should be processed. For example, `.css.scss.erb` would first be processed by an `erb` preprocessor then by a `scss` preprocessor before being rendered. This convention is very similar to the convention used by the [Ruby on Rails asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html#preprocessing).

@@ -23,8 +23,8 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.3'
 
   # Runtime dependencies
-  s.add_runtime_dependency 'jekyll', '~> 2.0'
-  s.add_runtime_dependency 'liquid', '~> 2.4'
+  s.add_runtime_dependency 'jekyll', '~> 3.5'
+  s.add_runtime_dependency 'liquid', '~> 4.0'
 
   # Development dependencies
   s.add_development_dependency 'rake', '~> 10.0'

@@ -8,7 +8,7 @@ describe Template do
       end
 
       describe '::priority' do
-        specify { Template.priority.must_be_instance_of(Fixnum) }
+        specify { Template.priority.must_be_kind_of(Integer) }
       end
     end
 

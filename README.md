@@ -1,10 +1,10 @@
 # JAPR (Jekyll Asset Pipeline Reborn)
 
 [![Gem Version](https://badge.fury.io/rb/japr.png)](http://badge.fury.io/rb/japr)
-[![Build Status](https://secure.travis-ci.org/kitsched/japr.png)](https://travis-ci.org/kitsched/japr)
-[![Coverage Status](https://coveralls.io/repos/kitsched/japr/badge.png?branch=master)](https://coveralls.io/r/kitsched/japr?branch=master)
-[![Dependency Status](https://gemnasium.com/kitsched/japr.png)](https://gemnasium.com/kitsched/japr)
-[![Code Climate](https://codeclimate.com/github/kitsched/japr.png)](https://codeclimate.com/github/kitsched/japr)
+[![Build Status](https://secure.travis-ci.org/janosrusiczki/japr.png)](https://travis-ci.org/janosrusiczki/japr)
+[![Coverage Status](https://coveralls.io/repos/janosrusiczki/japr/badge.png?branch=master)](https://coveralls.io/r/janosrusiczki/japr?branch=master)
+[![Dependency Status](https://gemnasium.com/janosrusiczki/japr.png)](https://gemnasium.com/janosrusiczki/japr)
+[![Code Climate](https://codeclimate.com/github/janosrusiczki/japr.png)](https://codeclimate.com/github/janosrusiczki/japr)
 
 JAPR is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your [Jekyll](http://jekyllrb.com/) site.
 
@@ -349,21 +349,21 @@ Setting        | Default  | Description
 
 5. Instead of running the `jekyll` command to compile your site, you should use Octopress' rake commands (e.g. `rake generate`) as outlined [here](http://octopress.org/docs/blogging/).
 
-If you have any difficulties using JAPR with Octopress, please [open an issue](http://github.com/kitsched/japr/issues).
+If you have any difficulties using JAPR with Octopress, please [open an issue](http://github.com/janosrusiczki/japr/issues).
 
 ## Contribute
 
-You can contribute to the JAPR by submitting a pull request [via GitHub](https://github.com/kitsched/japr). There are a few areas that need improvement:
+You can contribute to the JAPR by submitting a pull request [via GitHub](https://github.com/janosrusiczki/japr). There are a few areas that need improvement:
 
 - __Tests, tests, tests.__ **This project is now almost fully tested.**
 - __Handle remote assets.__ Right now, JAPR does not provide any way to include remote assets in bundles unless you save them locally before generating your site. Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting. That said, it is generally better to keep remote assets separate so that they load asynchronously.
 - __Successive preprocessing.__ Currently you can only preprocess a file once. It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled. **As of v0.1.0, JAPR now supports successive preprocessing.**
 
-If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/kitsched/japr/issues).
+If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/janosrusiczki/japr/issues).
 
 ## Community
 
-- Here is a list of [sites that use JAPR](http://github.com/kitsched/japr/wiki/Sites-that-use-JAPR). Feel free to add your site to the list if you want.
+- Here is a list of [sites that use JAPR](http://github.com/janosrusiczki/japr/wiki/Sites-that-use-JAPR). Feel free to add your site to the list if you want.
 
 ## Credits
 

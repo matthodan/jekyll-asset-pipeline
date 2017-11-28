@@ -26,7 +26,7 @@ module MiniTest
 
     # Let us use 'context' in specs
     class << self
-      alias_method :context, :describe
+      alias context describe
     end
   end
 end

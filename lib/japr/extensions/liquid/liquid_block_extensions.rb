@@ -15,7 +15,7 @@ module JAPR
       config = site.config['asset_pipeline'] || {}
 
       # Run Jekyll Asset Pipeline
-      pipeline, cached = Pipeline.run(@nodelist.first, @markup.strip,
+      pipeline, cached = Pipeline.run(nodelist.first, @markup.strip,
                                       site.source, site.dest,
                                       self.class.tag_name,
                                       self.class.output_type, config)

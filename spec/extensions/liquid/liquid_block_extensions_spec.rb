@@ -25,8 +25,11 @@ describe LiquidBlockExtensions do
         include LiquidBlockExtensions
 
         def initialize
-          @nodelist = ['foobar_manifest']
           @markup = 'foobar_prefix'
+        end
+
+        def nodelist
+          ['foobar_manifest']
         end
 
         def self.tag_name

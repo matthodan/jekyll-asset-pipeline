@@ -1,4 +1,2 @@
 inherit_from: .rubocop_todo.yml
 
-Encoding:
-  EnforcedStyle: when_needed

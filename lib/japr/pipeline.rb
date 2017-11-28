@@ -198,21 +198,25 @@ module JAPR
 
       @assets.each do |asset|
         directory = File.join(@source, staging_path, output_path)
-        FileUtils.mkpath(directory) unless File.directory?(directory)
-
-        begin
-          # Save file to disk
-          File.open(File.join(directory, asset.filename), 'w') do |file|
-            file.write(asset.content)
-          end
-        rescue Exception => e
-          puts "Asset Pipeline: Failed to save '#{asset.filename}' to " \
-               "disk: #{e.message}"
-          raise e
-        end
+        write_asset_file(directory, asset)
 
         # Store output path of saved file
         asset.output_path = output_path
+      end
+    end
+
+    # Write asset file to disk
+    def write_asset_file(directory, asset)
+      FileUtils.mkpath(directory) unless File.directory?(directory)
+      begin
+        # Save file to disk
+        File.open(File.join(directory, asset.filename), 'w') do |file|
+          file.write(asset.content)
+        end
+      rescue Exception => e
+        puts "Asset Pipeline: Failed to save '#{asset.filename}' to " \
+             "disk: #{e.message}"
+        raise e
       end
     end
 

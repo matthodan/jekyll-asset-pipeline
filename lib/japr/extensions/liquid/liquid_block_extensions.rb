@@ -31,11 +31,11 @@ module JAPR
           site.static_files << Jekyll::StaticFile.new(site, staging_path,
                                                       asset.output_path,
                                                       asset.filename)
-        end unless cached
+        end
       end
 
       # Return HTML tag pointing to asset
-      return pipeline.html
+      pipeline.html
     end
   end
 end

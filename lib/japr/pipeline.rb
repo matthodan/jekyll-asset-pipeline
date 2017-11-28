@@ -5,7 +5,7 @@ module JAPR
       def hash(source, manifest, options = {})
         options = DEFAULTS.merge(options)
         begin
-          Digest::MD5.hexdigest(YAML.load(manifest).map! do |path|
+          Digest::MD5.hexdigest(YAML.safe_load(manifest).map! do |path|
             "#{path}#{File.mtime(File.join(source, path)).to_i}"
           end.join.concat(options.to_s))
         rescue Exception => e
@@ -64,11 +64,10 @@ module JAPR
         config = DEFAULTS.merge(config)
         staging_path = File.join(source, config['staging_path'])
         FileUtils.rm_rf(staging_path)
-        rescue Exception => e
-          puts "Failed to remove staged assets: #{e.message}"
-
-          # Re-raise the exception
-          raise e
+      rescue Exception => e
+        puts "Failed to remove staged assets: #{e.message}"
+        # Re-raise the exception
+        raise e
       end
 
       # Add prefix to output
@@ -106,17 +105,17 @@ module JAPR
 
     # Collect assets based on manifest
     def collect
-      @assets = YAML.load(@manifest).map! do |path|
+      @assets = YAML.safe_load(@manifest).map! do |path|
         full_path = File.join(@source, path)
         File.open(File.join(@source, path)) do |file|
           JAPR::Asset.new(file.read, File.basename(path),
                           File.dirname(full_path))
         end
       end
-      rescue Exception => e
-        puts 'Asset Pipeline: Failed to load assets from provided ' \
-             "manifest: #{e.message}"
-        raise e
+    rescue Exception => e
+      puts 'Asset Pipeline: Failed to load assets from provided ' \
+           "manifest: #{e.message}"
+      raise e
     end
 
     # Convert assets based on the file extension if converter is defined

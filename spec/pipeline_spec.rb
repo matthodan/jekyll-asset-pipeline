@@ -5,7 +5,7 @@ describe Pipeline do
     describe '::hash(source, manifest, options = {})' do
       let(:manifest) { "- /_assets/foo.css\n- /_assets/bar.css" }
       let(:expected_hash) do
-        Digest::MD5.hexdigest(YAML.load(manifest).map! do |path|
+        Digest::MD5.hexdigest(YAML.safe_load(manifest).map! do |path|
           "#{path}#{File.mtime(File.join(source_path, path)).to_i}"
         end.join.concat(JAPR::DEFAULTS.to_s))
       end
@@ -15,8 +15,8 @@ describe Pipeline do
       it 'returns a md5 hash of the manifest contents' do
         subject.must_equal expected_hash
       end
-    end # describe "::hash(source, manifest, options = {})"
-  end # describe "class methods"
+    end
+  end
 
   describe 'instance methods' do
     # Clean up temp files saved to spec/resources/temp
@@ -38,7 +38,7 @@ describe Pipeline do
         template = MiniTest::Mock.new
         klass = MiniTest::Mock.new
 
-        YAML.load(manifest).size.times do
+        YAML.safe_load(manifest).size.times do
           template.expect(:html, 'html')
           klass.expect(:filetype, '.css')
           klass.expect(:new, template, [String, String])
@@ -54,8 +54,8 @@ describe Pipeline do
         it 'outputs template html' do
           subject.must_equal('html')
         end
-      end # context "with custom template"
-    end # describe "#html"
+      end
+    end
 
     describe '#assets' do
       subject { pipeline.assets }
@@ -68,7 +68,7 @@ describe Pipeline do
           converter = MiniTest::Mock.new
           klass = MiniTest::Mock.new
 
-          YAML.load(manifest).size.times do
+          YAML.safe_load(manifest).size.times do
             converter.expect(:converted, 'converted')
             2.times { klass.expect(:filetype, '.scss') }
             klass.expect(:new, converter, [JAPR::Asset])
@@ -83,7 +83,7 @@ describe Pipeline do
         it 'converts asset content' do
           subject.last.content.must_equal('converted')
         end
-      end # context "with custom converter"
+      end
 
       context 'bundle => true' do
         let(:options) { { 'bundle' => true } }
@@ -91,7 +91,7 @@ describe Pipeline do
         before { pipeline }
 
         it 'has one asset when multiple files are in manifest' do
-          YAML.load(manifest).size.must_be :>, 1
+          YAML.safe_load(manifest).size.must_be :>, 1
           subject.size.must_equal(1)
         end
 
@@ -106,7 +106,7 @@ describe Pipeline do
                                    asset.output_path, asset.filename)
           File.exist?(staging_path).must_equal(true)
         end
-      end # context "bundle => true"
+      end
 
       context 'bundle => false' do
         let(:options) { { 'bundle' => false } }
@@ -114,11 +114,11 @@ describe Pipeline do
         before { pipeline }
 
         it 'has same number of assets as files in manifest' do
-          subject.size.must_equal(YAML.load(manifest).size)
+          subject.size.must_equal(YAML.safe_load(manifest).size)
         end
 
         it 'does not change the filenames of the assets' do
-          YAML.load(manifest).each do |p|
+          YAML.safe_load(manifest).each do |p|
             subject.select do |a|
               a.filename == File.basename(p)
             end.size.must_equal(1)
@@ -132,7 +132,7 @@ describe Pipeline do
             File.exist?(staging_path).must_equal(true)
           end
         end
-      end # context "bundle => false"
+      end
 
       context 'compress => true' do
         let(:options) { { 'compress' => true } }
@@ -142,7 +142,7 @@ describe Pipeline do
           compressor = MiniTest::Mock.new
           klass = MiniTest::Mock.new
 
-          YAML.load(manifest).size.times do
+          YAML.safe_load(manifest).size.times do
             compressor.expect(:compressed, 'compressed')
             klass.expect(:filetype, '.css')
             klass.expect(:new, compressor, [String])
@@ -157,7 +157,7 @@ describe Pipeline do
         it 'compresses asset content' do
           subject.each { |a| a.content.must_equal('compressed') }
         end
-      end # context "compress => true"
+      end
 
       context 'gzip => true' do
         let(:options) { { 'gzip' => true } }
@@ -170,7 +170,7 @@ describe Pipeline do
         end
 
         it 'has twice as many assets as files in manifest' do
-          subject.size.must_equal(YAML.load(manifest).size * 2)
+          subject.size.must_equal(YAML.safe_load(manifest).size * 2)
         end
 
         it 'creates half of assets with filenames ending in .gz' do
@@ -182,8 +182,7 @@ describe Pipeline do
         it 'gzips asset content' do
           subject.last.content.must_equal('gzipped')
         end
-      end # context "gzip => true"
-
-    end # describe "#assets"
-  end # describe "instance methods"
-end # describe Pipeline
+      end
+    end
+  end
+end

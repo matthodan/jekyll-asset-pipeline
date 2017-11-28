@@ -118,6 +118,5 @@ describe LiquidBlockExtensions do
         end
       end
     end
-
   end
 end

@@ -50,5 +50,5 @@ module JAPR
     'bundle'        => true,
     'compress'      => true,
     'gzip'          => false
-  }
+  }.freeze
 end

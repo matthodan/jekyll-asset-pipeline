@@ -7,6 +7,6 @@ describe CssAssetTag do
 
   it 'registers tag with Liquid' do
     ::Liquid::Template.tags[JAPR::CssAssetTag.tag_name]
-      .must_equal(JAPR::CssAssetTag)
+                      .must_equal(JAPR::CssAssetTag)
   end
 end

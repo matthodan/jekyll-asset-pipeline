@@ -12,17 +12,12 @@ include JAPR
 
 module MiniTest
   class Spec
-    # Fetch current path
-    def current_path
-      File.expand_path(File.dirname(__FILE__))
-    end
-
     def source_path
-      File.join(File.expand_path(File.dirname(__FILE__)), 'resources', 'source')
+      File.join(__dir__, 'resources', 'source')
     end
 
     def temp_path
-      File.join(File.expand_path(File.dirname(__FILE__)), 'resources', 'temp')
+      File.join(__dir__, 'resources', 'temp')
     end
 
     def clear_temp_path

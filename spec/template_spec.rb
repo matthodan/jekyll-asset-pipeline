@@ -93,6 +93,7 @@ describe Template do
   end
 
   context 'with custom template' do
+    before { require './spec/resources/source/_plugins/japr' }
     describe 'class methods' do
       describe '::filetype' do
         specify { TestTemplate.filetype.must_equal('.foo') }
@@ -104,6 +105,7 @@ describe Template do
     end
 
     describe 'instance methods' do
+      before { require './spec/resources/source/_plugins/japr' }
       subject { TestTemplate.new('path', 'somefile.foo') }
 
       describe '#new(path, filename)' do

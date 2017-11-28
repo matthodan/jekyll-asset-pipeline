@@ -168,7 +168,7 @@ module JAPR
           c.filetype == @type
         end.last
 
-        return unless klass
+        break unless klass
 
         begin
           asset.content = klass.new(asset.content).compressed

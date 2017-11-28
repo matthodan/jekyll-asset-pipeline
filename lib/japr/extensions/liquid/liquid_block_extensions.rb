@@ -20,7 +20,9 @@ module JAPR
                                       self.class.tag_name,
                                       self.class.output_type, config)
 
-      if pipeline.is_a?(Pipeline)
+      return nil unless pipeline.is_a?(Pipeline)
+
+      unless cached
         # Prevent Jekyll from cleaning up saved assets if new pipeline
         pipeline.assets.each do |asset|
           config = JAPR::DEFAULTS.merge(config)
@@ -30,13 +32,10 @@ module JAPR
                                                       asset.output_path,
                                                       asset.filename)
         end unless cached
-
-        # Return HTML tag pointing to asset
-        return pipeline.html
-      else
-        # Return nothing
-        return nil
       end
+
+      # Return HTML tag pointing to asset
+      return pipeline.html
     end
   end
 end

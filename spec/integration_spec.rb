@@ -130,7 +130,7 @@ describe JAPR do
         config['display_path'] = 'foo/bar/baz'
         pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
                                  tag_name, '.js', config)
-        pipeline.html.must_match(/foo\/bar\/baz/)
+        pipeline.html.must_match(%r{/foo\/bar\/baz/})
       end
     end
   end

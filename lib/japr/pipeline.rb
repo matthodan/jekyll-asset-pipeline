@@ -20,32 +20,29 @@ module JAPR
         hash = hash(source, manifest, config)
 
         # Check if pipeline has been cached
-        if cache.key?(hash)
-          # Return cached pipeline and cached status
-          return cache[hash], true
-        else
-          begin
-            puts "Processing '#{tag}' manifest '#{prefix}'"
+        return cache[hash], true if cache.key?(hash)
 
-            # Create and process new pipeline
-            pipeline = new(manifest, prefix, source, destination, type, config)
-            pipeline.assets.each do |asset|
-              puts "Saved '#{asset.filename}' to " \
-                   "'#{destination}/#{asset.output_path}'"
-            end
+        begin
+          puts "Processing '#{tag}' manifest '#{prefix}'"
 
-            # Add processed pipeline to cache
-            cache[hash] = pipeline
-
-            # Return newly processed pipeline and cached status
-            return pipeline, false
-          rescue Exception => e
-            # Add exception to cache
-            cache[hash] = e
-
-            # Re-raise the exception
-            raise e
+          # Create and process new pipeline
+          pipeline = new(manifest, prefix, source, destination, type, config)
+          pipeline.assets.each do |asset|
+            puts "Saved '#{asset.filename}' to " \
+                 "'#{destination}/#{asset.output_path}'"
           end
+
+          # Add processed pipeline to cache
+          cache[hash] = pipeline
+
+          # Return newly processed pipeline and cached status
+          return pipeline, false
+        rescue Exception => e
+          # Add exception to cache
+          cache[hash] = e
+
+          # Re-raise the exception
+          raise e
         end
       end
 

@@ -8,7 +8,6 @@ module JAPR
       stripped_path = @path.to_s.strip
       stripped_path.nil? ||
         stripped_path.empty? ||
-        stripped_path == 'nil' ||
         stripped_path == '/'
     end
   end

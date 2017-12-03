@@ -1,11 +1,12 @@
 module JAPR
+  # rubocop:disable ClassLength
   class Pipeline
     class << self
       # Generate hash based on manifest
       def hash(source, manifest, options = {})
         options = DEFAULTS.merge(options)
         begin
-          Digest::MD5.hexdigest(YAML.load(manifest).map! do |path|
+          Digest::MD5.hexdigest(YAML.safe_load(manifest).map! do |path|
             "#{path}#{File.mtime(File.join(source, path)).to_i}"
           end.join.concat(options.to_s))
         rescue Exception => e
@@ -20,32 +21,18 @@ module JAPR
         hash = hash(source, manifest, config)
 
         # Check if pipeline has been cached
-        if cache.key?(hash)
-          # Return cached pipeline and cached status
-          return cache[hash], true
-        else
-          begin
-            puts "Processing '#{tag}' manifest '#{prefix}'"
+        return cache[hash], true if cache.key?(hash)
 
-            # Create and process new pipeline
-            pipeline = new(manifest, prefix, source, destination, type, config)
-            pipeline.assets.each do |asset|
-              puts "Saved '#{asset.filename}' to " \
-                   "'#{destination}/#{asset.output_path}'"
-            end
+        begin
+          puts "Processing '#{tag}' manifest '#{prefix}'"
+          pipeline = new(manifest, prefix, source, destination, type, config)
+          process_pipeline(hash, pipeline)
+        rescue Exception => e
+          # Add exception to cache
+          cache[hash] = e
 
-            # Add processed pipeline to cache
-            cache[hash] = pipeline
-
-            # Return newly processed pipeline and cached status
-            return pipeline, false
-          rescue Exception => e
-            # Add exception to cache
-            cache[hash] = e
-
-            # Re-raise the exception
-            raise e
-          end
+          # Re-raise the exception
+          raise e
         end
       end
 
@@ -64,16 +51,30 @@ module JAPR
         config = DEFAULTS.merge(config)
         staging_path = File.join(source, config['staging_path'])
         FileUtils.rm_rf(staging_path)
-        rescue Exception => e
-          puts "Failed to remove staged assets: #{e.message}"
-
-          # Re-raise the exception
-          raise e
+      rescue Exception => e
+        puts "Failed to remove staged assets: #{e.message}"
+        # Re-raise the exception
+        raise e
       end
 
       # Add prefix to output
       def puts(message)
         $stdout.puts("Asset Pipeline: #{message}")
+      end
+
+      private
+
+      def process_pipeline(hash, pipeline)
+        pipeline.assets.each do |asset|
+          puts "Saved '#{asset.filename}' to " \
+            "'#{pipeline.destination}/#{asset.output_path}'"
+        end
+
+        # Add processed pipeline to cache
+        cache[hash] = pipeline
+
+        # Return newly processed pipeline and cached status
+        [pipeline, false]
       end
     end
 
@@ -89,7 +90,7 @@ module JAPR
       process
     end
 
-    attr_reader :assets, :html
+    attr_reader :assets, :html, :destination
 
     private
 
@@ -106,17 +107,17 @@ module JAPR
 
     # Collect assets based on manifest
     def collect
-      @assets = YAML.load(@manifest).map! do |path|
+      @assets = YAML.safe_load(@manifest).map! do |path|
         full_path = File.join(@source, path)
         File.open(File.join(@source, path)) do |file|
           JAPR::Asset.new(file.read, File.basename(path),
                           File.dirname(full_path))
         end
       end
-      rescue Exception => e
-        puts 'Asset Pipeline: Failed to load assets from provided ' \
-             "manifest: #{e.message}"
-        raise e
+    rescue Exception => e
+      puts 'Asset Pipeline: Failed to load assets from provided ' \
+           "manifest: #{e.message}"
+      raise e
     end
 
     # Convert assets based on the file extension if converter is defined
@@ -126,34 +127,35 @@ module JAPR
         finished = false
         while finished == false
           # Find a converter to use
-          klass = JAPR::Converter.subclasses.select do |c|
-            c.filetype == File.extname(asset.filename).downcase
-          end.last
+          klass = JAPR::Converter.klass(asset.filename)
 
           # Convert asset if converter is found
           if klass.nil?
             finished = true
           else
-            begin
-              # Convert asset content
-              converter = klass.new(asset)
-
-              # Replace asset content and filename
-              asset.content = converter.converted
-              asset.filename = File.basename(asset.filename, '.*')
-
-              # Add back the output extension if no extension left
-              if File.extname(asset.filename) == ''
-                asset.filename = "#{asset.filename}#{@type}"
-              end
-            rescue Exception => e
-              puts "Asset Pipeline: Failed to convert '#{asset.filename}' " \
-                   "with '#{klass}': #{e.message}"
-              raise e
-            end
+            convert_asset(klass, asset)
           end
         end
       end
+    end
+
+    # Convert an asset with a given converter class
+    def convert_asset(klass, asset)
+      # Convert asset content
+      converter = klass.new(asset)
+
+      # Replace asset content and filename
+      asset.content = converter.converted
+      asset.filename = File.basename(asset.filename, '.*')
+
+      # Add back the output extension if no extension left
+      if File.extname(asset.filename) == ''
+        asset.filename = "#{asset.filename}#{@type}"
+      end
+    rescue Exception => e
+      puts "Asset Pipeline: Failed to convert '#{asset.filename}' " \
+           "with '#{klass}': #{e.message}"
+      raise e
     end
 
     # Bundle multiple assets into a single asset
@@ -172,7 +174,7 @@ module JAPR
           c.filetype == @type
         end.last
 
-        return unless klass
+        break unless klass
 
         begin
           asset.content = klass.new(asset.content).compressed
@@ -202,21 +204,25 @@ module JAPR
 
       @assets.each do |asset|
         directory = File.join(@source, staging_path, output_path)
-        FileUtils.mkpath(directory) unless File.directory?(directory)
-
-        begin
-          # Save file to disk
-          File.open(File.join(directory, asset.filename), 'w') do |file|
-            file.write(asset.content)
-          end
-        rescue Exception => e
-          puts "Asset Pipeline: Failed to save '#{asset.filename}' to " \
-               "disk: #{e.message}"
-          raise e
-        end
+        write_asset_file(directory, asset)
 
         # Store output path of saved file
         asset.output_path = output_path
+      end
+    end
+
+    # Write asset file to disk
+    def write_asset_file(directory, asset)
+      FileUtils.mkpath(directory) unless File.directory?(directory)
+      begin
+        # Save file to disk
+        File.open(File.join(directory, asset.filename), 'w') do |file|
+          file.write(asset.content)
+        end
+      rescue Exception => e
+        puts "Asset Pipeline: Failed to save '#{asset.filename}' to " \
+             "disk: #{e.message}"
+        raise e
       end
     end
 
@@ -226,10 +232,7 @@ module JAPR
       display_path = @options['display_path'] || @options['output_path']
 
       @html = @assets.map do |asset|
-        klasses = JAPR::Template.subclasses.select do |t|
-          t.filetype == File.extname(asset.filename).downcase
-        end
-        klass = klasses.sort! { |x, y| x.priority <=> y.priority }.last
+        klass = JAPR::Template.klass(asset.filename)
         html = klass.new(display_path, asset.filename).html unless klass.nil?
 
         html

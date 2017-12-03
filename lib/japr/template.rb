@@ -17,6 +17,14 @@ module JAPR
       0
     end
 
+    # Finds a template class based on a filename
+    def self.klass(filename)
+      klasses = JAPR::Template.subclasses.select do |t|
+        t.filetype == File.extname(filename).downcase
+      end
+      klasses.sort! { |x, y| x.priority <=> y.priority }.last
+    end
+
     # HTML output to return
     #
     # Available instance variables:

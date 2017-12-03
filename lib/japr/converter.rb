@@ -18,6 +18,13 @@ module JAPR
       ''
     end
 
+    # Finds a converter class based on a filename
+    def self.klass(filename)
+      JAPR::Converter.subclasses.select do |c|
+        c.filetype == File.extname(filename).downcase
+      end.last
+    end
+
     # Logic to convert assets
     #
     # Available instance variables:

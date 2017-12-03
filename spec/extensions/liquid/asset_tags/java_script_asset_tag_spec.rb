@@ -7,6 +7,6 @@ describe JavaScriptAssetTag do
 
   it 'registers tag with Liquid' do
     ::Liquid::Template.tags[JAPR::JavaScriptAssetTag.tag_name]
-      .must_equal(JAPR::JavaScriptAssetTag)
+                      .must_equal(JAPR::JavaScriptAssetTag)
   end
 end

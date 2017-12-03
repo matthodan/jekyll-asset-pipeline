@@ -5,11 +5,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Configuration parameters: CountComments.
-ClassLength:
-  Max: 169
-
 # Offense count: 34
 Documentation:
   Enabled: false

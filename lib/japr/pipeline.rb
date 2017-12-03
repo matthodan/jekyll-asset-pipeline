@@ -1,4 +1,5 @@
 module JAPR
+  # rubocop:disable ClassLength
   class Pipeline
     class << self
       # Generate hash based on manifest

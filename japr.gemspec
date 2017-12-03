@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   DESCRIPTION
   s.authors = ['Matt Hodan']
   s.email = 'japr@clicktrackheart.com'
-  s.homepage = 'https://github.com/kitsched/japr'
+  s.homepage = 'https://github.com/janosrusiczki/japr'
   s.license = 'MIT'
   s.required_ruby_version = '>= 2.2.0'
 

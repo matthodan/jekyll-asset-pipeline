@@ -127,34 +127,35 @@ module JAPR
         finished = false
         while finished == false
           # Find a converter to use
-          klass = JAPR::Converter.subclasses.select do |c|
-            c.filetype == File.extname(asset.filename).downcase
-          end.last
+          klass = JAPR::Converter.klass(asset.filename)
 
           # Convert asset if converter is found
           if klass.nil?
             finished = true
           else
-            begin
-              # Convert asset content
-              converter = klass.new(asset)
-
-              # Replace asset content and filename
-              asset.content = converter.converted
-              asset.filename = File.basename(asset.filename, '.*')
-
-              # Add back the output extension if no extension left
-              if File.extname(asset.filename) == ''
-                asset.filename = "#{asset.filename}#{@type}"
-              end
-            rescue Exception => e
-              puts "Asset Pipeline: Failed to convert '#{asset.filename}' " \
-                   "with '#{klass}': #{e.message}"
-              raise e
-            end
+            convert_asset(klass, asset)
           end
         end
       end
+    end
+
+    # Convert an asset with a given converter class
+    def convert_asset(klass, asset)
+      # Convert asset content
+      converter = klass.new(asset)
+
+      # Replace asset content and filename
+      asset.content = converter.converted
+      asset.filename = File.basename(asset.filename, '.*')
+
+      # Add back the output extension if no extension left
+      if File.extname(asset.filename) == ''
+        asset.filename = "#{asset.filename}#{@type}"
+      end
+    rescue Exception => e
+      puts "Asset Pipeline: Failed to convert '#{asset.filename}' " \
+           "with '#{klass}': #{e.message}"
+      raise e
     end
 
     # Bundle multiple assets into a single asset

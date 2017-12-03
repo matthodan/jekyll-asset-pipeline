@@ -232,10 +232,7 @@ module JAPR
       display_path = @options['display_path'] || @options['output_path']
 
       @html = @assets.map do |asset|
-        klasses = JAPR::Template.subclasses.select do |t|
-          t.filetype == File.extname(asset.filename).downcase
-        end
-        klass = klasses.sort! { |x, y| x.priority <=> y.priority }.last
+        klass = JAPR::Template.klass(asset.filename)
         html = klass.new(display_path, asset.filename).html unless klass.nil?
 
         html

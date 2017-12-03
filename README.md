@@ -1,7 +1,7 @@
 # JAPR (Jekyll Asset Pipeline Reborn)
 
 [![Gem Version](https://badge.fury.io/rb/japr.png)](http://badge.fury.io/rb/japr)
-[![Build Status](https://secure.travis-ci.org/janosrusiczki/japr.png)](https://travis-ci.org/janosrusiczki/japr)
+[![Build Status](https://travis-ci.org/janosrusiczki/japr.svg?branch=master)](https://travis-ci.org/janosrusiczki/japr)
 [![Coverage Status](https://coveralls.io/repos/janosrusiczki/japr/badge.png?branch=master)](https://coveralls.io/r/janosrusiczki/japr?branch=master)
 [![Dependency Status](https://gemnasium.com/janosrusiczki/japr.png)](https://gemnasium.com/janosrusiczki/japr)
 [![Code Climate](https://codeclimate.com/github/janosrusiczki/japr.png)](https://codeclimate.com/github/janosrusiczki/japr)

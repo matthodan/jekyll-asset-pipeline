@@ -24,19 +24,8 @@ module JAPR
 
         begin
           puts "Processing '#{tag}' manifest '#{prefix}'"
-
-          # Create and process new pipeline
           pipeline = new(manifest, prefix, source, destination, type, config)
-          pipeline.assets.each do |asset|
-            puts "Saved '#{asset.filename}' to " \
-                 "'#{destination}/#{asset.output_path}'"
-          end
-
-          # Add processed pipeline to cache
-          cache[hash] = pipeline
-
-          # Return newly processed pipeline and cached status
-          return pipeline, false
+          process_pipeline(hash, pipeline)
         rescue Exception => e
           # Add exception to cache
           cache[hash] = e
@@ -71,6 +60,21 @@ module JAPR
       def puts(message)
         $stdout.puts("Asset Pipeline: #{message}")
       end
+
+      private
+
+      def process_pipeline(hash, pipeline)
+        pipeline.assets.each do |asset|
+          puts "Saved '#{asset.filename}' to " \
+            "'#{pipeline.destination}/#{asset.output_path}'"
+        end
+
+        # Add processed pipeline to cache
+        cache[hash] = pipeline
+
+        # Return newly processed pipeline and cached status
+        [pipeline, false]
+      end
     end
 
     # Initialize new pipeline
@@ -85,7 +89,7 @@ module JAPR
       process
     end
 
-    attr_reader :assets, :html
+    attr_reader :assets, :html, :destination
 
     private
 

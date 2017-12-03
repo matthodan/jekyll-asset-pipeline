@@ -1,6 +1,8 @@
 module JAPR
   # Default output for CSS assets
   class CssTagTemplate < JAPR::Template
+    include JAPR::TemplateHelper
+
     def self.filetype
       '.css'
     end
@@ -10,7 +12,8 @@ module JAPR
     end
 
     def html
-      "<link href='/#{@path}/#{@filename}' rel='stylesheet' type='text/css' />"
+      "<link href='#{output_path}/#{@filename}' " \
+        "rel='stylesheet' type='text/css' />"
     end
   end
 end

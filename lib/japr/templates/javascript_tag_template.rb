@@ -1,24 +1,14 @@
 module JAPR
   # Default output for JavaScript assets
   class JavaScriptTagTemplate < JAPR::Template
+    include JAPR::TemplateHelper
+
     def self.filetype
       '.js'
     end
 
     def self.priority
       -1
-    end
-
-    def output_path
-      root_path? ? '' : "/#{@path}"
-    end
-
-    def root_path?
-      stripped_path = @path.to_s.strip
-      stripped_path.nil? ||
-        stripped_path.empty? ||
-        stripped_path == 'nil' ||
-        stripped_path == '/'
     end
 
     def html

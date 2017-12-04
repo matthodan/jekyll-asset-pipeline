@@ -298,7 +298,7 @@ In the following example, we will override the default CSS link tag by adding a 
       end
 
       def html
-        "<link href='/#{@path}/#{@filename}' rel='stylesheet'" \
+        "<link href='#{output_path}/#{@filename}' rel='stylesheet' " \
           "type='text/css' media='screen' />\n"
       end
     end
@@ -307,7 +307,7 @@ In the following example, we will override the default CSS link tag by adding a 
 
   If you already added a compressor and/or a converter, you can include your template class alongside your compressor and/or converter within the same JAPR module.
 
-  The “self.filetype” method defines the type of bundle a template will target (either `.js` or `.css`). The “html” method is where the magic happens. “@path” and `@filename` instance variables are available within the class and contain the path and filename of the generated bundle, respectively. The template should return a string that contains an HTML tag pointing to the generated bundle via an `html` method.
+  The “self.filetype” method defines the type of bundle a template will target (either `.js` or `.css`). The “html” method is where the magic happens. `output_path` is a helper method and `@filename` is an instance variable which are available within the class and contain the path and filename of the generated bundle, respectively. The template should return a string that contains an HTML tag pointing to the generated bundle via an `html` method.
 
 2. Run the `jekyll` command to compile your site.
 

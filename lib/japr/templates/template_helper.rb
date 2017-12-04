@@ -1,4 +1,5 @@
 module JAPR
+  # Contains helper methods used by the tag template classes
   module TemplateHelper
     def output_path
       root_path? ? '' : "/#{@path}"

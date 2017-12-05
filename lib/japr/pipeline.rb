@@ -1,4 +1,5 @@
 module JAPR
+  # The pipeline itself, the run method is where it all happens
   # rubocop:disable ClassLength
   class Pipeline
     class << self
@@ -15,7 +16,10 @@ module JAPR
         end
       end
 
-      # Run pipeline
+      # Run the pipeline
+      # This is called from JAPR::LiquidBlockExtensions.render or,
+      # to be more precise, from JAPR::CssAssetTag.render and
+      # JAPR::JavaScriptAssetTag.render
       def run(manifest, prefix, source, destination, tag, type, config)
         # Get hash for pipeline
         hash = hash(source, manifest, config)

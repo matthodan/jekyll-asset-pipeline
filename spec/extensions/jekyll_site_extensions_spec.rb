@@ -14,8 +14,7 @@ describe JekyllSiteExtensions do
           'old_return_value'
         end
 
-        def write
-        end
+        def write; end
 
         include JekyllSiteExtensions
       end
@@ -38,8 +37,7 @@ describe JekyllSiteExtensions do
     subject do
       # Create mock class
       class MockSite
-        def cleanup
-        end
+        def cleanup; end
 
         def write
           'old_write_return_value'

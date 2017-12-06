@@ -3,19 +3,25 @@ require './spec/helper'
 describe LiquidBlockExtensions do
   describe LiquidBlockExtensions::ClassMethods do
     before do
-      class MockLiquidBlock
+      class MockLiquidBlockClassMethods
         extend LiquidBlockExtensions::ClassMethods
       end
     end
 
     describe '#output_type' do
-      subject { MockLiquidBlock.output_type }
-      specify { subject.must_be_instance_of(String) }
+      subject { MockLiquidBlockClassMethods.output_type }
+      it 'is an empty string' do
+        subject.must_be_instance_of(String)
+        subject.must_equal('')
+      end
     end
 
     describe '#tag_name' do
-      subject { MockLiquidBlock.tag_name }
-      specify { subject.must_be_instance_of(String) }
+      subject { MockLiquidBlockClassMethods.tag_name }
+      it 'is an empty string' do
+        subject.must_be_instance_of(String)
+        subject.must_equal('')
+      end
     end
   end
 

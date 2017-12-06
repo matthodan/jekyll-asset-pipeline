@@ -55,10 +55,6 @@ module JAPR
         config = DEFAULTS.merge(config)
         staging_path = File.join(source, config['staging_path'])
         FileUtils.rm_rf(staging_path)
-      rescue Exception => e
-        puts "Failed to remove staged assets: #{e.message}"
-        # Re-raise the exception
-        raise e
       end
 
       # Add prefix to output

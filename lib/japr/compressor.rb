@@ -10,9 +10,7 @@ module JAPR
     end
 
     # Returns compressed content
-    def compressed
-      @compressed
-    end
+    attr_reader :compressed
 
     # Filetype to process (e.g. '.js')
     def self.filetype

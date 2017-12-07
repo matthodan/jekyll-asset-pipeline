@@ -20,7 +20,9 @@ module JAPR
       # This is called from JAPR::LiquidBlockExtensions.render or,
       # to be more precise, from JAPR::CssAssetTag.render and
       # JAPR::JavaScriptAssetTag.render
+      # rubocop:disable ParameterLists
       def run(manifest, prefix, source, destination, tag, type, config)
+        # rubocop:enable ParameterLists
         # Get hash for pipeline
         hash = hash(source, manifest, config)
 
@@ -79,7 +81,9 @@ module JAPR
     end
 
     # Initialize new pipeline
+    # rubocop:disable ParameterLists
     def initialize(manifest, prefix, source, destination, type, options = {})
+      # rubocop:enable ParameterLists
       @manifest = manifest
       @prefix = prefix
       @source = source

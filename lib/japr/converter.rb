@@ -11,9 +11,7 @@ module JAPR
       @converted = convert
     end
 
-    def converted
-      @converted
-    end
+    attr_reader :converted
 
     # Filetype to process (e.g. '.coffee')
     def self.filetype

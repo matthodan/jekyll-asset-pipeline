@@ -1,8 +1,6 @@
 module JAPR
   # Default output for JavaScript assets
   class JavaScriptTagTemplate < JAPR::Template
-    include JAPR::TemplateHelper
-
     def self.filetype
       '.js'
     end

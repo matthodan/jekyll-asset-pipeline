@@ -1,4 +1,5 @@
 module JAPR
+  # Holds an asset (file)
   class Asset
     def initialize(content, filename, dirname = '.')
       @content = content

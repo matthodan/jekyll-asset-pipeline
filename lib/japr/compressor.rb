@@ -1,4 +1,6 @@
 module JAPR
+  # Base class for asset compressors
+  # See https://github.com/janosrusiczki/japr#asset-compression
   class Compressor
     extend JAPR::SubclassTracking
 
@@ -8,9 +10,7 @@ module JAPR
     end
 
     # Returns compressed content
-    def compressed
-      @compressed
-    end
+    attr_reader :compressed
 
     # Filetype to process (e.g. '.js')
     def self.filetype

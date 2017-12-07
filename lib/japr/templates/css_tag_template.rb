@@ -1,8 +1,6 @@
 module JAPR
   # Default output for CSS assets
   class CssTagTemplate < JAPR::Template
-    include JAPR::TemplateHelper
-
     def self.filetype
       '.css'
     end

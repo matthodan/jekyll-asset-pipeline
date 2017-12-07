@@ -1,4 +1,5 @@
 module JAPR
+  # Allows classes that extend this to return an array of their subclasses
   module SubclassTracking
     # Record subclasses of this class (this method is automatically called by
     # ruby)

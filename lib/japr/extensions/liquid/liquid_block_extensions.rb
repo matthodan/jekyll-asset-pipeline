@@ -1,5 +1,10 @@
 module JAPR
+  # Helper module used by JAPR::AssetTag as well as
+  # classed derived from it (Liquid tag block extensions)
+  # See documentation here:
+  # https://github.com/Shopify/liquid/wiki/liquid-for-programmers#create-your-own-tag-blocks
   module LiquidBlockExtensions
+    # Unsurprisingly, class methods
     module ClassMethods
       def output_type
         ''

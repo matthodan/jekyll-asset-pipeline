@@ -15,7 +15,7 @@ describe JAPR do
 
   it 'saves assets to staging path' do
     $stdout.stub(:puts, nil) do
-      config['output_path'] = 'foobar_assets'
+      config['output_path'] = '/foobar_assets'
       pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
                                tag_name, extension, config)
       pipeline.assets.each do |asset|
@@ -341,7 +341,7 @@ describe JAPR do
           end
 
           def convert
-            raise Exception
+            raise StandardError
           end
         end
       end
@@ -351,7 +351,7 @@ describe JAPR do
         proc do
           Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
                        extension, config)
-        end.must_raise(Exception)
+        end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       # Clean up test converters
@@ -368,7 +368,7 @@ describe JAPR do
           end
 
           def compress
-            raise Exception
+            raise StandardError
           end
         end
       end
@@ -378,7 +378,7 @@ describe JAPR do
         proc do
           Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
                        extension, config)
-        end.must_raise(Exception)
+        end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       # Clean up test compressor
@@ -395,7 +395,7 @@ describe JAPR do
           end
 
           def convert
-            raise Exception
+            raise StandardError
           end
         end
       end
@@ -405,7 +405,7 @@ describe JAPR do
         proc do
           Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
                        extension, config)
-        end.must_raise(Exception)
+        end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       proc do
@@ -416,6 +416,36 @@ describe JAPR do
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
       Object::JAPR.send(:remove_const, :BazConverter)
+    end
+
+    it 'outputs error message if failure to collect asset' do
+      # File.open is first used in the flow in Pipeline.collect
+      # The exception checking in Pipeline.collect is actually a bit of overkill
+      # Pipeline.hash (which happens before in the flow) should catch if a
+      # manifest file can not be opened
+      File.stub(:open, -> { raise StandardError }) do
+        manifest = '- /_assets/unconverted.baz'
+        proc do
+          proc do
+            Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
+                         extension, config)
+          end.must_raise(StandardError)
+        end.must_output(/failed/i)
+      end
+    end
+
+    it 'outputs error message if failure to write asset file' do
+      # FileUtils.mkpath is first used in the flow in Pipeline.write_asset_file
+      FileUtils.stub(:mkpath, nil) do
+        config['staging_path'] = 'we_probably_cant_write_here'
+        manifest = '- /_assets/unconverted.baz'
+        proc do
+          proc do
+            Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
+                         extension, config)
+          end.must_raise(StandardError)
+        end.must_output(/failed/i)
+      end
     end
   end
 end

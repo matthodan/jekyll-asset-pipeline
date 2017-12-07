@@ -1,4 +1,6 @@
 module JAPR
+  # Contains overrides for the needed Jekyll:Site methods
+  # Included in Jekyll::Site
   module JekyllSiteExtensions
     def self.included(base)
       base.class_eval do

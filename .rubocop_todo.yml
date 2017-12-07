@@ -17,8 +17,8 @@ ParameterLists:
 
 # Offense count: 7
 # Cop supports --auto-correct.
-RescueException:
-  Enabled: false
+#RescueException:
+  #Enabled: false
 
 # Offense count: 3
 # Cop supports --auto-correct.

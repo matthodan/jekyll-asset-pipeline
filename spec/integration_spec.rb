@@ -341,7 +341,7 @@ describe JAPR do
           end
 
           def convert
-            raise Exception
+            raise StandardError
           end
         end
       end
@@ -351,7 +351,7 @@ describe JAPR do
         proc do
           Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
                        extension, config)
-        end.must_raise(Exception)
+        end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       # Clean up test converters
@@ -368,7 +368,7 @@ describe JAPR do
           end
 
           def compress
-            raise Exception
+            raise StandardError
           end
         end
       end
@@ -378,7 +378,7 @@ describe JAPR do
         proc do
           Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
                        extension, config)
-        end.must_raise(Exception)
+        end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       # Clean up test compressor
@@ -395,7 +395,7 @@ describe JAPR do
           end
 
           def convert
-            raise Exception
+            raise StandardError
           end
         end
       end
@@ -405,7 +405,7 @@ describe JAPR do
         proc do
           Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
                        extension, config)
-        end.must_raise(Exception)
+        end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       proc do
@@ -423,13 +423,13 @@ describe JAPR do
       # The exception checking in Pipeline.collect is actually a bit of overkill
       # Pipeline.hash (which happens before in the flow) should catch if a
       # manifest file can not be opened
-      File.stub(:open, -> { raise Exception }) do
+      File.stub(:open, -> { raise StandardError }) do
         manifest = '- /_assets/unconverted.baz'
         proc do
           proc do
             Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
                          extension, config)
-          end.must_raise(Exception)
+          end.must_raise(StandardError)
         end.must_output(/failed/i)
       end
     end
@@ -443,7 +443,7 @@ describe JAPR do
           proc do
             Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
                          extension, config)
-          end.must_raise(Exception)
+          end.must_raise(StandardError)
         end.must_output(/failed/i)
       end
     end

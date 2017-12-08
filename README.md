@@ -360,6 +360,10 @@ You can contribute to the JAPR by submitting a pull request [via GitHub](https:/
 
 If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/janosrusiczki/japr/issues).
 
+## Changelog
+
+See [the changelog](CHANGELOG.md).
+
 ## Community
 
 - Here is [GitHub's list of projects that use the gem](https://github.com/janosrusiczki/japr/network/dependents).

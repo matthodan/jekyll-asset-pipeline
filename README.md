@@ -33,8 +33,8 @@ This project is a fork of [Jekyll Asset Pipeline](https://github.com/matthodan/j
 ## Features
 
 - Declarative dependency management via asset manifests
-- Asset preprocessing/conversion (supports [CoffeeScript](http://coffeescript.org/), [Sass / Scss](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html), etc.)
-- Asset compression (supports [YUI Compressor](http://developer.yahoo.com/yui/compressor/), [Closure Compiler](https://developers.google.com/closure/compiler/), etc.)
+- Asset preprocessing/conversion (supports [CoffeeScript](http://coffeescript.org/), [Sass / Scss](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-2.2.0/libdoc/erb/rdoc/ERB.html), etc.)
+- Asset compression (supports [YUI Compressor](http://yui.github.io/yuicompressor/), [Closure Compiler](https://developers.google.com/closure/compiler/), etc.)
 - Fingerprints bundled asset filenames with MD5 hashes for better browser caching
 - Automatic generation of HTML `link` and `script` tags that point to bundled assets
 - Integrates seamlessly into Jekyll's workflow, including auto site regeneration
@@ -60,7 +60,7 @@ JAPR is extremely easy to add to your Jekyll project and has no incremental depe
 
   If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add `japr` to your Gemfile and run `bundle install`.
 
-2. Add a `_plugins` folder to your project if you do not already have one. Within the `_plugins` folder, add a file named `jekyll_asset_pipeline.rb` with the following require statement as its contents.
+2. Add a `_plugins` folder to your project if you do not already have one. Within the `_plugins` folder, add a file named `japr.rb` with the following require statement as its contents.
 
   ``` ruby
   require 'japr'
@@ -106,21 +106,21 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 
 ### CoffeeScript
 
-1. In the `jekyll_asset_pipeline.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
+1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
 
   ``` ruby
   module JAPR
-      class CoffeeScriptConverter < JAPR::Converter
-        require 'coffee-script'
+    class CoffeeScriptConverter < JAPR::Converter
+      require 'coffee-script'
 
-        def self.filetype
-          '.coffee'
-        end
-
-        def convert
-          return CoffeeScript.compile(@content)
-        end
+      def self.filetype
+        '.coffee'
       end
+
+      def convert
+        return CoffeeScript.compile(@content)
+      end
+    end
   end
   ```
 
@@ -167,9 +167,9 @@ You can use the `@dirname` instance variable for this, which contains the path t
 
 ``` ruby
 ...
-    def convert
-      return Sass::Engine.new(@content, syntax: :scss, load_paths: [@dirname]).render
-    end
+def convert
+  return Sass::Engine.new(@content, syntax: :scss, load_paths: [@dirname]).render
+end
 ...
 ```
 
@@ -197,9 +197,9 @@ As with the SASS convertor, you'll probably need to specify a base load path and
 
 ``` ruby
 ...
-    def convert
-      return Less::Parser.new(paths: [@dirname]).parse(@content).to_css
-    end
+def convert
+  return Less::Parser.new(paths: [@dirname]).parse(@content).to_css
+end
 ...
 ```
 
@@ -217,7 +217,7 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
 
 ### Yahoo's YUI Compressor
 
-1. In the `jekyll_asset_pipeline.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
+1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
 
   ``` ruby
   module JAPR
@@ -287,7 +287,7 @@ When JAPR creates a bundle, it returns an HTML tag that points to the bundle. Th
 
 In the following example, we will override the default CSS link tag by adding a custom template that produces a link tag with a `media` attribute.
 
-1. In the `jekyll_asset_pipeline.rb` file that we created in the [Getting Started](#getting-started) section, add the following code.
+1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code.
 
   ``` ruby
   module JAPR
@@ -340,7 +340,7 @@ Setting        | Default  | Description
 
 1. Octopress uses Bundler to manage your site's dependencies. You should add `gem japr` to your Gemfile and then run `bundle install` to install.
 
-2. Instead of adding a `_plugins` folder, you should put `jekyll_asset_pipeline.rb` in the `plugins` folder included by default in the root of your Octopress site.
+2. Instead of adding a `_plugins` folder, you should put `japr.rb` in the `plugins` folder included by default in the root of your Octopress site.
 
 3. You should still store your assets in an Jekyll ignored folder (i.e. a folder that begins with an underscore `_`), but note that this folder should be located within the `source` folder of your Octopress site (e.g. `source/_assets`).
 
@@ -354,18 +354,20 @@ If you have any difficulties using JAPR with Octopress, please [open an issue](h
 
 You can contribute to the JAPR by submitting a pull request [via GitHub](https://github.com/janosrusiczki/japr). There are a few areas that need improvement:
 
-- __Tests, tests, tests.__ **This project is now almost fully tested.**
-- __Handle remote assets.__ Right now, JAPR does not provide any way to include remote assets in bundles unless you save them locally before generating your site. Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting. That said, it is generally better to keep remote assets separate so that they load asynchronously.
+- __Tests, tests, tests.__ **This project is now fully tested.**
 - __Successive preprocessing.__ Currently you can only preprocess a file once. It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled. **As of v0.1.0, JAPR now supports successive preprocessing.**
+- __Handle remote assets.__ Right now, JAPR does not provide any way to include remote assets in bundles unless you save them locally before generating your site. Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting. That said, it is generally better to keep remote assets separate so that they load asynchronously.
 
 If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/janosrusiczki/japr/issues).
 
 ## Community
 
-- Here is a list of [sites that use JAPR](http://github.com/janosrusiczki/japr/wiki/Sites-that-use-JAPR). Feel free to add your site to the list if you want.
+- Here is [GitHub's list of projects that use the gem](https://github.com/janosrusiczki/japr/network/dependents).
+- Here is a currated list of [sites that use JAPR](http://github.com/janosrusiczki/japr/wiki/Sites-that-use-JAPR). Feel free to add your site to the list if you want.
 
 ## Credits
 
+* [Matt Hodan](https://github.com/matthodan) for creating [Jekyll Asset Pipeline](https://github.com/matthodan/jekyll-asset-pipeline).
 * [Moshen](https://github.com/moshen/) for creating the [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler).
 * [Mojombo](https://github.com/mojombo) for creating [Jekyll](https://github.com/mojombo/jekyll) in the first place.
 

@@ -1,5 +1,9 @@
 # Jekyll Asset Pipeline
 
+**UPDATE:** I have stopped maintaining this repo, but there are [several forks](https://github.com/matthodan/jekyll-asset-pipeline/network) that are maintained.  For example, Lawrence Whiteside recently updated [his repo](https://github.com/kitsched/japr) to work with Jekyll v3.6.2.  Please refer to his and other repos if you are using a more recent version of Jekyll.
+
+--
+
 [Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses/minifies your site's JavaScript and CSS assets when you compile your Jekyll site.
 
 ## Table of Contents

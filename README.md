@@ -5,9 +5,7 @@
 [![Coveralls Status](https://img.shields.io/coveralls/github/janosrusiczki/japr/master.svg)](https://coveralls.io/r/janosrusiczki/japr?branch=master)
 [![Dependency Status](https://img.shields.io/gemnasium/janosrusiczki/japr.svg)](https://gemnasium.com/janosrusiczki/japr)
 
-JAPR is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your [Jekyll](http://jekyllrb.com/) site.
-
-This project is a fork of [Jekyll Asset Pipeline](https://github.com/matthodan/jekyll-asset-pipeline) by [Matt Hodan](https://github.com/matthodan) which, unfortunately, was pretty much abandonware.
+[Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your [Jekyll](http://jekyllrb.com/) site.
 
 ## Table of Contents
 

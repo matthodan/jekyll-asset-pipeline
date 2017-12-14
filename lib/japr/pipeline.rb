@@ -2,6 +2,7 @@ module JAPR
   # The pipeline itself, the run method is where it all happens
   # rubocop:disable ClassLength
   class Pipeline
+    # rubocop:enable ClassLength
     class << self
       # Generate hash based on manifest
       def hash(source, manifest, options = {})

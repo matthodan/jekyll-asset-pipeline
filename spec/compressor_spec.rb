@@ -33,7 +33,7 @@ describe Compressor do
   end
 
   context 'with default compressor class' do
-    before { require './spec/resources/source/_plugins/japr' }
+    before { require './spec/resources/source/_plugins/jekyll_asset_pipeline' }
 
     describe 'class methods' do
       describe '::filetype' do

@@ -1,6 +1,6 @@
 # Jekyll Asset Pipeline
 
-[![Gem Version](https://img.shields.io/gem/v/japr.svg)](https://rubygems.org/gems/japr)
+[![Gem Version](https://img.shields.io/gem/v/jekyll-asset-pipeline.svg)](https://rubygems.org/gems/jekyll-asset-pipeline)
 [![Build Status](https://img.shields.io/travis/matthodan/jekyll-asset-pipeline/master.svg)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
 [![Coveralls Status](https://img.shields.io/coveralls/github/matthodan/jekyll-asset-pipeline/master.svg)](https://coveralls.io/r/matthodan/jekyll-asset-pipeline?branch=master)
 [![Dependency Status](https://img.shields.io/gemnasium/matthodan/jekyll-asset-pipeline.svg)](https://gemnasium.com/matthodan/jekyll-asset-pipeline)
@@ -50,18 +50,18 @@ Jekyll Asset Pipeline's workflow can be summarized as follows:
 
 Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no incremental dependencies beyond those required by Jekyll. Once you have a basic Jekyll site up and running, follow the steps below to install and configure Jekyll Asset Pipeline.
 
-1. Install the `japr` gem via [Rubygems](http://rubygems.org/).
+1. Install the `jekyll-asset-pipeline` gem via [Rubygems](http://rubygems.org/).
 
   ``` bash
-  $ gem install japr
+  $ gem install jekyll-asset-pipeline
   ```
 
-  If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add `japr` to your Gemfile and run `bundle install`.
+  If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add `jekyll-asset-pipeline` to your Gemfile and run `bundle install`.
 
-2. Add a `_plugins` folder to your project if you do not already have one. Within the `_plugins` folder, add a file named `japr.rb` with the following require statement as its contents.
+2. Add a `_plugins` folder to your project if you do not already have one. Within the `_plugins` folder, add a file named `jekyll_asset_pipeline.rb` with the following require statement as its contents.
 
   ``` ruby
-  require 'japr'
+  require 'jekyll_asset_pipeline'
   ```
 
 3. Move your assets into a Jekyll ignored folder (i.e. a folder that begins with an underscore `_`) so that Jekyll won't include these raw assets in the site output. It is recommended to use an `_assets` folder to hold your site's assets.
@@ -104,7 +104,7 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 
 ### CoffeeScript
 
-1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
+1. In the `jekyll_asset_pipeline.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
 
   ``` ruby
   module JekyllAssetPipeline
@@ -215,7 +215,7 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
 
 ### Yahoo's YUI Compressor
 
-1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
+1. In the `jekyll_asset_pipeline.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
 
   ``` ruby
   module JekyllAssetPipeline
@@ -285,7 +285,7 @@ When Jekyll Asset Pipeline creates a bundle, it returns an HTML tag that points 
 
 In the following example, we will override the default CSS link tag by adding a custom template that produces a link tag with a `media` attribute.
 
-1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code.
+1. In the `jekyll_asset_pipeline.rb` file that we created in the [Getting Started](#getting-started) section, add the following code.
 
   ``` ruby
   module JekyllAssetPipeline
@@ -336,9 +336,9 @@ Setting        | Default  | Description
 
 [Octopress](http://octopress.org/) is a popular framework for Jekyll that can help you get a blog up and running quickly. Jekyll Asset Pipeline can be added to an Octopress site using the [Getting Started](#getting-started) steps above with the following modifications:
 
-1. Octopress uses Bundler to manage your site's dependencies. You should add `gem japr` to your Gemfile and then run `bundle install` to install.
+1. Octopress uses Bundler to manage your site's dependencies. You should add `gem jekyll-asset-pipeline` to your Gemfile and then run `bundle install` to install.
 
-2. Instead of adding a `_plugins` folder, you should put `japr.rb` in the `plugins` folder included by default in the root of your Octopress site.
+2. Instead of adding a `_plugins` folder, you should put `jekyll_asset_pipeline.rb` in the `plugins` folder included by default in the root of your Octopress site.
 
 3. You should still store your assets in an Jekyll ignored folder (i.e. a folder that begins with an underscore `_`), but note that this folder should be located within the `source` folder of your Octopress site (e.g. `source/_assets`).
 

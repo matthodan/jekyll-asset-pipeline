@@ -1,6 +1,6 @@
 require './spec/helper'
 
-describe JAPR do
+describe JekyllAssetPipeline do
   # Sensible defaults
   let(:manifest) { "- /_assets/foo.css\n- /_assets/bar.css" }
   let(:prefix) { 'global' }
@@ -79,7 +79,7 @@ describe JAPR do
 
       # Clean up test template
       Template.subclasses.delete(NewCssTagTemplate)
-      Object::JAPR.send(:remove_const, :NewCssTagTemplate)
+      Object::JekyllAssetPipeline.send(:remove_const, :NewCssTagTemplate)
     end
 
     it 'overrides default if custom js template is defined' do
@@ -104,7 +104,7 @@ describe JAPR do
 
       # Clean up test template
       Template.subclasses.delete(NewJsTagTemplate)
-      Object::JAPR.send(:remove_const, :NewJsTagTemplate)
+      Object::JekyllAssetPipeline.send(:remove_const, :NewJsTagTemplate)
     end
   end
 
@@ -204,7 +204,7 @@ describe JAPR do
 
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
-      Object::JAPR.send(:remove_const, :BazConverter)
+      Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
     end
 
     it 'ensures that converted asset is saved with expected extension' do
@@ -233,7 +233,7 @@ describe JAPR do
 
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
-      Object::JAPR.send(:remove_const, :BazConverter)
+      Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
     end
 
     context 'when using multiple converters' do
@@ -266,8 +266,8 @@ describe JAPR do
         # Clean up test converters
         Converter.subclasses.delete(BarConverter)
         Converter.subclasses.delete(BazConverter)
-        Object::JAPR.send(:remove_const, :BarConverter)
-        Object::JAPR.send(:remove_const, :BazConverter)
+        Object::JekyllAssetPipeline.send(:remove_const, :BarConverter)
+        Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
       end
 
       it 'converts asset multiple times if needed in order based on ' \
@@ -317,7 +317,7 @@ describe JAPR do
 
       # Clean up test compressor
       Compressor.subclasses.delete(CssCompressor)
-      Object::JAPR.send(:remove_const, :CssCompressor)
+      Object::JekyllAssetPipeline.send(:remove_const, :CssCompressor)
     end
   end
 
@@ -356,7 +356,7 @@ describe JAPR do
 
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
-      Object::JAPR.send(:remove_const, :BazConverter)
+      Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
     end
 
     it 'outputs error message if failure to compress asset' do
@@ -383,7 +383,7 @@ describe JAPR do
 
       # Clean up test compressor
       Compressor.subclasses.delete(CssCompressor)
-      Object::JAPR.send(:remove_const, :CssCompressor)
+      Object::JekyllAssetPipeline.send(:remove_const, :CssCompressor)
     end
 
     it 'stops processing pipeline if previously generated error' do
@@ -415,7 +415,7 @@ describe JAPR do
 
       # Clean up test converters
       Converter.subclasses.delete(BazConverter)
-      Object::JAPR.send(:remove_const, :BazConverter)
+      Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
     end
 
     it 'outputs error message if failure to collect asset' do

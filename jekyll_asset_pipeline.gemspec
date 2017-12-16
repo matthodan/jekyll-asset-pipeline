@@ -1,8 +1,8 @@
-require File.expand_path('../lib/japr/version', __FILE__)
+require File.expand_path('../lib/jekyll_asset_pipeline/version', __FILE__)
 
 Gem::Specification.new do |s|
   # Metadata
-  s.name = 'japr'
+  s.name = 'jekyll-asset-pipeline'
   s.version = JekyllAssetPipeline::VERSION
   s.date = Time.now
 
@@ -12,13 +12,13 @@ Gem::Specification.new do |s|
   SUMMARY
 
   s.description = <<-DESCRIPTION
-    Jekyll Asset Pipeline reborn adds asset preprocessing (CoffeeScript, Sass,
+    Jekyll Asset Pipeline adds asset preprocessing (CoffeeScript, Sass,
     Less, ERB, etc.) and asset compression / minification / gzip (Yahoo YUI
     Compressor, Google Closure Compiler, etc.) to Jekyll.
   DESCRIPTION
 
-  s.authors = ['Matt Hodan']
-  s.email = 'japr@clicktrackheart.com'
+  s.authors = ['Matt Hodan', 'Janos Rusiczki']
+  s.email = ['matthew.c.hodan@gmail.com', 'janos.rusiczki@gmail.com']
   s.homepage = 'https://github.com/matthodan/jekyll-asset-pipeline'
   s.license = 'MIT'
 

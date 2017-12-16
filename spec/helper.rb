@@ -8,7 +8,7 @@ require 'minitest/pride'
 require './spec/helpers/extensions/ruby/module'
 require 'japr'
 
-include JAPR
+include JekyllAssetPipeline
 
 module MiniTest
   class Spec

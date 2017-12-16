@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.authors = ['Matt Hodan']
   s.email = 'japr@clicktrackheart.com'
-  s.homepage = 'https://github.com/janosrusiczki/japr'
+  s.homepage = 'https://github.com/matthodan/jekyll-asset-pipeline'
   s.license = 'MIT'
 
   s.required_ruby_version = '>= 2.1.0'

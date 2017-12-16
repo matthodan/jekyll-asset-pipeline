@@ -1,6 +1,6 @@
 module JekyllAssetPipeline
   # Base class for asset converters
-  # See https://github.com/janosrusiczki/japr#asset-preprocessing
+  # See https://github.com/matthodan/jekyll-asset-pipeline#asset-preprocessing
   class Converter
     extend JekyllAssetPipeline::SubclassTracking
 

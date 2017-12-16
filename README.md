@@ -1,9 +1,9 @@
 # Jekyll Asset Pipeline
 
 [![Gem Version](https://img.shields.io/gem/v/japr.svg)](https://rubygems.org/gems/japr)
-[![Build Status](https://img.shields.io/travis/janosrusiczki/japr/master.svg)](https://travis-ci.org/janosrusiczki/japr)
-[![Coveralls Status](https://img.shields.io/coveralls/github/janosrusiczki/japr/master.svg)](https://coveralls.io/r/janosrusiczki/japr?branch=master)
-[![Dependency Status](https://img.shields.io/gemnasium/janosrusiczki/japr.svg)](https://gemnasium.com/janosrusiczki/japr)
+[![Build Status](https://img.shields.io/travis/matthodan/jekyll-asset-pipeline/master.svg)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
+[![Coveralls Status](https://img.shields.io/coveralls/github/matthodan/jekyll-asset-pipeline/master.svg)](https://coveralls.io/r/matthodan/jekyll-asset-pipeline?branch=master)
+[![Dependency Status](https://img.shields.io/gemnasium/matthodan/jekyll-asset-pipeline.svg)](https://gemnasium.com/matthodan/jekyll-asset-pipeline)
 
 [Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your [Jekyll](http://jekyllrb.com/) site.
 
@@ -346,17 +346,17 @@ Setting        | Default  | Description
 
 5. Instead of running the `jekyll` command to compile your site, you should use Octopress' rake commands (e.g. `rake generate`) as outlined [here](http://octopress.org/docs/blogging/).
 
-If you have any difficulties using Jekyll Asset Pipeline with Octopress, please [open an issue](http://github.com/janosrusiczki/japr/issues).
+If you have any difficulties using Jekyll Asset Pipeline with Octopress, please [open an issue](http://github.com/matthodan/jekyll-asset-pipeline/issues).
 
 ## Contribute
 
-You can contribute to the Jekyll Asset Pipeline by submitting a pull request [via GitHub](https://github.com/janosrusiczki/japr). There are a few areas that need improvement:
+You can contribute to the Jekyll Asset Pipeline by submitting a pull request [via GitHub](https://github.com/matthodan/jekyll-asset-pipeline). There are a few areas that need improvement:
 
 - __Tests, tests, tests.__ **This project is now fully tested.**
 - __Successive preprocessing.__ Currently you can only preprocess a file once. It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled. **As of v0.1.0, Jekyll Asset Pipeline now supports successive preprocessing.**
 - __Handle remote assets.__ Right now, Jekyll Asset Pipeline does not provide any way to include remote assets in bundles unless you save them locally before generating your site. Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting. That said, it is generally better to keep remote assets separate so that they load asynchronously.
 
-If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/janosrusiczki/japr/issues).
+If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/matthodan/jekyll-asset-pipeline/issues).
 
 ## Changelog
 
@@ -364,7 +364,7 @@ See [the changelog](CHANGELOG.md).
 
 ## Community
 
-- Here is [GitHub's list of projects that use the gem](https://github.com/janosrusiczki/japr/network/dependents).
+- Here is [GitHub's list of projects that use the gem](https://github.com/matthodan/jekyll-asset-pipeline/network/dependents).
 - Here is a currated list of [sites that use Jekyll Asset Pipeline](http://github.com/matthodan/jekyll-asset-pipeline/wiki/Sites-that-use-Jekyll-Asset-Pipeline). Feel free to add your site to the list if you want.
 
 ## Credits

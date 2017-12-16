@@ -107,7 +107,7 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
 
   ``` ruby
-  module JAPR
+  module JekyllAssetPipeline
     class CoffeeScriptConverter < JekyllAssetPipeline::Converter
       require 'coffee-script'
 
@@ -143,7 +143,7 @@ That is it! Your asset pipeline has converted any CoffeeScript assets into JavaS
 You probably get the gist of how converters work, but here's an example of a SASS converter for quick reference.
 
 ``` ruby
-module JAPR
+module JekyllAssetPipeline
   class SassConverter < JekyllAssetPipeline::Converter
     require 'sass'
 
@@ -174,7 +174,7 @@ end
 ### LESS
 
 ``` ruby
-module JAPR
+module JekyllAssetPipeline
   class LessConverter < JekyllAssetPipeline::Converter
     require 'less'
 
@@ -218,7 +218,7 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
 1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code to the end of the file (i.e. after the `require` statement).
 
   ``` ruby
-  module JAPR
+  module JekyllAssetPipeline
     class CssCompressor < JekyllAssetPipeline::Compressor
       require 'yui/compressor'
 
@@ -288,7 +288,7 @@ In the following example, we will override the default CSS link tag by adding a 
 1. In the `japr.rb` file that we created in the [Getting Started](#getting-started) section, add the following code.
 
   ``` ruby
-  module JAPR
+  module JekyllAssetPipeline
     class CssTagTemplate < JekyllAssetPipeline::Template
       def self.filetype
         '.css'

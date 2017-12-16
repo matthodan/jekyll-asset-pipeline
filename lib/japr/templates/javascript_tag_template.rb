@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   # Default output for JavaScript assets
   class JavaScriptTagTemplate < JekyllAssetPipeline::Template
     def self.filetype

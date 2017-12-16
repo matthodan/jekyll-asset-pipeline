@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   class TestConverter < JekyllAssetPipeline::Converter
     def self.filetype
       '.foo'

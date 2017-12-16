@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   # Helper module used by JekyllAssetPipeline::AssetTag as well as
   # classed derived from it (Liquid tag block extensions)
   # See documentation here:

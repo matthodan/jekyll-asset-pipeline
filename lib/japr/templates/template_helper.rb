@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   # Contains helper methods used by the tag template classes
   module TemplateHelper
     def output_path

@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   # Holds an asset (file)
   class Asset
     def initialize(content, filename, dirname = '.')

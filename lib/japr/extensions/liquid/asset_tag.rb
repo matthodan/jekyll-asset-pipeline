@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   # This is a Liquid tag block extension
   # See documentation here:
   # https://github.com/Shopify/liquid/wiki/liquid-for-programmers#create-your-own-tag-blocks

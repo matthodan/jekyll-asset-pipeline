@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   # Default output for CSS assets
   class CssTagTemplate < JekyllAssetPipeline::Template
     def self.filetype

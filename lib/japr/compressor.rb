@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   # Base class for asset compressors
   # See https://github.com/janosrusiczki/japr#asset-compression
   class Compressor

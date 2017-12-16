@@ -1,4 +1,4 @@
-module JAPR
+module JekyllAssetPipeline
   # The pipeline itself, the run method is where it all happens
   # rubocop:disable ClassLength
   class Pipeline

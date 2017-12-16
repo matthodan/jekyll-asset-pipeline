@@ -33,7 +33,7 @@ require 'japr/templates/javascript_tag_template'
 require 'japr/templates/css_tag_template'
 require 'japr/pipeline'
 
-module JAPR
+module JekyllAssetPipeline
   # Default configuration settings for Jekyll Asset Pipeline
   # Strings used for keys to play nice when merging with _config.yml
   #

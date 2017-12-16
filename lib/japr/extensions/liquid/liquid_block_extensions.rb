@@ -1,5 +1,5 @@
 module JAPR
-  # Helper module used by JAPR::AssetTag as well as
+  # Helper module used by JekyllAssetPipeline::AssetTag as well as
   # classed derived from it (Liquid tag block extensions)
   # See documentation here:
   # https://github.com/Shopify/liquid/wiki/liquid-for-programmers#create-your-own-tag-blocks
@@ -40,7 +40,7 @@ module JAPR
 
     def preserve_assets(site, config, pipeline)
       pipeline.assets.each do |asset|
-        config = JAPR::DEFAULTS.merge(config)
+        config = JekyllAssetPipeline::DEFAULTS.merge(config)
         staging_path = File.expand_path(File.join(site.source,
                                                   config['staging_path']))
         site.static_files << Jekyll::StaticFile.new(site, staging_path,

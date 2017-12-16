@@ -2,8 +2,8 @@
 # register_tag below and a verbose comment is better than a :nodoc: :)
 module JAPR
   # javascript_asset_tag Liquid block
-  # See JAPR::AssetTag and JAPR::LiquidBlockExtensions
-  class JavaScriptAssetTag < JAPR::AssetTag
+  # See JekyllAssetPipeline::AssetTag and JekyllAssetPipeline::LiquidBlockExtensions
+  class JavaScriptAssetTag < JekyllAssetPipeline::AssetTag
     def self.tag_name
       'javascript_asset_tag'
     end
@@ -14,6 +14,6 @@ module JAPR
   end
 
   # Register JavaScriptAssetTag tag with Liquid
-  ::Liquid::Template.register_tag(JAPR::JavaScriptAssetTag.tag_name,
-                                  JAPR::JavaScriptAssetTag)
+  ::Liquid::Template.register_tag(JekyllAssetPipeline::JavaScriptAssetTag.tag_name,
+                                  JekyllAssetPipeline::JavaScriptAssetTag)
 end

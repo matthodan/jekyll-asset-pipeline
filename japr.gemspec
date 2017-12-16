@@ -3,7 +3,7 @@ require File.expand_path('../lib/japr/version', __FILE__)
 Gem::Specification.new do |s|
   # Metadata
   s.name = 'japr'
-  s.version = JAPR::VERSION
+  s.version = JekyllAssetPipeline::VERSION
   s.date = Time.now
 
   s.summary = <<-SUMMARY

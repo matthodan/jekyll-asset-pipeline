@@ -17,9 +17,9 @@ module JAPR
       end
 
       # Run the pipeline
-      # This is called from JAPR::LiquidBlockExtensions.render or,
-      # to be more precise, from JAPR::CssAssetTag.render and
-      # JAPR::JavaScriptAssetTag.render
+      # This is called from JekyllAssetPipeline::LiquidBlockExtensions.render or,
+      # to be more precise, from JekyllAssetPipeline::CssAssetTag.render and
+      # JekyllAssetPipeline::JavaScriptAssetTag.render
       # rubocop:disable ParameterLists
       def run(manifest, prefix, source, destination, tag, type, config)
         # rubocop:enable ParameterLists
@@ -89,7 +89,7 @@ module JAPR
       @source = source
       @destination = destination
       @type = type
-      @options = JAPR::DEFAULTS.merge(options)
+      @options = JekyllAssetPipeline::DEFAULTS.merge(options)
 
       process
     end
@@ -114,7 +114,7 @@ module JAPR
       @assets = YAML.safe_load(@manifest).map! do |path|
         full_path = File.join(@source, path)
         File.open(File.join(@source, path)) do |file|
-          JAPR::Asset.new(file.read, File.basename(path),
+          JekyllAssetPipeline::Asset.new(file.read, File.basename(path),
                           File.dirname(full_path))
         end
       end
@@ -131,7 +131,7 @@ module JAPR
         finished = false
         while finished == false
           # Find a converter to use
-          klass = JAPR::Converter.klass(asset.filename)
+          klass = JekyllAssetPipeline::Converter.klass(asset.filename)
 
           # Convert asset if converter is found
           if klass.nil?
@@ -166,15 +166,15 @@ module JAPR
     def bundle
       content = @assets.map(&:content).join("\n")
 
-      hash = JAPR::Pipeline.hash(@source, @manifest, @options)
-      @assets = [JAPR::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
+      hash = JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
+      @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
     end
 
     # Compress assets if compressor is defined
     def compress
       @assets.each do |asset|
         # Find a compressor to use
-        klass = JAPR::Compressor.subclasses.select do |c|
+        klass = JekyllAssetPipeline::Compressor.subclasses.select do |c|
           c.filetype == @type
         end.last
 
@@ -196,7 +196,7 @@ module JAPR
         gzip_content = Zlib::Deflate.deflate(asset.content)
         [
           asset,
-          JAPR::Asset.new(gzip_content, "#{asset.filename}.gz", asset.dirname)
+          JekyllAssetPipeline::Asset.new(gzip_content, "#{asset.filename}.gz", asset.dirname)
         ]
       end.flatten!
     end
@@ -236,7 +236,7 @@ module JAPR
       display_path = @options['display_path'] || @options['output_path']
 
       @html = @assets.map do |asset|
-        klass = JAPR::Template.klass(asset.filename)
+        klass = JekyllAssetPipeline::Template.klass(asset.filename)
         html = klass.new(display_path, asset.filename).html unless klass.nil?
 
         html

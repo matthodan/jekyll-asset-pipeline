@@ -7,10 +7,10 @@ describe Pipeline do
       let(:expected_hash) do
         Digest::MD5.hexdigest(YAML.safe_load(manifest).map! do |path|
           "#{path}#{File.mtime(File.join(source_path, path)).to_i}"
-        end.join.concat(JAPR::DEFAULTS.to_s))
+        end.join.concat(JekyllAssetPipeline::DEFAULTS.to_s))
       end
 
-      subject { JAPR::Pipeline.hash(source_path, manifest) }
+      subject { JekyllAssetPipeline::Pipeline.hash(source_path, manifest) }
 
       it 'returns a md5 hash of the manifest contents' do
         subject.must_equal expected_hash
@@ -45,7 +45,7 @@ describe Pipeline do
           klass.expect(:nil?, false)
         end
 
-        JAPR::Template.stub(:subclasses, [klass]) do
+        JekyllAssetPipeline::Template.stub(:subclasses, [klass]) do
           pipeline
         end
       end
@@ -71,11 +71,11 @@ describe Pipeline do
           YAML.safe_load(manifest).size.times do
             converter.expect(:converted, 'converted')
             2.times { klass.expect(:filetype, '.scss') }
-            klass.expect(:new, converter, [JAPR::Asset])
+            klass.expect(:new, converter, [JekyllAssetPipeline::Asset])
             klass.expect(:nil?, false)
           end
 
-          JAPR::Converter.stub(:subclasses, [klass]) do
+          JekyllAssetPipeline::Converter.stub(:subclasses, [klass]) do
             pipeline
           end
         end
@@ -96,7 +96,7 @@ describe Pipeline do
         end
 
         it 'generates a filename with md5 for the bundled asset' do
-          hash = JAPR::Pipeline.hash(source_path, manifest, options)
+          hash = JekyllAssetPipeline::Pipeline.hash(source_path, manifest, options)
           subject.last.filename.must_equal("#{prefix}-#{hash}#{type}")
         end
 
@@ -149,7 +149,7 @@ describe Pipeline do
             klass.expect(:nil?, false)
           end
 
-          JAPR::Compressor.stub(:subclasses, [klass]) do
+          JekyllAssetPipeline::Compressor.stub(:subclasses, [klass]) do
             pipeline
           end
         end

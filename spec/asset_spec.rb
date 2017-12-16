@@ -1,7 +1,7 @@
 require './spec/helper'
 
 describe Asset do
-  subject { JAPR::Asset.new('foo', 'bar') }
+  subject { JekyllAssetPipeline::Asset.new('foo', 'bar') }
 
   describe '#new(content, filename)' do
     specify { subject.instance_variable_get(:@content).must_equal('foo') }

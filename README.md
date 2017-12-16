@@ -108,7 +108,7 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
 
   ``` ruby
   module JAPR
-    class CoffeeScriptConverter < JAPR::Converter
+    class CoffeeScriptConverter < JekyllAssetPipeline::Converter
       require 'coffee-script'
 
       def self.filetype
@@ -122,7 +122,7 @@ In the following example, we will add a preprocessor that converts CoffeeScript 
   end
   ```
 
-  The above code adds a CoffeeScript converter. You can name a converter anything as long as it inherits from `JAPR::Converter`. The `self.filetype` method defines the type of asset a converter will process (e.g. `.coffee` for CoffeeScript) based on the extension of the raw asset file. A `@content` instance variable that contains the raw content of our asset is made available within the converter. The converter should process this content and return the processed content (as a string) via a `convert` method.
+  The above code adds a CoffeeScript converter. You can name a converter anything as long as it inherits from `JekyllAssetPipeline::Converter`. The `self.filetype` method defines the type of asset a converter will process (e.g. `.coffee` for CoffeeScript) based on the extension of the raw asset file. A `@content` instance variable that contains the raw content of our asset is made available within the converter. The converter should process this content and return the processed content (as a string) via a `convert` method.
 
 2. If you haven't already, you should now install any dependancies that are required by your converter. In our case, we need to install the `coffee-script` gem.
 
@@ -144,7 +144,7 @@ You probably get the gist of how converters work, but here's an example of a SAS
 
 ``` ruby
 module JAPR
-  class SassConverter < JAPR::Converter
+  class SassConverter < JekyllAssetPipeline::Converter
     require 'sass'
 
     def self.filetype
@@ -175,7 +175,7 @@ end
 
 ``` ruby
 module JAPR
-  class LessConverter < JAPR::Converter
+  class LessConverter < JekyllAssetPipeline::Converter
     require 'less'
 
     def self.filetype
@@ -219,7 +219,7 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
 
   ``` ruby
   module JAPR
-    class CssCompressor < JAPR::Compressor
+    class CssCompressor < JekyllAssetPipeline::Compressor
       require 'yui/compressor'
 
       def self.filetype
@@ -231,7 +231,7 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
       end
     end
 
-    class JavaScriptCompressor < JAPR::Compressor
+    class JavaScriptCompressor < JekyllAssetPipeline::Compressor
       require 'yui/compressor'
 
       def self.filetype
@@ -245,7 +245,7 @@ In the following example, we will add a compressor that uses Yahoo's YUI Compres
   end
   ```
 
-  The above code adds a CSS and a JavaScript compressor. You can name a compressor anything as long as it inherits from `JAPR::Compressor`. The `self.filetype` method defines the type of asset a compressor will process (either `'.js'` or `'.css'`). The `compress` method is where the magic happens. A `@content` instance variable that contains the raw content of our bundle is made available within the compressor. The compressor should process this content and return the processed content (as a string) via a `compress` method.
+  The above code adds a CSS and a JavaScript compressor. You can name a compressor anything as long as it inherits from `JekyllAssetPipeline::Compressor`. The `self.filetype` method defines the type of asset a compressor will process (either `'.js'` or `'.css'`). The `compress` method is where the magic happens. A `@content` instance variable that contains the raw content of our bundle is made available within the compressor. The compressor should process this content and return the processed content (as a string) via a `compress` method.
 
 2. If you haven't already, you should now install any dependencies that are required by your compressor. In our case, we need to install the `yui-compressor` gem.
 
@@ -264,7 +264,7 @@ That is it! Your asset pipeline has compressed your CSS and JavaScript assets. Y
 You probably get the gist of how compressors work, but here's an example of a Google Closure Compiler compressor for quick reference.
 
 ``` ruby
-class JavaScriptCompressor < JAPR::Compressor
+class JavaScriptCompressor < JekyllAssetPipeline::Compressor
   require 'closure-compiler'
 
   def self.filetype
@@ -289,7 +289,7 @@ In the following example, we will override the default CSS link tag by adding a 
 
   ``` ruby
   module JAPR
-    class CssTagTemplate < JAPR::Template
+    class CssTagTemplate < JekyllAssetPipeline::Template
       def self.filetype
         '.css'
       end

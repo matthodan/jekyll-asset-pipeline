@@ -2,7 +2,7 @@ module JAPR
   # Base class for asset converters
   # See https://github.com/janosrusiczki/japr#asset-preprocessing
   class Converter
-    extend JAPR::SubclassTracking
+    extend JekyllAssetPipeline::SubclassTracking
 
     def initialize(asset)
       @content = asset.content
@@ -20,7 +20,7 @@ module JAPR
 
     # Finds a converter class based on a filename
     def self.klass(filename)
-      JAPR::Converter.subclasses.select do |c|
+      JekyllAssetPipeline::Converter.subclasses.select do |c|
         c.filetype == File.extname(filename).downcase
       end.last
     end

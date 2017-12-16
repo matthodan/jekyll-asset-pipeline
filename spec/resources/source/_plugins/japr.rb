@@ -1,5 +1,5 @@
 module JAPR
-  class TestConverter < JAPR::Converter
+  class TestConverter < JekyllAssetPipeline::Converter
     def self.filetype
       '.foo'
     end
@@ -9,7 +9,7 @@ module JAPR
     end
   end
 
-  class TestCompressor < JAPR::Compressor
+  class TestCompressor < JekyllAssetPipeline::Compressor
     def self.filetype
       '.foo'
     end
@@ -19,7 +19,7 @@ module JAPR
     end
   end
 
-  class TestTemplate < JAPR::Template
+  class TestTemplate < JekyllAssetPipeline::Template
     def self.filetype
       '.foo'
     end

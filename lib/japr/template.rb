@@ -2,8 +2,8 @@ module JAPR
   # Base class for the tag templates
   # See https://github.com/janosrusiczki/japr#templates
   class Template
-    include JAPR::TemplateHelper
-    extend JAPR::SubclassTracking
+    include JekyllAssetPipeline::TemplateHelper
+    extend JekyllAssetPipeline::SubclassTracking
 
     def initialize(path, filename)
       @path = path
@@ -22,7 +22,7 @@ module JAPR
 
     # Finds a template class based on a filename
     def self.klass(filename)
-      klasses = JAPR::Template.subclasses.select do |t|
+      klasses = JekyllAssetPipeline::Template.subclasses.select do |t|
         t.filetype == File.extname(filename).downcase
       end
       klasses.sort! { |x, y| x.priority <=> y.priority }.last

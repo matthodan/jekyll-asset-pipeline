@@ -96,7 +96,8 @@ describe Pipeline do
         end
 
         it 'generates a filename with md5 for the bundled asset' do
-          hash = JekyllAssetPipeline::Pipeline.hash(source_path, manifest, options)
+          hash = JekyllAssetPipeline::Pipeline
+                 .hash(source_path, manifest, options)
           subject.last.filename.must_equal("#{prefix}-#{hash}#{type}")
         end
 

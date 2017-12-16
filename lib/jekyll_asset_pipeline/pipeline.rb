@@ -18,8 +18,8 @@ module JekyllAssetPipeline
       end
 
       # Run the pipeline
-      # This is called from JekyllAssetPipeline::LiquidBlockExtensions.render or,
-      # to be more precise, from JekyllAssetPipeline::CssAssetTag.render and
+      # This is called from JekyllAssetPipeline::LiquidBlockExtensions.render
+      # or, to be more precise, from JekyllAssetPipeline::CssAssetTag.render and
       # JekyllAssetPipeline::JavaScriptAssetTag.render
       # rubocop:disable ParameterLists
       def run(manifest, prefix, source, destination, tag, type, config)
@@ -116,7 +116,7 @@ module JekyllAssetPipeline
         full_path = File.join(@source, path)
         File.open(File.join(@source, path)) do |file|
           JekyllAssetPipeline::Asset.new(file.read, File.basename(path),
-                          File.dirname(full_path))
+                                         File.dirname(full_path))
         end
       end
     rescue StandardError => se
@@ -168,7 +168,9 @@ module JekyllAssetPipeline
       content = @assets.map(&:content).join("\n")
 
       hash = JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
-      @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
+      @assets = [
+        JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")
+      ]
     end
 
     # Compress assets if compressor is defined
@@ -197,7 +199,8 @@ module JekyllAssetPipeline
         gzip_content = Zlib::Deflate.deflate(asset.content)
         [
           asset,
-          JekyllAssetPipeline::Asset.new(gzip_content, "#{asset.filename}.gz", asset.dirname)
+          JekyllAssetPipeline::Asset
+            .new(gzip_content, "#{asset.filename}.gz", asset.dirname)
         ]
       end.flatten!
     end

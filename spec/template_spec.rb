@@ -105,7 +105,9 @@ describe Template do
     end
 
     describe 'instance methods' do
-      before { require './spec/resources/source/_plugins/jekyll_asset_pipeline' }
+      before do
+        require './spec/resources/source/_plugins/jekyll_asset_pipeline'
+      end
       subject { TestTemplate.new('path', 'somefile.foo') }
 
       describe '#new(path, filename)' do

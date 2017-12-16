@@ -1,8 +1,8 @@
-module JAPR
+module JekyllAssetPipeline
   # Base class for asset compressors
-  # See https://github.com/janosrusiczki/japr#asset-compression
+  # See https://github.com/matthodan/jekyll-asset-pipeline#asset-compression
   class Compressor
-    extend JAPR::SubclassTracking
+    extend JekyllAssetPipeline::SubclassTracking
 
     def initialize(content)
       @content = content

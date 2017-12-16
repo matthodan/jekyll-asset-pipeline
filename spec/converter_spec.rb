@@ -38,7 +38,7 @@ describe Converter do
   end
 
   context 'with custom converter class' do
-    before { require './spec/resources/source/_plugins/japr' }
+    before { require './spec/resources/source/_plugins/jekyll_asset_pipeline' }
 
     describe 'class methods' do
       describe '::filetype' do

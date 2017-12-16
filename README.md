@@ -1,4 +1,4 @@
-# JAPR (Jekyll Asset Pipeline Reborn)
+# Jekyll Asset Pipeline
 
 [![Gem Version](https://img.shields.io/gem/v/japr.svg)](https://rubygems.org/gems/japr)
 [![Build Status](https://img.shields.io/travis/janosrusiczki/japr/master.svg)](https://travis-ci.org/janosrusiczki/japr)
@@ -39,7 +39,7 @@
 
 ## How It Works
 
-JAPR's workflow can be summarized as follows:
+Jekyll Asset Pipeline's workflow can be summarized as follows:
 
 1. Reviews site markup for instances of the `css_asset_tag` and `javascript_asset_tag` Liquid tags. Each occurrence of either of these tags identifies when a new bundle needs to be created and outlines (via a manifest) which assets to include in the bundle.
 2. Collects raw assets based on the manifest and runs them through converters / preprocessors (if necessary) to convert them into valid CSS or JavaScript.
@@ -48,7 +48,7 @@ JAPR's workflow can be summarized as follows:
 
 ## Getting Started
 
-JAPR is extremely easy to add to your Jekyll project and has no incremental dependencies beyond those required by Jekyll. Once you have a basic Jekyll site up and running, follow the steps below to install and configure JAPR.
+Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no incremental dependencies beyond those required by Jekyll. Once you have a basic Jekyll site up and running, follow the steps below to install and configure Jekyll Asset Pipeline.
 
 1. Install the `japr` gem via [Rubygems](http://rubygems.org/).
 
@@ -81,7 +81,7 @@ JAPR is extremely easy to add to your Jekyll project and has no incremental depe
   ```
   Asset manifests must be formatted as YAML arrays and include full paths to each asset from the root of the project. YAML [does not allow tabbed markup](http://www.yaml.org/faq.html), so you must use spaces when indenting your YAML manifest or you will get an error when you compile your site. If you are using assets that must be preprocessed, you should append the appropriate extension (e.g. '.js.coffee', '.css.less') as discussed in the [Asset Preprocessing](#asset-preprocessing) section.
 
-5. Run the `jekyll build` command to compile your site. You should see an output that includes the following JAPR status messages.
+5. Run the `jekyll build` command to compile your site. You should see an output that includes the following Jekyll Asset Pipeline status messages.
 
   ``` bash
   $ jekyll build
@@ -98,7 +98,7 @@ That is it! You should now have bundled assets. Look in the `_site` folder of yo
 
 ## Asset Preprocessing
 
-Asset preprocessing (i.e. conversion) allows us to write our assets in languages such as [CoffeeScript](http://coffeescript.org/), [Sass](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html) or any other language. One of JAPR's key strengths is that it works with __any__ preprocessing library that has a ruby wrapper. Adding a preprocessor is straightforward, but requires a small amount of additional code.
+Asset preprocessing (i.e. conversion) allows us to write our assets in languages such as [CoffeeScript](http://coffeescript.org/), [Sass](http://sass-lang.com/), [Less](http://lesscss.org/), [Erb](http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html) or any other language. One of Jekyll Asset Pipeline's key strengths is that it works with __any__ preprocessing library that has a ruby wrapper. Adding a preprocessor is straightforward, but requires a small amount of additional code.
 
 In the following example, we will add a preprocessor that converts CoffeeScript into JavaScript.
 
@@ -205,11 +205,11 @@ end
 
 If you would like to run an asset through multiple preprocessors successively, you can do so by naming your assets with nested file extensions. Nest the extensions in the order (right to left) that the asset should be processed. For example, `.css.scss.erb` would first be processed by an `erb` preprocessor then by a `scss` preprocessor before being rendered. This convention is very similar to the convention used by the [Ruby on Rails asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html#preprocessing).
 
-Don't forget to define preprocessors for the extensions you use in your filenames, otherwise JAPR will not process your asset.
+Don't forget to define preprocessors for the extensions you use in your filenames, otherwise Jekyll Asset Pipeline will not process your asset.
 
 ## Asset Compression
 
-Asset compression allows us to decrease the size of our assets and increase the speed of our site. One of JAPR's key strengths is that it works with __any__ compression library that has a ruby wrapper. Adding asset compression is straightforward, but requires a small amount of additional code.
+Asset compression allows us to decrease the size of our assets and increase the speed of our site. One of Jekyll Asset Pipeline's key strengths is that it works with __any__ compression library that has a ruby wrapper. Adding asset compression is straightforward, but requires a small amount of additional code.
 
 In the following example, we will add a compressor that uses Yahoo's YUI Compressor to compress our CSS and JavaScript assets.
 
@@ -281,7 +281,7 @@ Don't forget to install the `closure-compiler` gem before you run the `jekyll bu
 
 ## Templates
 
-When JAPR creates a bundle, it returns an HTML tag that points to the bundle. This tag is either a `link` tag for CSS or a `script` tag for JavaScript. Under most circumstances the default tags will suffice, but you may want to customize this output for special cases (e.g. if you want to add a CSS media attribute).
+When Jekyll Asset Pipeline creates a bundle, it returns an HTML tag that points to the bundle. This tag is either a `link` tag for CSS or a `script` tag for JavaScript. Under most circumstances the default tags will suffice, but you may want to customize this output for special cases (e.g. if you want to add a CSS media attribute).
 
 In the following example, we will override the default CSS link tag by adding a custom template that produces a link tag with a `media` attribute.
 
@@ -302,7 +302,7 @@ In the following example, we will override the default CSS link tag by adding a 
   end
   ```
 
-  If you already added a compressor and/or a converter, you can include your template class alongside your compressor and/or converter within the same JAPR module.
+  If you already added a compressor and/or a converter, you can include your template class alongside your compressor and/or converter within the same Jekyll Asset Pipeline module.
 
   The “self.filetype” method defines the type of bundle a template will target (either `.js` or `.css`). The “html” method is where the magic happens. `output_path` is a helper method and `@filename` is an instance variable which are available within the class and contain the path and filename of the generated bundle, respectively. The template should return a string that contains an HTML tag pointing to the generated bundle via an `html` method.
 
@@ -312,7 +312,7 @@ That is it! Your asset pipeline used your template to generate an HTML `link` ta
 
 ## Configuration
 
-JAPR provides the following configuration options that can be controlled by adding them to your project's `_config.yml` file. If you don't have a `_config.yml` file, consider reading the [configuration section](https://github.com/mojombo/jekyll/wiki/Configuration) of the Jekyll documentation.
+Jekyll Asset Pipeline provides the following configuration options that can be controlled by adding them to your project's `_config.yml` file. If you don't have a `_config.yml` file, consider reading the [configuration section](https://github.com/mojombo/jekyll/wiki/Configuration) of the Jekyll documentation.
 
 ``` yaml
 asset_pipeline:
@@ -325,16 +325,16 @@ asset_pipeline:
 
 Setting        | Default  | Description
 ---------------|----------|-----------------------------------------------------
-`bundle`       | `true`   | controls whether JAPR bundles the assets defined in each manifest. If set to `false`, each asset will be saved individually and individual html tags pointing to each unbundled asset will be produced when you compile your site. It is useful to set this to `false` while you are debugging your site.
-`compress`     | `true`   | tells JAPR whether or not to compress the bundled assets. It is useful to set this setting to `false` while you are debugging your site.
+`bundle`       | `true`   | controls whether Jekyll Asset Pipeline bundles the assets defined in each manifest. If set to `false`, each asset will be saved individually and individual html tags pointing to each unbundled asset will be produced when you compile your site. It is useful to set this to `false` while you are debugging your site.
+`compress`     | `true`   | tells Jekyll Asset Pipeline whether or not to compress the bundled assets. It is useful to set this setting to `false` while you are debugging your site.
 `output_path`  | `assets` | defines where generated bundles should be saved within the `_site` folder of your project.
 `display_path` | `nil`    | overrides the path to assets in generated html tags. This is useful if you are hosting your site at a path other than the root of your domain (e.g. `http://example.com/blog/`).
-`gzip`         | `false`  | controls whether JAPR saves gzipped versions of your assets alongside un-gzipped versions.
+`gzip`         | `false`  | controls whether Jekyll Asset Pipeline saves gzipped versions of your assets alongside un-gzipped versions.
 
 
 ## Octopress
 
-[Octopress](http://octopress.org/) is a popular framework for Jekyll that can help you get a blog up and running quickly. JAPR can be added to an Octopress site using the [Getting Started](#getting-started) steps above with the following modifications:
+[Octopress](http://octopress.org/) is a popular framework for Jekyll that can help you get a blog up and running quickly. Jekyll Asset Pipeline can be added to an Octopress site using the [Getting Started](#getting-started) steps above with the following modifications:
 
 1. Octopress uses Bundler to manage your site's dependencies. You should add `gem japr` to your Gemfile and then run `bundle install` to install.
 
@@ -346,15 +346,15 @@ Setting        | Default  | Description
 
 5. Instead of running the `jekyll` command to compile your site, you should use Octopress' rake commands (e.g. `rake generate`) as outlined [here](http://octopress.org/docs/blogging/).
 
-If you have any difficulties using JAPR with Octopress, please [open an issue](http://github.com/janosrusiczki/japr/issues).
+If you have any difficulties using Jekyll Asset Pipeline with Octopress, please [open an issue](http://github.com/janosrusiczki/japr/issues).
 
 ## Contribute
 
-You can contribute to the JAPR by submitting a pull request [via GitHub](https://github.com/janosrusiczki/japr). There are a few areas that need improvement:
+You can contribute to the Jekyll Asset Pipeline by submitting a pull request [via GitHub](https://github.com/janosrusiczki/japr). There are a few areas that need improvement:
 
 - __Tests, tests, tests.__ **This project is now fully tested.**
-- __Successive preprocessing.__ Currently you can only preprocess a file once. It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled. **As of v0.1.0, JAPR now supports successive preprocessing.**
-- __Handle remote assets.__ Right now, JAPR does not provide any way to include remote assets in bundles unless you save them locally before generating your site. Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting. That said, it is generally better to keep remote assets separate so that they load asynchronously.
+- __Successive preprocessing.__ Currently you can only preprocess a file once. It would be better if you could run an asset through multiple preprocessors before it gets compressed and bundled. **As of v0.1.0, Jekyll Asset Pipeline now supports successive preprocessing.**
+- __Handle remote assets.__ Right now, Jekyll Asset Pipeline does not provide any way to include remote assets in bundles unless you save them locally before generating your site. Moshen's [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler) allows you to include remote assets, which is pretty interesting. That said, it is generally better to keep remote assets separate so that they load asynchronously.
 
 If you have any ideas or you would like to see anything else improved please use the [issues section](https://github.com/janosrusiczki/japr/issues).
 
@@ -365,14 +365,13 @@ See [the changelog](CHANGELOG.md).
 ## Community
 
 - Here is [GitHub's list of projects that use the gem](https://github.com/janosrusiczki/japr/network/dependents).
-- Here is a currated list of [sites that use JAPR](http://github.com/janosrusiczki/japr/wiki/Sites-that-use-JAPR). Feel free to add your site to the list if you want.
+- Here is a currated list of [sites that use Jekyll Asset Pipeline](http://github.com/matthodan/jekyll-asset-pipeline/wiki/Sites-that-use-Jekyll-Asset-Pipeline). Feel free to add your site to the list if you want.
 
 ## Credits
 
-* [Matt Hodan](https://github.com/matthodan) for creating [Jekyll Asset Pipeline](https://github.com/matthodan/jekyll-asset-pipeline).
 * [Moshen](https://github.com/moshen/) for creating the [Jekyll Asset Bundler](https://github.com/moshen/jekyll-asset_bundler).
 * [Mojombo](https://github.com/mojombo) for creating [Jekyll](https://github.com/mojombo/jekyll) in the first place.
 
 ## License
 
-JAPR is released under the [MIT License](http://opensource.org/licenses/MIT).
+Jekyll Asset Pipeline is released under the [MIT License](http://opensource.org/licenses/MIT).

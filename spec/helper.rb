@@ -8,7 +8,9 @@ require 'minitest/pride'
 require './spec/helpers/extensions/ruby/module'
 require 'jekyll_asset_pipeline'
 
+# rubocop:disable Style/MixinUsage
 include JekyllAssetPipeline
+# rubocop:enable Style/MixinUsage
 
 module MiniTest
   class Spec

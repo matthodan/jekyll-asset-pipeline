@@ -2,7 +2,7 @@ require File.expand_path('../lib/jekyll_asset_pipeline/version', __FILE__)
 
 Gem::Specification.new do |s|
   # Metadata
-  s.name = 'jekyll-asset-pipeline'
+  s.name = 'jekyll_asset_pipeline'
   s.version = JekyllAssetPipeline::VERSION
   s.date = Time.now
 

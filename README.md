@@ -1,9 +1,9 @@
 # Jekyll Asset Pipeline
 
-[![Gem Version](https://badge.fury.io/rb/jekyll-asset-pipeline.png)](http://badge.fury.io/rb/jekyll-asset-pipeline)
-[![Build Status](https://travis-ci.org/matthodan/jekyll-asset-pipeline.svg?branch=master)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
-[![Coverage Status](https://coveralls.io/repos/matthodan/jekyll-asset-pipeline/badge.png?branch=master)](https://coveralls.io/r/matthodan/jekyll-asset-pipeline?branch=master)
-[![Dependency Status](https://gemnasium.com/matthodan/jekyll-asset-pipeline.png)](https://gemnasium.com/matthodan/jekyll-asset-pipeline)
+[![Gem Version](https://img.shields.io/gem/v/jekyll_asset_pipeline.svg)](https://rubygems.org/gems/jekyll_asset_pipeline)
+[![Build Status](https://img.shields.io/travis/matthodan/jekyll-asset-pipeline.svg)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
+[![Coveralls Status](https://img.shields.io/coveralls/github/matthodan/jekyll-asset-pipeline/master.svg)](https://coveralls.io/r/matthodan/jekyll-asset-pipeline?branch=master)
+[![Dependency Status](https://img.shields.io/gemnasium/matthodan/jekyll-asset-pipeline.svg)](https://gemnasium.com/matthodan/jekyll-asset-pipeline)
 
 [Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your [Jekyll](http://jekyllrb.com/) site.
 
@@ -50,13 +50,13 @@ Jekyll Asset Pipeline's workflow can be summarized as follows:
 
 Jekyll Asset Pipeline is extremely easy to add to your Jekyll project and has no incremental dependencies beyond those required by Jekyll. Once you have a basic Jekyll site up and running, follow the steps below to install and configure Jekyll Asset Pipeline.
 
-1. Install the `jekyll-asset-pipeline` gem via [Rubygems](http://rubygems.org/).
+1. Install the `jekyll_asset_pipeline` gem via [Rubygems](http://rubygems.org/).
 
   ``` bash
-  $ gem install jekyll-asset-pipeline
+  $ gem install jekyll_asset_pipeline
   ```
 
-  If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add `jekyll-asset-pipeline` to your Gemfile and run `bundle install`.
+  If you are using [Bundler](http://gembundler.com/) to manage your project's gems, you can just add `jekyll_asset_pipeline` to your Gemfile and run `bundle install`.
 
 2. Add a `_plugins` folder to your project if you do not already have one. Within the `_plugins` folder, add a file named `jekyll_asset_pipeline.rb` with the following require statement as its contents.
 
@@ -336,7 +336,7 @@ Setting        | Default  | Description
 
 [Octopress](http://octopress.org/) is a popular framework for Jekyll that can help you get a blog up and running quickly. Jekyll Asset Pipeline can be added to an Octopress site using the [Getting Started](#getting-started) steps above with the following modifications:
 
-1. Octopress uses Bundler to manage your site's dependencies. You should add `gem jekyll-asset-pipeline` to your Gemfile and then run `bundle install` to install.
+1. Octopress uses Bundler to manage your site's dependencies. You should add `gem jekyll_asset_pipeline` to your Gemfile and then run `bundle install` to install.
 
 2. Instead of adding a `_plugins` folder, you should put `jekyll_asset_pipeline.rb` in the `plugins` folder included by default in the root of your Octopress site.
 

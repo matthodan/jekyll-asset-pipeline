@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 (2017-12-20)
+
+* Merged JAPR into Jekyll Asset Pipeline
+
+## 0.5.0, 0.5.1
+
+* Test releases
+
 ## 0.4.1 (2017-12-08)
 
 * [#6]  __Test coverage increased to 100%__

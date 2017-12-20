@@ -1,3 +1,3 @@
 module JekyllAssetPipeline
-  VERSION = '0.1.5'
+  VERSION = '0.6.0'.freeze
 end

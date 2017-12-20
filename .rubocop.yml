@@ -1,0 +1,7 @@
+# Do not count block length in spec files
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'it', 'context']
+
+MethodLength:
+  Max: 15
+

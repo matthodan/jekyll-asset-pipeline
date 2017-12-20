@@ -10,7 +10,8 @@ module JekyllAssetPipeline
     end
 
     def html
-      "<script src='/#{@path}/#{@filename}' type='text/javascript'></script>\n"
+      "<script src='#{output_path}/#{@filename}' " \
+        "type='text/javascript'></script>"
     end
   end
 end

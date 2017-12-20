@@ -1,50 +1,45 @@
 module JekyllAssetPipeline
+  # The pipeline itself, the run method is where it all happens
+  # rubocop:disable ClassLength
   class Pipeline
+    # rubocop:enable ClassLength
     class << self
       # Generate hash based on manifest
       def hash(source, manifest, options = {})
         options = DEFAULTS.merge(options)
         begin
-          Digest::MD5.hexdigest(YAML::load(manifest).map! do |path|
+          Digest::MD5.hexdigest(YAML.safe_load(manifest).map! do |path|
             "#{path}#{File.mtime(File.join(source, path)).to_i}"
           end.join.concat(options.to_s))
-        rescue Exception => e
-          puts "Failed to generate hash from provided manifest."
-          raise e
+        rescue StandardError => se
+          puts "Failed to generate hash from provided manifest: #{se.message}"
+          raise se
         end
       end
 
-      # Run pipeline
+      # Run the pipeline
+      # This is called from JekyllAssetPipeline::LiquidBlockExtensions.render
+      # or, to be more precise, from JekyllAssetPipeline::CssAssetTag.render and
+      # JekyllAssetPipeline::JavaScriptAssetTag.render
+      # rubocop:disable ParameterLists
       def run(manifest, prefix, source, destination, tag, type, config)
+        # rubocop:enable ParameterLists
         # Get hash for pipeline
         hash = hash(source, manifest, config)
 
         # Check if pipeline has been cached
-        if cache.has_key?(hash)
-          # Return cached pipeline and cached status
-          return cache[hash], true
-        else
-          begin
-            puts "Processing '#{tag}' manifest '#{prefix}'"
+        return cache[hash], true if cache.key?(hash)
 
-            # Create and process new pipeline
-            pipeline = self.new(manifest, prefix, source, destination, type, config)
-            pipeline.assets.each do |asset|
-              puts "Saved '#{asset.filename}' to '#{destination}/#{asset.output_path}'"
-            end
+        begin
+          puts "Processing '#{tag}' manifest '#{prefix}'"
+          pipeline = new(manifest, prefix, source, destination, type, config)
+          process_pipeline(hash, pipeline)
+        rescue StandardError => se
+          # Add exception to cache
+          cache[hash] = se
 
-            # Add processed pipeline to cache
-            cache[hash] = pipeline
-
-            # Return newly processed pipeline and cached status
-            return pipeline, false
-          rescue Exception => e
-            # Add exception to cache
-            cache[hash] = e
-
-            # Re-raise the exception
-            raise e
-          end
+          # Re-raise the exception
+          raise se
         end
       end
 
@@ -60,37 +55,47 @@ module JekyllAssetPipeline
 
       # Remove staged assets
       def remove_staged_assets(source, config)
-        begin
-          config = DEFAULTS.merge(config)
-          staging_path = File.join(source, config['staging_path'])
-          FileUtils.rm_rf(staging_path)
-        rescue Exception => e
-          puts "Failed to remove staged assets."
-
-          # Re-raise the exception
-          raise e
-        end
+        config = DEFAULTS.merge(config)
+        staging_path = File.join(source, config['staging_path'])
+        FileUtils.rm_rf(staging_path)
       end
 
       # Add prefix to output
       def puts(message)
         $stdout.puts("Asset Pipeline: #{message}")
       end
+
+      private
+
+      def process_pipeline(hash, pipeline)
+        pipeline.assets.each do |asset|
+          puts "Saved '#{asset.filename}' to " \
+            "'#{pipeline.destination}/#{asset.output_path}'"
+        end
+
+        # Add processed pipeline to cache
+        cache[hash] = pipeline
+
+        # Return newly processed pipeline and cached status
+        [pipeline, false]
+      end
     end
 
     # Initialize new pipeline
+    # rubocop:disable ParameterLists
     def initialize(manifest, prefix, source, destination, type, options = {})
+      # rubocop:enable ParameterLists
       @manifest = manifest
       @prefix = prefix
       @source = source
       @destination = destination
       @type = type
-      @options = JekyllAssetPipeline::DEFAULTS.merge(options)
+      @options = ::JekyllAssetPipeline::DEFAULTS.merge(options)
 
       process
     end
 
-    attr_reader :assets, :html
+    attr_reader :assets, :html, :destination
 
     private
 
@@ -107,16 +112,17 @@ module JekyllAssetPipeline
 
     # Collect assets based on manifest
     def collect
-      begin
-        @assets = YAML::load(@manifest).map! do |path|
-          File.open(File.join(@source, path)) do |file|
-            JekyllAssetPipeline::Asset.new(file.read, File.basename(path))
-          end
+      @assets = YAML.safe_load(@manifest).map! do |path|
+        full_path = File.join(@source, path)
+        File.open(File.join(@source, path)) do |file|
+          ::JekyllAssetPipeline::Asset.new(file.read, File.basename(path),
+                                           File.dirname(full_path))
         end
-      rescue Exception => e
-        puts "Asset Pipeline: Failed to load assets from provided manifest."
-        raise e
       end
+    rescue StandardError => se
+      puts 'Asset Pipeline: Failed to load assets from provided ' \
+           "manifest: #{se.message}"
+      raise se
     end
 
     # Convert assets based on the file extension if converter is defined
@@ -126,58 +132,63 @@ module JekyllAssetPipeline
         finished = false
         while finished == false
           # Find a converter to use
-          klass = JekyllAssetPipeline::Converter.subclasses.select do |c|
-            c.filetype == File.extname(asset.filename).downcase
-          end.last
+          klass = ::JekyllAssetPipeline::Converter.klass(asset.filename)
 
           # Convert asset if converter is found
-          unless klass.nil?
-            begin
-              # Convert asset content
-              converter = klass.new(asset)
-
-              # Replace asset content and filename
-              asset.content = converter.converted
-              asset.filename = File.basename(asset.filename, '.*')
-
-              # Add back the output extension if no extension left
-              asset.filename = "#{asset.filename}#{@type}" if File.extname(asset.filename) == ''
-            rescue Exception => e
-              puts "Asset Pipeline: Failed to convert '#{asset.filename}' with '#{klass.to_s}'."
-              raise e
-            end
-          else
+          if klass.nil?
             finished = true
+          else
+            convert_asset(klass, asset)
           end
         end
       end
     end
 
+    # Convert an asset with a given converter class
+    def convert_asset(klass, asset)
+      # Convert asset content
+      converter = klass.new(asset)
+
+      # Replace asset content and filename
+      asset.content = converter.converted
+      asset.filename = File.basename(asset.filename, '.*')
+
+      # Add back the output extension if no extension left
+      if File.extname(asset.filename) == ''
+        asset.filename = "#{asset.filename}#{@type}"
+      end
+    rescue StandardError => se
+      puts "Asset Pipeline: Failed to convert '#{asset.filename}' " \
+           "with '#{klass}': #{se.message}"
+      raise se
+    end
+
     # Bundle multiple assets into a single asset
     def bundle
-      content = @assets.map do |a|
-        a.content
-      end.join("\n")
+      content = @assets.map(&:content).join("\n")
 
-      hash = JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
-      @assets = [JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")]
+      hash = ::JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
+      @assets = [
+        ::JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")
+      ]
     end
 
     # Compress assets if compressor is defined
     def compress
       @assets.each do |asset|
         # Find a compressor to use
-        klass = JekyllAssetPipeline::Compressor.subclasses.select do |c|
+        klass = ::JekyllAssetPipeline::Compressor.subclasses.select do |c|
           c.filetype == @type
         end.last
 
-        unless klass.nil?
-          begin
-            asset.content = klass.new(asset.content).compressed
-          rescue Exception => e
-            puts "Asset Pipeline: Failed to compress '#{asset.filename}' with '#{klass.to_s}'."
-            raise e
-          end
+        break unless klass
+
+        begin
+          asset.content = klass.new(asset.content).compressed
+        rescue StandardError => se
+          puts "Asset Pipeline: Failed to compress '#{asset.filename}' " \
+               "with '#{klass}': #{se.message}"
+          raise se
         end
       end
     end
@@ -186,7 +197,11 @@ module JekyllAssetPipeline
     def gzip
       @assets.map! do |asset|
         gzip_content = Zlib::Deflate.deflate(asset.content)
-        [asset, JekyllAssetPipeline::Asset.new(gzip_content, "#{asset.filename}.gz")]
+        [
+          asset,
+          ::JekyllAssetPipeline::Asset
+            .new(gzip_content, "#{asset.filename}.gz", asset.dirname)
+        ]
       end.flatten!
     end
 
@@ -197,20 +212,25 @@ module JekyllAssetPipeline
 
       @assets.each do |asset|
         directory = File.join(@source, staging_path, output_path)
-        FileUtils::mkpath(directory) unless File.directory?(directory)
-
-        begin
-          # Save file to disk
-          File.open(File.join(directory, asset.filename), 'w') do |file|
-            file.write(asset.content)
-          end
-        rescue Exception => e
-          puts "Asset Pipeline: Failed to save '#{asset.filename}' to disk."
-          raise e
-        end
+        write_asset_file(directory, asset)
 
         # Store output path of saved file
         asset.output_path = output_path
+      end
+    end
+
+    # Write asset file to disk
+    def write_asset_file(directory, asset)
+      FileUtils.mkpath(directory) unless File.directory?(directory)
+      begin
+        # Save file to disk
+        File.open(File.join(directory, asset.filename), 'w') do |file|
+          file.write(asset.content)
+        end
+      rescue StandardError => se
+        puts "Asset Pipeline: Failed to save '#{asset.filename}' to " \
+             "disk: #{se.message}"
+        raise se
       end
     end
 
@@ -220,10 +240,7 @@ module JekyllAssetPipeline
       display_path = @options['display_path'] || @options['output_path']
 
       @html = @assets.map do |asset|
-        klass = JekyllAssetPipeline::Template.subclasses.select do |t|
-          t.filetype == File.extname(asset.filename).downcase
-        end.sort! { |x, y| x.priority <=> y.priority }.last
-
+        klass = ::JekyllAssetPipeline::Template.klass(asset.filename)
         html = klass.new(display_path, asset.filename).html unless klass.nil?
 
         html

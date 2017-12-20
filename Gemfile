@@ -1,3 +1,8 @@
-source :rubygems
-ruby '1.9.3'
+source 'http://rubygems.org'
+
+group :test do
+  gem 'coveralls', require: false
+  gem 'rubocop'
+end
+
 gemspec

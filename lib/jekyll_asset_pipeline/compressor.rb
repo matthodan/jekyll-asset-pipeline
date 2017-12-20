@@ -1,16 +1,16 @@
 module JekyllAssetPipeline
+  # Base class for asset compressors
+  # See https://github.com/matthodan/jekyll-asset-pipeline#asset-compression
   class Compressor
     extend JekyllAssetPipeline::SubclassTracking
 
     def initialize(content)
       @content = content
-      @compressed = self.compress
+      @compressed = compress
     end
 
     # Returns compressed content
-    def compressed
-      @compressed
-    end
+    attr_reader :compressed
 
     # Filetype to process (e.g. '.js')
     def self.filetype

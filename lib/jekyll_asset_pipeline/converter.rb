@@ -1,20 +1,28 @@
 module JekyllAssetPipeline
+  # Base class for asset converters
+  # See https://github.com/matthodan/jekyll-asset-pipeline#asset-preprocessing
   class Converter
     extend JekyllAssetPipeline::SubclassTracking
 
     def initialize(asset)
       @content = asset.content
       @type = File.extname(asset.filename).downcase
-      @converted = self.convert
+      @dirname = asset.dirname
+      @converted = convert
     end
 
-    def converted
-      @converted
-    end
+    attr_reader :converted
 
     # Filetype to process (e.g. '.coffee')
     def self.filetype
       ''
+    end
+
+    # Finds a converter class based on a filename
+    def self.klass(filename)
+      ::JekyllAssetPipeline::Converter.subclasses.select do |c|
+        c.filetype == File.extname(filename).downcase
+      end.last
     end
 
     # Logic to convert assets

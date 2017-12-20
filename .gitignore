@@ -4,3 +4,5 @@
 *.gem
 .gems
 Gemfile.lock
+spec/resources/source/.asset_pipeline/
+coverage

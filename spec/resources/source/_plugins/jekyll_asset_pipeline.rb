@@ -5,7 +5,7 @@ module JekyllAssetPipeline
     end
 
     def convert
-      return 'converted'
+      'converted'
     end
   end
 
@@ -15,7 +15,7 @@ module JekyllAssetPipeline
     end
 
     def compress
-      return 'compressed'
+      'compressed'
     end
   end
 

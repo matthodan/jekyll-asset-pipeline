@@ -20,7 +20,7 @@ module JekyllAssetPipeline
 
     # Finds a converter class based on a filename
     def self.klass(filename)
-      JekyllAssetPipeline::Converter.subclasses.select do |c|
+      ::JekyllAssetPipeline::Converter.subclasses.select do |c|
         c.filetype == File.extname(filename).downcase
       end.last
     end

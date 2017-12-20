@@ -90,7 +90,7 @@ module JekyllAssetPipeline
       @source = source
       @destination = destination
       @type = type
-      @options = JekyllAssetPipeline::DEFAULTS.merge(options)
+      @options = ::JekyllAssetPipeline::DEFAULTS.merge(options)
 
       process
     end
@@ -115,8 +115,8 @@ module JekyllAssetPipeline
       @assets = YAML.safe_load(@manifest).map! do |path|
         full_path = File.join(@source, path)
         File.open(File.join(@source, path)) do |file|
-          JekyllAssetPipeline::Asset.new(file.read, File.basename(path),
-                                         File.dirname(full_path))
+          ::JekyllAssetPipeline::Asset.new(file.read, File.basename(path),
+                                           File.dirname(full_path))
         end
       end
     rescue StandardError => se
@@ -132,7 +132,7 @@ module JekyllAssetPipeline
         finished = false
         while finished == false
           # Find a converter to use
-          klass = JekyllAssetPipeline::Converter.klass(asset.filename)
+          klass = ::JekyllAssetPipeline::Converter.klass(asset.filename)
 
           # Convert asset if converter is found
           if klass.nil?
@@ -167,9 +167,9 @@ module JekyllAssetPipeline
     def bundle
       content = @assets.map(&:content).join("\n")
 
-      hash = JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
+      hash = ::JekyllAssetPipeline::Pipeline.hash(@source, @manifest, @options)
       @assets = [
-        JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")
+        ::JekyllAssetPipeline::Asset.new(content, "#{@prefix}-#{hash}#{@type}")
       ]
     end
 
@@ -177,7 +177,7 @@ module JekyllAssetPipeline
     def compress
       @assets.each do |asset|
         # Find a compressor to use
-        klass = JekyllAssetPipeline::Compressor.subclasses.select do |c|
+        klass = ::JekyllAssetPipeline::Compressor.subclasses.select do |c|
           c.filetype == @type
         end.last
 
@@ -199,7 +199,7 @@ module JekyllAssetPipeline
         gzip_content = Zlib::Deflate.deflate(asset.content)
         [
           asset,
-          JekyllAssetPipeline::Asset
+          ::JekyllAssetPipeline::Asset
             .new(gzip_content, "#{asset.filename}.gz", asset.dirname)
         ]
       end.flatten!
@@ -240,7 +240,7 @@ module JekyllAssetPipeline
       display_path = @options['display_path'] || @options['output_path']
 
       @html = @assets.map do |asset|
-        klass = JekyllAssetPipeline::Template.klass(asset.filename)
+        klass = ::JekyllAssetPipeline::Template.klass(asset.filename)
         html = klass.new(display_path, asset.filename).html unless klass.nil?
 
         html

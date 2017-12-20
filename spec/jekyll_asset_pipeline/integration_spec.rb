@@ -1,6 +1,6 @@
 require './spec/helper'
 
-describe JekyllAssetPipeline do
+describe 'Integration' do
   # Sensible defaults
   let(:manifest) { "- /_assets/foo.css\n- /_assets/bar.css" }
   let(:prefix) { 'global' }
@@ -9,17 +9,19 @@ describe JekyllAssetPipeline do
   let(:extension) { '.css' }
 
   after do
-    Pipeline.clear_cache
+    JekyllAssetPipeline::Pipeline.clear_cache
     clear_temp_path
   end
 
   it 'saves assets to staging path' do
     $stdout.stub(:puts, nil) do
       config['output_path'] = '/foobar_assets'
-      pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                               tag_name, extension, config)
+      pipeline, = JekyllAssetPipeline::Pipeline
+                  .run(manifest, prefix, source_path, temp_path,
+                       tag_name, extension, config)
       pipeline.assets.each do |asset|
-        file_path = File.join(source_path, DEFAULTS['staging_path'],
+        file_path = File.join(source_path,
+                              JekyllAssetPipeline::DEFAULTS['staging_path'],
                               config['output_path'], asset.filename)
         File.open(file_path) do |file|
           file.read.must_equal(asset.content)
@@ -29,28 +31,31 @@ describe JekyllAssetPipeline do
   end
 
   it 'outputs processing and saved file status messages' do
-    hash = Pipeline.hash(source_path, manifest, config)
+    hash = JekyllAssetPipeline::Pipeline.hash(source_path, manifest, config)
     filename = "#{prefix}-#{hash}#{extension}"
-    path = File.join(temp_path, DEFAULTS['output_path'])
+    path = File.join(temp_path, JekyllAssetPipeline::DEFAULTS['output_path'])
 
     expected =
       "Asset Pipeline: Processing '#{tag_name}' manifest '#{prefix}'\n" \
       "Asset Pipeline: Saved '#{filename}' to '#{path}'\n"
 
     proc do
-      Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
-                   extension, config)
+      JekyllAssetPipeline::Pipeline
+        .run(manifest, prefix, source_path, temp_path,
+             tag_name, extension, config)
     end.must_output(expected)
   end
 
   it 'uses cached pipeline if manifest has been previously processed' do
     $stdout.stub(:puts, nil) do
-      pipeline1, cached1 = Pipeline.run(manifest, prefix, source_path,
-                                        temp_path, tag_name, extension, config)
+      pipeline1, cached1 = JekyllAssetPipeline::Pipeline
+                           .run(manifest, prefix, source_path, temp_path,
+                                tag_name, extension, config)
       cached1.must_equal(false)
 
-      pipeline2, cached2 = Pipeline.run(manifest, prefix, source_path,
-                                        temp_path, tag_name, extension, config)
+      pipeline2, cached2 = JekyllAssetPipeline::Pipeline
+                           .run(manifest, prefix, source_path, temp_path,
+                                tag_name, extension, config)
       cached2.must_equal(true)
       pipeline2.must_equal(pipeline1)
     end
@@ -72,13 +77,15 @@ describe JekyllAssetPipeline do
       end
 
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, '.css', config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, '.css', config)
         pipeline.html.must_equal('foobar_template')
       end
 
       # Clean up test template
-      Template.subclasses.delete(NewCssTagTemplate)
+      JekyllAssetPipeline::Template
+        .subclasses.delete(JekyllAssetPipeline::NewCssTagTemplate)
       Object::JekyllAssetPipeline.send(:remove_const, :NewCssTagTemplate)
     end
 
@@ -97,13 +104,15 @@ describe JekyllAssetPipeline do
       end
 
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, '.js', config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, '.js', config)
         pipeline.html.must_equal('foobar_template')
       end
 
       # Clean up test template
-      Template.subclasses.delete(NewJsTagTemplate)
+      JekyllAssetPipeline::Template
+        .subclasses.delete(JekyllAssetPipeline::NewJsTagTemplate)
       Object::JekyllAssetPipeline.send(:remove_const, :NewJsTagTemplate)
     end
   end
@@ -111,16 +120,18 @@ describe JekyllAssetPipeline do
   describe 'pipeline#html' do
     it 'returns html link tag if css' do
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, '.css', config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, '.css', config)
         pipeline.html.must_match(/link/i)
       end
     end
 
     it 'returns html script tag if js' do
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, '.js', config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, '.js', config)
         pipeline.html.must_match(/script/i)
       end
     end
@@ -128,8 +139,9 @@ describe JekyllAssetPipeline do
     it 'links to display_path if option is set' do
       $stdout.stub(:puts, nil) do
         config['display_path'] = 'foo/bar/baz'
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, '.js', config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, '.js', config)
         pipeline.html.must_match(%r{/foo\/bar\/baz/})
       end
     end
@@ -142,16 +154,18 @@ describe JekyllAssetPipeline do
 
     it 'bundles assets into one file when bundle => true' do
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, extension, config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, extension, config)
         pipeline.assets.size.must_equal(1)
       end
     end
 
     it 'saves bundled file with filename starting with prefix' do
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, extension, config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, extension, config)
         pipeline.assets.each do |asset|
           asset.filename[0, prefix.length].must_equal(prefix)
         end
@@ -166,8 +180,9 @@ describe JekyllAssetPipeline do
 
     it 'saves each file in manifest' do
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, extension, config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, extension, config)
         file_paths = YAML.safe_load(manifest)
         pipeline.assets.size.must_equal(file_paths.size)
         files = file_paths.map { |f| File.basename(f) }
@@ -195,15 +210,17 @@ describe JekyllAssetPipeline do
 
       manifest = '- /_assets/unconverted.css.baz'
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, extension, config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, extension, config)
         pipeline.assets.each do |asset|
           asset.content.must_equal('converted')
         end
       end
 
       # Clean up test converters
-      Converter.subclasses.delete(BazConverter)
+      JekyllAssetPipeline::Converter
+        .subclasses.delete(JekyllAssetPipeline::BazConverter)
       Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
     end
 
@@ -223,8 +240,9 @@ describe JekyllAssetPipeline do
 
       manifest = '- /_assets/unconverted.baz'
       $stdout.stub(:puts, nil) do
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, extension, config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, extension, config)
         pipeline.assets.each do |asset|
           asset.content.must_equal('converted')
           File.extname(asset.filename).must_equal('.css')
@@ -232,7 +250,8 @@ describe JekyllAssetPipeline do
       end
 
       # Clean up test converters
-      Converter.subclasses.delete(BazConverter)
+      JekyllAssetPipeline::Converter
+        .subclasses.delete(JekyllAssetPipeline::BazConverter)
       Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
     end
 
@@ -264,8 +283,10 @@ describe JekyllAssetPipeline do
 
       after do
         # Clean up test converters
-        Converter.subclasses.delete(BarConverter)
-        Converter.subclasses.delete(BazConverter)
+        JekyllAssetPipeline::Converter
+          .subclasses.delete(JekyllAssetPipeline::BarConverter)
+        JekyllAssetPipeline::Converter
+          .subclasses.delete(JekyllAssetPipeline::BazConverter)
         Object::JekyllAssetPipeline.send(:remove_const, :BarConverter)
         Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
       end
@@ -274,15 +295,17 @@ describe JekyllAssetPipeline do
          'extension' do
         $stdout.stub(:puts, nil) do
           manifest = '- /_assets/unconverted.css.baz.bar'
-          pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                   tag_name, extension, config)
+          pipeline, = JekyllAssetPipeline::Pipeline
+                      .run(manifest, prefix, source_path, temp_path,
+                           tag_name, extension, config)
           pipeline.assets.each do |asset|
             asset.content.must_equal('converted to baz')
           end
 
           manifest = '- /_assets/unconverted.css.bar.baz'
-          pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                   tag_name, extension, config)
+          pipeline, = JekyllAssetPipeline::Pipeline
+                      .run(manifest, prefix, source_path, temp_path,
+                           tag_name, extension, config)
           pipeline.assets.each do |asset|
             asset.content.must_equal('converted to bar')
           end
@@ -308,15 +331,17 @@ describe JekyllAssetPipeline do
 
       $stdout.stub(:puts, nil) do
         manifest = '- /_assets/uncompressed.css'
-        pipeline, = Pipeline.run(manifest, prefix, source_path, temp_path,
-                                 tag_name, extension, config)
+        pipeline, = JekyllAssetPipeline::Pipeline
+                    .run(manifest, prefix, source_path, temp_path,
+                         tag_name, extension, config)
         pipeline.assets.each do |asset|
           asset.content.must_equal('compressed')
         end
       end
 
       # Clean up test compressor
-      Compressor.subclasses.delete(CssCompressor)
+      JekyllAssetPipeline::Compressor
+        .subclasses.delete(JekyllAssetPipeline::CssCompressor)
       Object::JekyllAssetPipeline.send(:remove_const, :CssCompressor)
     end
   end
@@ -326,8 +351,9 @@ describe JekyllAssetPipeline do
       manifest = 'invalid_manifest'
       proc do
         proc do
-          Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
-                       extension, config)
+          JekyllAssetPipeline::Pipeline
+            .run(manifest, prefix, source_path, temp_path,
+                 tag_name, extension, config)
         end.must_raise(NoMethodError)
       end.must_output(/failed/i)
     end
@@ -349,13 +375,15 @@ describe JekyllAssetPipeline do
       manifest = '- /_assets/unconverted.baz'
       proc do
         proc do
-          Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
-                       extension, config)
+          JekyllAssetPipeline::Pipeline
+            .run(manifest, prefix, source_path, temp_path,
+                 tag_name, extension, config)
         end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       # Clean up test converters
-      Converter.subclasses.delete(BazConverter)
+      JekyllAssetPipeline::Converter
+        .subclasses.delete(JekyllAssetPipeline::BazConverter)
       Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
     end
 
@@ -376,13 +404,15 @@ describe JekyllAssetPipeline do
       manifest = '- /_assets/uncompressed.css'
       proc do
         proc do
-          Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
-                       extension, config)
+          JekyllAssetPipeline::Pipeline
+            .run(manifest, prefix, source_path, temp_path,
+                 tag_name, extension, config)
         end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       # Clean up test compressor
-      Compressor.subclasses.delete(CssCompressor)
+      JekyllAssetPipeline::Compressor
+        .subclasses.delete(JekyllAssetPipeline::CssCompressor)
       Object::JekyllAssetPipeline.send(:remove_const, :CssCompressor)
     end
 
@@ -403,46 +433,54 @@ describe JekyllAssetPipeline do
       manifest = '- /_assets/unconverted.baz'
       proc do
         proc do
-          Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
-                       extension, config)
+          JekyllAssetPipeline::Pipeline
+            .run(manifest, prefix, source_path, temp_path,
+                 tag_name, extension, config)
         end.must_raise(StandardError)
       end.must_output(/failed/i)
 
       proc do
-        Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
-                     extension, config)
+        JekyllAssetPipeline::Pipeline
+          .run(manifest, prefix, source_path, temp_path,
+               tag_name, extension, config)
       end.must_output(nil)
 
       # Clean up test converters
-      Converter.subclasses.delete(BazConverter)
+      JekyllAssetPipeline::Converter
+        .subclasses.delete(JekyllAssetPipeline::BazConverter)
       Object::JekyllAssetPipeline.send(:remove_const, :BazConverter)
     end
 
     it 'outputs error message if failure to collect asset' do
-      # File.open is first used in the flow in Pipeline.collect
-      # The exception checking in Pipeline.collect is actually a bit of overkill
-      # Pipeline.hash (which happens before in the flow) should catch if a
-      # manifest file can not be opened
+      # File.open is first used in the flow in
+      # JekyllAssetPipeline::Pipeline.collect
+      # The exception checking in JekyllAssetPipeline::Pipeline.collect is
+      # actually a bit of overkill as JekyllAssetPipeline::Pipeline.hash (which
+      # happens before in the flow) should catch if a manifest file can not been
+      # opened
       File.stub(:open, -> { raise StandardError }) do
         manifest = '- /_assets/unconverted.baz'
         proc do
           proc do
-            Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
-                         extension, config)
+            JekyllAssetPipeline::Pipeline
+              .run(manifest, prefix, source_path, temp_path,
+                   tag_name, extension, config)
           end.must_raise(StandardError)
         end.must_output(/failed/i)
       end
     end
 
     it 'outputs error message if failure to write asset file' do
-      # FileUtils.mkpath is first used in the flow in Pipeline.write_asset_file
+      # FileUtils.mkpath is first used in the flow Integration
+      # JekyllAssetPipeline::Pipeline.write_asset_file
       FileUtils.stub(:mkpath, nil) do
         config['staging_path'] = 'we_probably_cant_write_here'
         manifest = '- /_assets/unconverted.baz'
         proc do
           proc do
-            Pipeline.run(manifest, prefix, source_path, temp_path, tag_name,
-                         extension, config)
+            JekyllAssetPipeline::Pipeline
+              .run(manifest, prefix, source_path, temp_path,
+                   tag_name, extension, config)
           end.must_raise(StandardError)
         end.must_output(/failed/i)
       end

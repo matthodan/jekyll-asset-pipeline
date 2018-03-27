@@ -1,4 +1,4 @@
-require File.expand_path('../lib/jekyll_asset_pipeline/version', __FILE__)
+require File.expand_path('../lib/jekyll_asset_pipeline/version', __dir__)
 
 Gem::Specification.new do |s|
   # Metadata

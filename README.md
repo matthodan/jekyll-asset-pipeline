@@ -3,7 +3,6 @@
 [![Gem Version](https://img.shields.io/gem/v/jekyll_asset_pipeline.svg)](https://rubygems.org/gems/jekyll_asset_pipeline)
 [![Build Status](https://img.shields.io/travis/matthodan/jekyll-asset-pipeline.svg)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
 [![Coveralls Status](https://img.shields.io/coveralls/github/matthodan/jekyll-asset-pipeline/master.svg)](https://coveralls.io/r/matthodan/jekyll-asset-pipeline?branch=master)
-[![Dependency Status](https://img.shields.io/gemnasium/matthodan/jekyll-asset-pipeline.svg)](https://gemnasium.com/matthodan/jekyll-asset-pipeline)
 
 [Jekyll Asset Pipeline](http://www.matthodan.com/2012/11/22/jekyll-asset-pipeline.html) is a powerful asset pipeline that automatically collects, converts and compresses / minifies your site's JavaScript and CSS assets when you compile your [Jekyll](http://jekyllrb.com/) site.
 

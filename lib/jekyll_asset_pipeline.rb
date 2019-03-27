@@ -47,11 +47,11 @@ module JekyllAssetPipeline
   # 'gzip'         true = Create gzip versions,
   #                false = Do not create gzip versions
   DEFAULTS = {
-    'output_path'   => 'assets',
-    'display_path'  => nil,
-    'staging_path'  => '.asset_pipeline',
-    'bundle'        => true,
-    'compress'      => true,
-    'gzip'          => false
+    'output_path' => 'assets',
+    'display_path' => nil,
+    'staging_path' => '.asset_pipeline',
+    'bundle' => true,
+    'compress' => true,
+    'gzip' => false
   }.freeze
 end

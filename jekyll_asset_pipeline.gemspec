@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/matthodan/jekyll-asset-pipeline'
   s.license = 'MIT'
 
-  s.required_ruby_version = '>= 2.1.0'
+  s.required_ruby_version = '>= 2.2.0'
   s.rubygems_version = '2.2.2'
 
   # Runtime dependencies

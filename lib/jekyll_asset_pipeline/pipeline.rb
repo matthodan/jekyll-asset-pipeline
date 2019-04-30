@@ -11,9 +11,9 @@ module JekyllAssetPipeline
           Digest::MD5.hexdigest(YAML.safe_load(manifest).map! do |path|
             "#{path}#{File.mtime(File.join(source, path)).to_i}"
           end.join.concat(options.to_s))
-        rescue StandardError => se
-          puts "Failed to generate hash from provided manifest: #{se.message}"
-          raise se
+        rescue StandardError => e
+          puts "Failed to generate hash from provided manifest: #{e.message}"
+          raise e
         end
       end
 
@@ -34,12 +34,12 @@ module JekyllAssetPipeline
           puts "Processing '#{tag}' manifest '#{prefix}'"
           pipeline = new(manifest, prefix, source, destination, type, config)
           process_pipeline(hash, pipeline)
-        rescue StandardError => se
+        rescue StandardError => e
           # Add exception to cache
-          cache[hash] = se
+          cache[hash] = e
 
           # Re-raise the exception
-          raise se
+          raise e
         end
       end
 
@@ -119,10 +119,10 @@ module JekyllAssetPipeline
                                            File.dirname(full_path))
         end
       end
-    rescue StandardError => se
+    rescue StandardError => e
       puts 'Asset Pipeline: Failed to load assets from provided ' \
-           "manifest: #{se.message}"
-      raise se
+           "manifest: #{e.message}"
+      raise e
     end
 
     # Convert assets based on the file extension if converter is defined
@@ -157,10 +157,10 @@ module JekyllAssetPipeline
       if File.extname(asset.filename) == ''
         asset.filename = "#{asset.filename}#{@type}"
       end
-    rescue StandardError => se
+    rescue StandardError => e
       puts "Asset Pipeline: Failed to convert '#{asset.filename}' " \
-           "with '#{klass}': #{se.message}"
-      raise se
+           "with '#{klass}': #{e.message}"
+      raise e
     end
 
     # Bundle multiple assets into a single asset
@@ -185,10 +185,10 @@ module JekyllAssetPipeline
 
         begin
           asset.content = klass.new(asset.content).compressed
-        rescue StandardError => se
+        rescue StandardError => e
           puts "Asset Pipeline: Failed to compress '#{asset.filename}' " \
-               "with '#{klass}': #{se.message}"
-          raise se
+               "with '#{klass}': #{e.message}"
+          raise e
         end
       end
     end
@@ -227,10 +227,10 @@ module JekyllAssetPipeline
         File.open(File.join(directory, asset.filename), 'w') do |file|
           file.write(asset.content)
         end
-      rescue StandardError => se
+      rescue StandardError => e
         puts "Asset Pipeline: Failed to save '#{asset.filename}' to " \
-             "disk: #{se.message}"
-        raise se
+             "disk: #{e.message}"
+        raise e
       end
     end
 

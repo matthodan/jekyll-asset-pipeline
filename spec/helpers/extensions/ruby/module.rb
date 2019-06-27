@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Allow us to test if a module extends another module/class
 #
 # For example:

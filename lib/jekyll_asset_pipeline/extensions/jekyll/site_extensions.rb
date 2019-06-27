@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # Contains overrides for the needed Jekyll:Site methods
   # Included in Jekyll::Site

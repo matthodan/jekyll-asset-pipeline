@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # The pipeline itself, the run method is where it all happens
   # rubocop:disable ClassLength

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # This is a Liquid tag block extension
   # See documentation here:

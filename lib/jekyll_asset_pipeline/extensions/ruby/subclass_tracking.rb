@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # Allows classes that extend this to return an array of their subclasses
   module SubclassTracking

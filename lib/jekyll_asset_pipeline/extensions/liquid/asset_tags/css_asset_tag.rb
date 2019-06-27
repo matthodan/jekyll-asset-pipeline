@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This comment is needed, otherwise Rubocop complains because of the
 # register_tag below and a verbose comment is better than a :nodoc: :)
 module JekyllAssetPipeline

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # Base class for the tag templates
   # See https://github.com/matthodan/jekyll-asset-pipeline#templates

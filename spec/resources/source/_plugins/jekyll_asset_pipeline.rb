@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   class TestConverter < JekyllAssetPipeline::Converter
     def self.filetype

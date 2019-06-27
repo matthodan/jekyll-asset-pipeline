@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './spec/helper'
 
 # rubocop:disable ModuleLength

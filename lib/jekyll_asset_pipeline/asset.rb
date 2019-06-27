@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # Holds an asset (file)
   class Asset

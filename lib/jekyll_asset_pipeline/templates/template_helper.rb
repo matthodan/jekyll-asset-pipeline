@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # Contains helper methods used by the tag template classes
   module TemplateHelper

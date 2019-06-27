@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # Default output for JavaScript assets
   class JavaScriptTagTemplate < JekyllAssetPipeline::Template

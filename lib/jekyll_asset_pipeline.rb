@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Stdlib dependencies
 require 'digest/md5'
 require 'fileutils'

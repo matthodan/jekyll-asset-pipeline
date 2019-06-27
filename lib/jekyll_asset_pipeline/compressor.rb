@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # Base class for asset compressors
   # See https://github.com/matthodan/jekyll-asset-pipeline#asset-compression

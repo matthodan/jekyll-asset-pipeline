@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JekyllAssetPipeline
   # Helper module used by JekyllAssetPipeline::AssetTag as well as
   # classed derived from it (Liquid tag block extensions)

@@ -1,5 +1,7 @@
 # Changelog
 
+* Drop support of Ruby 2.2
+
 ## 0.6.0 (2017-12-20)
 
 * Merged JAPR into Jekyll Asset Pipeline

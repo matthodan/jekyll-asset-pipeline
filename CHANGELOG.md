@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.6.1 (2019-06-27)
+
 * Drop support of Ruby 2.2
 
 ## 0.6.0 (2017-12-20)

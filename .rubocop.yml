@@ -5,5 +5,5 @@ AllCops:
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'it', 'context']
 
-MethodLength:
+Metrics/MethodLength:
   Max: 15

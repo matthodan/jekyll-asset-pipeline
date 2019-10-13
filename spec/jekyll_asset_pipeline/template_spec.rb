@@ -2,9 +2,9 @@
 
 require './spec/helper'
 
-# rubocop:disable ModuleLength
+# rubocop:disable Metrics/ModuleLength
 module JekyllAssetPipeline
-  # rubocop:enable ModuleLength
+  # rubocop:enable Metrics/ModuleLength
   describe Template do
     context 'with default template' do
       describe 'class methods' do

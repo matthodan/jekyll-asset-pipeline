@@ -26,9 +26,9 @@ module JekyllAssetPipeline
         obj.cleanup
       end
 
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       it 'clears JekyllAssetPipeline::Cache (when Jekyll::Site#cleanup is called)' do
-        # rubocop:enable LineLength
+        # rubocop:enable Metrics/LineLength
         subject # Setup subject
         Pipeline.cache.key?('foo').must_equal(false)
       end

@@ -30,11 +30,11 @@ module JekyllAssetPipeline
       it 'clears JekyllAssetPipeline::Cache (when Jekyll::Site#cleanup is called)' do
         # rubocop:enable Metrics/LineLength
         subject # Setup subject
-        Pipeline.cache.key?('foo').must_equal(false)
+        _(Pipeline.cache.key?('foo')).must_equal(false)
       end
 
       it 'returns the same value as the original Jekyll::Site#cleanup method' do
-        subject.must_equal('old_return_value')
+        _(subject).must_equal('old_return_value')
       end
     end
 
@@ -64,13 +64,13 @@ module JekyllAssetPipeline
       end
 
       it 'returns the same value as the original Jekyll::Site#write method' do
-        subject.must_equal('old_write_return_value')
+        _(subject).must_equal('old_write_return_value')
       end
 
       it 'removes the staged assets via Pipeline.remove_staged_assets' do
         FileUtils.touch('/tmp/.asset_pipeline')
         subject
-        File.exist?('/tmp/.asset_pipeline').must_equal(false)
+        _(File.exist?('/tmp/.asset_pipeline')).must_equal(false)
       end
     end
   end

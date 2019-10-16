@@ -18,7 +18,7 @@ module JekyllAssetPipeline
         subject { JekyllAssetPipeline::Pipeline.hash(source_path, manifest) }
 
         it 'returns a md5 hash of the manifest contents' do
-          subject.must_equal expected_hash
+          _(subject).must_equal(expected_hash)
         end
       end
     end
@@ -57,7 +57,7 @@ module JekyllAssetPipeline
 
         context 'with custom template' do
           it 'outputs template html' do
-            subject.must_equal('html')
+            _(subject).must_equal('html')
           end
         end
       end
@@ -86,7 +86,7 @@ module JekyllAssetPipeline
           end
 
           it 'converts asset content' do
-            subject.last.content.must_equal('converted')
+            _(subject.last.content).must_equal('converted')
           end
         end
 
@@ -96,21 +96,21 @@ module JekyllAssetPipeline
           before { pipeline }
 
           it 'has one asset when multiple files are in manifest' do
-            YAML.safe_load(manifest).size.must_be :>, 1
-            subject.size.must_equal(1)
+            _(YAML.safe_load(manifest).size).must_be :>, 1
+            _(subject.size).must_equal(1)
           end
 
           it 'generates a filename with md5 for the bundled asset' do
             hash = JekyllAssetPipeline::Pipeline
                    .hash(source_path, manifest, options)
-            subject.last.filename.must_equal("#{prefix}-#{hash}#{type}")
+            _(subject.last.filename).must_equal("#{prefix}-#{hash}#{type}")
           end
 
           it 'saves asset to disk at the staging path' do
             asset = subject.last
             staging_path = File.join(source_path, DEFAULTS['staging_path'],
                                      asset.output_path, asset.filename)
-            File.exist?(staging_path).must_equal(true)
+            _(File.exist?(staging_path)).must_equal(true)
           end
         end
 
@@ -120,14 +120,14 @@ module JekyllAssetPipeline
           before { pipeline }
 
           it 'has same number of assets as files in manifest' do
-            subject.size.must_equal(YAML.safe_load(manifest).size)
+            _(subject.size).must_equal(YAML.safe_load(manifest).size)
           end
 
           it 'does not change the filenames of the assets' do
             YAML.safe_load(manifest).each do |p|
-              subject.select do |a|
+              _(subject.select do |a|
                 a.filename == File.basename(p)
-              end.size.must_equal(1)
+              end.size).must_equal(1)
             end
           end
 
@@ -135,7 +135,7 @@ module JekyllAssetPipeline
             subject.each do |a|
               staging_path = File.join(source_path, DEFAULTS['staging_path'],
                                        a.output_path, a.filename)
-              File.exist?(staging_path).must_equal(true)
+              _(File.exist?(staging_path)).must_equal(true)
             end
           end
         end
@@ -161,7 +161,7 @@ module JekyllAssetPipeline
           end
 
           it 'compresses asset content' do
-            subject.each { |a| a.content.must_equal('compressed') }
+            subject.each { |a| _(a.content).must_equal('compressed') }
           end
         end
 
@@ -176,17 +176,17 @@ module JekyllAssetPipeline
           end
 
           it 'has twice as many assets as files in manifest' do
-            subject.size.must_equal(YAML.safe_load(manifest).size * 2)
+            _(subject.size).must_equal(YAML.safe_load(manifest).size * 2)
           end
 
           it 'creates half of assets with filenames ending in .gz' do
-            subject.select do |asset|
+            _(subject.select do |asset|
               File.extname(asset.filename) == '.gz'
-            end.size.must_equal(subject.size / 2)
+            end.size).must_equal(subject.size / 2)
           end
 
           it 'gzips asset content' do
-            subject.last.content.must_equal('gzipped')
+            _(subject.last.content).must_equal('gzipped')
           end
         end
       end

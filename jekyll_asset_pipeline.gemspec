@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '2.2.2'
 
   # Runtime dependencies
-  s.add_runtime_dependency 'jekyll', '~> 3.5'
+  s.add_runtime_dependency 'jekyll', '>= 3.5', '< 5.0'
   s.add_runtime_dependency 'liquid', '~> 4.0'
 
   # Development dependencies

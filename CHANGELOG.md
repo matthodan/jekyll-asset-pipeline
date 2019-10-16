@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.2 (2019-10-16)
+
+* Support Jekyll 4.0 [#53]
+
 ## 0.6.1 (2019-06-27)
 
 * Drop support of Ruby 2.2

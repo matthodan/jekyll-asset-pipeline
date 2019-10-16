@@ -26,7 +26,7 @@ describe 'Integration' do
                               JekyllAssetPipeline::DEFAULTS['staging_path'],
                               config['output_path'], asset.filename)
         File.open(file_path) do |file|
-          file.read.must_equal(asset.content)
+          _(file.read).must_equal(asset.content)
         end
       end
     end
@@ -41,11 +41,11 @@ describe 'Integration' do
       "Asset Pipeline: Processing '#{tag_name}' manifest '#{prefix}'\n" \
       "Asset Pipeline: Saved '#{filename}' to '#{path}'\n"
 
-    proc do
+    _(proc do
       JekyllAssetPipeline::Pipeline
         .run(manifest, prefix, source_path, temp_path,
              tag_name, extension, config)
-    end.must_output(expected)
+    end).must_output(expected)
   end
 
   it 'uses cached pipeline if manifest has been previously processed' do
@@ -53,13 +53,13 @@ describe 'Integration' do
       pipeline1, cached1 = JekyllAssetPipeline::Pipeline
                            .run(manifest, prefix, source_path, temp_path,
                                 tag_name, extension, config)
-      cached1.must_equal(false)
+      _(cached1).must_equal(false)
 
       pipeline2, cached2 = JekyllAssetPipeline::Pipeline
                            .run(manifest, prefix, source_path, temp_path,
                                 tag_name, extension, config)
-      cached2.must_equal(true)
-      pipeline2.must_equal(pipeline1)
+      _(cached2).must_equal(true)
+      _(pipeline2).must_equal(pipeline1)
     end
   end
 
@@ -82,7 +82,7 @@ describe 'Integration' do
         pipeline, = JekyllAssetPipeline::Pipeline
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, '.css', config)
-        pipeline.html.must_equal('foobar_template')
+        _(pipeline.html).must_equal('foobar_template')
       end
 
       # Clean up test template
@@ -109,7 +109,7 @@ describe 'Integration' do
         pipeline, = JekyllAssetPipeline::Pipeline
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, '.js', config)
-        pipeline.html.must_equal('foobar_template')
+        _(pipeline.html).must_equal('foobar_template')
       end
 
       # Clean up test template
@@ -125,7 +125,7 @@ describe 'Integration' do
         pipeline, = JekyllAssetPipeline::Pipeline
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, '.css', config)
-        pipeline.html.must_match(/link/i)
+        _(pipeline.html).must_match(/link/i)
       end
     end
 
@@ -134,7 +134,7 @@ describe 'Integration' do
         pipeline, = JekyllAssetPipeline::Pipeline
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, '.js', config)
-        pipeline.html.must_match(/script/i)
+        _(pipeline.html).must_match(/script/i)
       end
     end
 
@@ -144,7 +144,7 @@ describe 'Integration' do
         pipeline, = JekyllAssetPipeline::Pipeline
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, '.js', config)
-        pipeline.html.must_match(%r{/foo\/bar\/baz/})
+        _(pipeline.html).must_match(%r{/foo\/bar\/baz/})
       end
     end
   end
@@ -159,7 +159,7 @@ describe 'Integration' do
         pipeline, = JekyllAssetPipeline::Pipeline
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, extension, config)
-        pipeline.assets.size.must_equal(1)
+        _(pipeline.assets.size).must_equal(1)
       end
     end
 
@@ -169,7 +169,7 @@ describe 'Integration' do
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, extension, config)
         pipeline.assets.each do |asset|
-          asset.filename[0, prefix.length].must_equal(prefix)
+          _(asset.filename[0, prefix.length]).must_equal(prefix)
         end
       end
     end
@@ -186,10 +186,10 @@ describe 'Integration' do
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, extension, config)
         file_paths = YAML.safe_load(manifest)
-        pipeline.assets.size.must_equal(file_paths.size)
+        _(pipeline.assets.size).must_equal(file_paths.size)
         files = file_paths.map { |f| File.basename(f) }
         pipeline.assets.each do |asset|
-          files.must_include(asset.filename)
+          _(files).must_include(asset.filename)
         end
       end
     end
@@ -216,7 +216,7 @@ describe 'Integration' do
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, extension, config)
         pipeline.assets.each do |asset|
-          asset.content.must_equal('converted')
+          _(asset.content).must_equal('converted')
         end
       end
 
@@ -246,8 +246,8 @@ describe 'Integration' do
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, extension, config)
         pipeline.assets.each do |asset|
-          asset.content.must_equal('converted')
-          File.extname(asset.filename).must_equal('.css')
+          _(asset.content).must_equal('converted')
+          _(File.extname(asset.filename)).must_equal('.css')
         end
       end
 
@@ -301,7 +301,7 @@ describe 'Integration' do
                       .run(manifest, prefix, source_path, temp_path,
                            tag_name, extension, config)
           pipeline.assets.each do |asset|
-            asset.content.must_equal('converted to baz')
+            _(asset.content).must_equal('converted to baz')
           end
 
           manifest = '- /_assets/unconverted.css.bar.baz'
@@ -309,7 +309,7 @@ describe 'Integration' do
                       .run(manifest, prefix, source_path, temp_path,
                            tag_name, extension, config)
           pipeline.assets.each do |asset|
-            asset.content.must_equal('converted to bar')
+            _(asset.content).must_equal('converted to bar')
           end
         end
       end
@@ -337,7 +337,7 @@ describe 'Integration' do
                     .run(manifest, prefix, source_path, temp_path,
                          tag_name, extension, config)
         pipeline.assets.each do |asset|
-          asset.content.must_equal('compressed')
+          _(asset.content).must_equal('compressed')
         end
       end
 
@@ -351,13 +351,13 @@ describe 'Integration' do
   describe 'error handling' do
     it 'outputs error message if fails to read manifest' do
       manifest = 'invalid_manifest'
-      proc do
+      _(proc do
         proc do
           JekyllAssetPipeline::Pipeline
             .run(manifest, prefix, source_path, temp_path,
                  tag_name, extension, config)
         end.must_raise(NoMethodError)
-      end.must_output(/failed/i)
+      end).must_output(/failed/i)
     end
 
     it 'outputs error message if failure to convert asset' do
@@ -375,13 +375,13 @@ describe 'Integration' do
       end
 
       manifest = '- /_assets/unconverted.baz'
-      proc do
+      _(proc do
         proc do
           JekyllAssetPipeline::Pipeline
             .run(manifest, prefix, source_path, temp_path,
                  tag_name, extension, config)
         end.must_raise(StandardError)
-      end.must_output(/failed/i)
+      end).must_output(/failed/i)
 
       # Clean up test converters
       JekyllAssetPipeline::Converter
@@ -404,13 +404,13 @@ describe 'Integration' do
       end
 
       manifest = '- /_assets/uncompressed.css'
-      proc do
+      _(proc do
         proc do
           JekyllAssetPipeline::Pipeline
             .run(manifest, prefix, source_path, temp_path,
                  tag_name, extension, config)
         end.must_raise(StandardError)
-      end.must_output(/failed/i)
+      end).must_output(/failed/i)
 
       # Clean up test compressor
       JekyllAssetPipeline::Compressor
@@ -433,19 +433,19 @@ describe 'Integration' do
       end
 
       manifest = '- /_assets/unconverted.baz'
-      proc do
+      _(proc do
         proc do
           JekyllAssetPipeline::Pipeline
             .run(manifest, prefix, source_path, temp_path,
                  tag_name, extension, config)
         end.must_raise(StandardError)
-      end.must_output(/failed/i)
+      end).must_output(/failed/i)
 
-      proc do
+      _(proc do
         JekyllAssetPipeline::Pipeline
           .run(manifest, prefix, source_path, temp_path,
                tag_name, extension, config)
-      end.must_output(nil)
+      end).must_output(nil)
 
       # Clean up test converters
       JekyllAssetPipeline::Converter
@@ -462,13 +462,13 @@ describe 'Integration' do
       # opened
       File.stub(:open, -> { raise StandardError }) do
         manifest = '- /_assets/unconverted.baz'
-        proc do
+        _(proc do
           proc do
             JekyllAssetPipeline::Pipeline
               .run(manifest, prefix, source_path, temp_path,
                    tag_name, extension, config)
           end.must_raise(StandardError)
-        end.must_output(/failed/i)
+        end).must_output(/failed/i)
       end
     end
 
@@ -478,13 +478,13 @@ describe 'Integration' do
       FileUtils.stub(:mkpath, nil) do
         config['staging_path'] = 'we_probably_cant_write_here'
         manifest = '- /_assets/unconverted.baz'
-        proc do
+        _(proc do
           proc do
             JekyllAssetPipeline::Pipeline
               .run(manifest, prefix, source_path, temp_path,
                    tag_name, extension, config)
           end.must_raise(StandardError)
-        end.must_output(/failed/i)
+        end).must_output(/failed/i)
       end
     end
   end

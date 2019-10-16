@@ -4,12 +4,12 @@ require './spec/helper'
 
 module JekyllAssetPipeline
   describe Converter do
-    specify { Converter.extend?(SubclassTracking).must_equal(true) }
+    specify { _(Converter.extend?(SubclassTracking)).must_equal(true) }
 
     context 'with default converter class' do
       describe 'class methods' do
         describe '::filetype' do
-          specify { Converter.filetype.must_be_instance_of(String) }
+          specify { _(Converter.filetype).must_be_instance_of(String) }
         end
       end
 
@@ -25,19 +25,19 @@ module JekyllAssetPipeline
         subject { Converter.new(asset) }
 
         describe '#new(asset)' do
-          specify { subject.instance_variable_get(:@content).must_equal('foo') }
-          specify { subject.instance_variable_get(:@type).must_equal('.baz') }
           specify do
-            subject.instance_variable_get(:@converted).must_equal('foo')
+            _(subject.instance_variable_get(:@content)).must_equal('foo')
+            _(subject.instance_variable_get(:@type)).must_equal('.baz')
+            _(subject.instance_variable_get(:@converted)).must_equal('foo')
           end
         end
 
         describe '#converted' do
-          specify { subject.converted.must_equal('foo') }
+          specify { _(subject.converted).must_equal('foo') }
         end
 
         describe '#convert' do
-          specify { subject.convert.must_equal('foo') }
+          specify { _(subject.convert).must_equal('foo') }
         end
       end
     end
@@ -49,7 +49,7 @@ module JekyllAssetPipeline
 
       describe 'class methods' do
         describe '::filetype' do
-          specify { TestConverter.filetype.must_equal('.foo') }
+          specify { _(TestConverter.filetype).must_equal('.foo') }
         end
       end
 
@@ -66,22 +66,24 @@ module JekyllAssetPipeline
 
         describe '#new(asset)' do
           specify do
-            subject.instance_variable_get(:@content).must_equal('unconverted')
-          end
-          specify do
-            subject.instance_variable_get(:@type).must_equal('.foo')
-          end
-          specify do
-            subject.instance_variable_get(:@converted).must_equal('converted')
+            _(
+              subject.instance_variable_get(:@content)
+            ).must_equal('unconverted')
+            _(
+              subject.instance_variable_get(:@type)
+            ).must_equal('.foo')
+            _(
+              subject.instance_variable_get(:@converted)
+            ).must_equal('converted')
           end
         end
 
         describe '#converted' do
-          specify { subject.converted.must_equal('converted') }
+          specify { _(subject.converted).must_equal('converted') }
         end
 
         describe '#convert' do
-          specify { subject.convert.must_equal('converted') }
+          specify { _(subject.convert).must_equal('converted') }
         end
       end
     end

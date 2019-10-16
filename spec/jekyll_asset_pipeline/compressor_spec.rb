@@ -4,12 +4,12 @@ require './spec/helper'
 
 module JekyllAssetPipeline
   describe Compressor do
-    specify { Compressor.extend?(SubclassTracking).must_equal(true) }
+    specify { _(Compressor.extend?(SubclassTracking)).must_equal(true) }
 
     context 'with default compressor class' do
       describe 'class methods' do
         describe '::filetype' do
-          specify { Compressor.filetype.must_be_instance_of(String) }
+          specify { _(Compressor.filetype).must_be_instance_of(String) }
         end
       end
 
@@ -18,18 +18,21 @@ module JekyllAssetPipeline
 
         describe '#new(content)' do
           specify do
-            subject.instance_variable_get(:@content).must_equal('uncompressed')
-            subject
-              .instance_variable_get(:@compressed).must_equal('uncompressed')
+            _(
+              subject.instance_variable_get(:@content)
+            ).must_equal('uncompressed')
+            _(
+              subject.instance_variable_get(:@compressed)
+            ).must_equal('uncompressed')
           end
         end
 
         describe '#compressed' do
-          specify { subject.compressed.must_equal('uncompressed') }
+          specify { _(subject.compressed).must_equal('uncompressed') }
         end
 
         describe '#compress' do
-          specify { subject.compress.must_equal('uncompressed') }
+          specify { _(subject.compress).must_equal('uncompressed') }
         end
       end
     end
@@ -41,7 +44,7 @@ module JekyllAssetPipeline
 
       describe 'class methods' do
         describe '::filetype' do
-          specify { TestCompressor.filetype.must_equal('.foo') }
+          specify { _(TestCompressor.filetype).must_equal('.foo') }
         end
       end
 
@@ -50,17 +53,21 @@ module JekyllAssetPipeline
 
         describe '#new(content)' do
           specify do
-            subject.instance_variable_get(:@content).must_equal('uncompressed')
-            subject.instance_variable_get(:@compressed).must_equal('compressed')
+            _(
+              subject.instance_variable_get(:@content)
+            ).must_equal('uncompressed')
+            _(
+              subject.instance_variable_get(:@compressed)
+            ).must_equal('compressed')
           end
         end
 
         describe '#compressed' do
-          specify { subject.compressed.must_equal('compressed') }
+          specify { _(subject.compressed).must_equal('compressed') }
         end
 
         describe '#compress' do
-          specify { subject.compress.must_equal('compressed') }
+          specify { _(subject.compress).must_equal('compressed') }
         end
       end
     end

@@ -2,18 +2,18 @@
 
 require './spec/helper'
 
-# rubocop:disable ModuleLength
+# rubocop:disable Metrics/ModuleLength
 module JekyllAssetPipeline
-  # rubocop:enable ModuleLength
+  # rubocop:enable Metrics/ModuleLength
   describe Template do
     context 'with default template' do
       describe 'class methods' do
         describe '::filetype' do
-          specify { Template.filetype.must_be_instance_of(String) }
+          specify { _(Template.filetype).must_be_instance_of(String) }
         end
 
         describe '::priority' do
-          specify { Template.priority.must_be_kind_of(Integer) }
+          specify { _(Template.priority).must_be_kind_of(Integer) }
         end
       end
 
@@ -22,13 +22,15 @@ module JekyllAssetPipeline
 
         describe '#new(path, filename)' do
           specify do
-            subject.instance_variable_get(:@path).must_equal('path')
-            subject.instance_variable_get(:@filename).must_equal('somefile.foo')
+            _(subject.instance_variable_get(:@path)).must_equal('path')
+            _(
+              subject.instance_variable_get(:@filename)
+            ).must_equal('somefile.foo')
           end
         end
 
         describe 'html' do
-          specify { subject.html.must_equal("path/somefile.foo\n") }
+          specify { _(subject.html).must_equal("path/somefile.foo\n") }
         end
       end
     end
@@ -36,11 +38,11 @@ module JekyllAssetPipeline
     context 'with css_tag_template' do
       describe 'class methods' do
         describe '::filetype' do
-          specify { CssTagTemplate.filetype.must_equal('.css') }
+          specify { _(CssTagTemplate.filetype).must_equal('.css') }
         end
 
         describe '::priority' do
-          specify { CssTagTemplate.priority.must_equal(-1) }
+          specify { _(CssTagTemplate.priority).must_equal(-1) }
         end
       end
 
@@ -49,15 +51,17 @@ module JekyllAssetPipeline
 
         describe '#new(path, filename)' do
           specify do
-            subject.instance_variable_get(:@path).must_equal('path')
-            subject.instance_variable_get(:@filename).must_equal('somefile.foo')
+            _(subject.instance_variable_get(:@path)).must_equal('path')
+            _(
+              subject.instance_variable_get(:@filename)
+            ).must_equal('somefile.foo')
           end
         end
 
         describe 'html' do
           specify do
-            subject.html.must_equal("<link href='/path/somefile.foo' " \
-                                    "rel='stylesheet' type='text/css' />")
+            _(subject.html).must_equal("<link href='/path/somefile.foo' " \
+                                       "rel='stylesheet' type='text/css' />")
           end
         end
       end
@@ -66,11 +70,11 @@ module JekyllAssetPipeline
     context 'with javascript_tag_template' do
       describe 'class methods' do
         describe '::filetype' do
-          specify { JavaScriptTagTemplate.filetype.must_equal('.js') }
+          specify { _(JavaScriptTagTemplate.filetype).must_equal('.js') }
         end
 
         describe '::priority' do
-          specify { JavaScriptTagTemplate.priority.must_equal(-1) }
+          specify { _(JavaScriptTagTemplate.priority).must_equal(-1) }
         end
       end
 
@@ -79,15 +83,17 @@ module JekyllAssetPipeline
 
         describe '#new(path, filename)' do
           specify do
-            subject.instance_variable_get(:@path).must_equal('path')
-            subject.instance_variable_get(:@filename).must_equal('somefile.foo')
+            _(subject.instance_variable_get(:@path)).must_equal('path')
+            _(
+              subject.instance_variable_get(:@filename)
+            ).must_equal('somefile.foo')
           end
         end
 
         describe 'html' do
           specify do
-            subject.html.must_equal("<script src='/path/somefile.foo' " \
-                                    "type='text/javascript'></script>")
+            _(subject.html).must_equal("<script src='/path/somefile.foo' " \
+                                       "type='text/javascript'></script>")
           end
         end
       end
@@ -99,11 +105,11 @@ module JekyllAssetPipeline
       end
       describe 'class methods' do
         describe '::filetype' do
-          specify { TestTemplate.filetype.must_equal('.foo') }
+          specify { _(TestTemplate.filetype).must_equal('.foo') }
         end
 
         describe '::priority' do
-          specify { TestTemplate.priority.must_equal(1) }
+          specify { _(TestTemplate.priority).must_equal(1) }
         end
       end
 
@@ -115,13 +121,15 @@ module JekyllAssetPipeline
 
         describe '#new(path, filename)' do
           specify do
-            subject.instance_variable_get(:@path).must_equal('path')
-            subject.instance_variable_get(:@filename).must_equal('somefile.foo')
+            _(subject.instance_variable_get(:@path)).must_equal('path')
+            _(
+              subject.instance_variable_get(:@filename)
+            ).must_equal('somefile.foo')
           end
         end
 
         describe 'html' do
-          specify { subject.html.must_equal('test_template_html') }
+          specify { _(subject.html).must_equal('test_template_html') }
         end
       end
     end

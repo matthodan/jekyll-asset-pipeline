@@ -2,9 +2,9 @@
 
 module JekyllAssetPipeline
   # The pipeline itself, the run method is where it all happens
-  # rubocop:disable ClassLength
+  # rubocop:disable Metrics/ClassLength
   class Pipeline
-    # rubocop:enable ClassLength
+    # rubocop:enable Metrics/ClassLength
     class << self
       # Generate hash based on manifest
       def hash(source, manifest, options = {})
@@ -23,9 +23,9 @@ module JekyllAssetPipeline
       # This is called from JekyllAssetPipeline::LiquidBlockExtensions.render
       # or, to be more precise, from JekyllAssetPipeline::CssAssetTag.render and
       # JekyllAssetPipeline::JavaScriptAssetTag.render
-      # rubocop:disable ParameterLists
+      # rubocop:disable Metrics/ParameterLists
       def run(manifest, prefix, source, destination, tag, type, config)
-        # rubocop:enable ParameterLists
+        # rubocop:enable Metrics/ParameterLists
         # Get hash for pipeline
         hash = hash(source, manifest, config)
 
@@ -84,9 +84,9 @@ module JekyllAssetPipeline
     end
 
     # Initialize new pipeline
-    # rubocop:disable ParameterLists
+    # rubocop:disable Metrics/ParameterLists
     def initialize(manifest, prefix, source, destination, type, options = {})
-      # rubocop:enable ParameterLists
+      # rubocop:enable Metrics/ParameterLists
       @manifest = manifest
       @prefix = prefix
       @source = source

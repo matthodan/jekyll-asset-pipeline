@@ -1,9 +1,12 @@
 # Jekyll Asset Pipeline
 
 > **This project has moved.**
-> Active development now lives at **https://github.com/janosrusiczki/jekyll-asset-pipeline**.
-> The gem on RubyGems is unchanged — `gem install jekyll_asset_pipeline` works the same.
-> Please open issues and PRs at the new repo.
+> * Active development now lives at **https://github.com/janosrusiczki/jekyll-asset-pipeline**.
+> * The gem on RubyGems is unchanged - `gem install jekyll_asset_pipeline` works the same.
+> * Please open issues and PRs at [the new repo](https://github.com/janosrusiczki/jekyll-asset-pipeline).
+> * The reason for the move was that this project was still on Travis which is long defunct and Matt's Github account was not configured to handle Github Action builds. 
+
+---
 
 [![Gem Version](https://img.shields.io/gem/v/jekyll_asset_pipeline.svg)](https://rubygems.org/gems/jekyll_asset_pipeline)
 [![Build Status](https://img.shields.io/travis/matthodan/jekyll-asset-pipeline.svg)](https://travis-ci.org/matthodan/jekyll-asset-pipeline)
